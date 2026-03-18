@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Aula Bimestral - Projeto de Vida (6ºs Anos)</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        .botoes {
+            text-align: right;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        button {
+            background-color: #008080;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-left: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #005959;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            border: none;
+            margin-bottom: 20px;
+        }
+        .header-table td {
+            border: none;
+            vertical-align: middle;
+        }
+        .header-text {
+            text-align: center;
+        }
+        .header-text h2, .header-text h3, .header-text h4 {
+            margin: 5px 0;
+            font-weight: normal;
+        }
+        .info-professor {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-weight: bold;
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        table.plano-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        table.plano-table th, table.plano-table td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        table.plano-table th {
+            background-color: #e0e0e0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .footer-doc {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+        .section-title {
+            color: #008080;
+            border-bottom: 2px solid #008080;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2 class="section-title">Planejamento - Projeto de Vida (6ºs Ano do Ensino Fundamental)</h2>
+    <div class="botoes">
+        <button onclick="baixarPDF('plano-6-ano', 'Planejamento_Projeto_de_Vida_6Ano.pdf')">Baixar em PDF</button>
+        <button onclick="baixarWord('plano-6-ano', 'Planejamento_Projeto_de_Vida_6Ano.doc')">Baixar em Word</button>
+    </div>
+
+    <div id="plano-6-ano">
+        <table class="header-table">
+            <tr>
+                <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
+                <td style="width: 70%;" class="header-text">
+                    <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
+                    <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
+                    <h4>E.E. RECANTO VERDE SOL</h4>
+                    <p style="font-size: 12px; margin: 0;">Rua Pedro Ramazzani, 06 – Recanto Verde Sol – São Paulo – SP – CEP 08381-800</p>
+                    <br>
+                    <h3><strong>PLANEJAMENTO BIMESTRAL - 2026</strong></h3>
+                </td>
+                <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
+            </tr>
+        </table>
+
+        <div class="info-professor">
+            <span>Professor(a): Ednaldo Amancio de Lima</span>
+            <span>Segmento: Ensino Fundamental II</span>
+            <span>Disciplina: Projeto de Vida</span>
+            <span>Turmas: 6ºs Anos C, D, E, F, G</span>
+            <span>Período: Diurno</span>
+            <span>Bimestre: 1º</span>
+        </div>
+
+        <table class="plano-table">
+            <thead>
+                <tr>
+                    <th width="10%">Semana</th>
+                    <th width="15%">Conteúdo</th>
+                    <th width="20%">A/E - Habilidades Socioemocionais</th>
+                    <th width="15%">Estratégia/ Metodologia</th>
+                    <th width="15%">Recursos</th>
+                    <th width="10%">Avaliação</th>
+                    <th width="15%">Fontes de Referências</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>02/02 a 06/02</td>
+                    <td>Sondagem Diagnóstica 1: Acolhimento e Vínculo</td>
+                    <td>Expressar-se com segurança; identificar o nível de engajamento e autoconfiança da turma.</td>
+                    <td>Roda de conversa guiada e dinâmica de apresentação ("A teia da amizade" com barbante).</td>
+                    <td>Rolo de barbante, lousa, cadeiras em círculo.</td>
+                    <td>Observação diagnóstica do nível de interação e comunicação.</td>
+                    <td>Caderno do Professor (Currículo Paulista).</td>
+                </tr>
+                <tr>
+                    <td>09/02 a 13/02</td>
+                    <td>Sondagem Diagnóstica 2: Minha História e Meus Sonhos</td>
+                    <td>Mapear as expectativas de futuro dos alunos e identificar defasagens em autogestão.</td>
+                    <td>Criação de um "Mapa dos Sonhos" ou "Cápsula do Tempo" individual (desenho/texto).</td>
+                    <td>Folhas sulfites, lápis de cor, canetinhas, envelopes.</td>
+                    <td>Análise qualitativa das produções para nivelamento das próximas aulas.</td>
+                    <td>Instituto Ayrton Senna (Competências Socioemocionais).</td>
+                </tr>
+                <tr>
+                    <td>23/02 a 27/02</td>
+                    <td>Identidade: Quem sou eu?</td>
+                    <td>Reconhecer suas características pessoais, qualidades e áreas de melhoria.</td>
+                    <td>Atividade "Espelho, espelho meu": preenchimento de um perfil pessoal criativo.</td>
+                    <td>Impressos do perfil pessoal, espelho pequeno (opcional).</td>
+                    <td>Participação ativa e entrega do perfil preenchido.</td>
+                    <td>Materiais do Programa Inova Educação.</td>
+                </tr>
+                <tr>
+                    <td>02/03 a 06/03</td>
+                    <td>Inteligência Emocional: Lidando com sentimentos</td>
+                    <td>Reconhecer e nomear emoções básicas (alegria, tristeza, raiva, medo) e como lidar com elas.</td>
+                    <td>Uso de gamificação: "Termômetro das Emoções" e análise de trechos do filme *Divertida Mente*.</td>
+                    <td>Projetor, caixas de som, post-its coloridos.</td>
+                    <td>Reflexão escrita curta: "Como me sinto quando...".</td>
+                    <td>Filme "Divertida Mente" (Pixar), Textos de apoio.</td>
+                </tr>
+                <tr>
+                    <td>09/03 a 13/03</td>
+                    <td>Valores e Princípios: O que me guia?</td>
+                    <td>Diferenciar regras de valores e compreender a importância da ética nas escolhas diárias.</td>
+                    <td>Estudo de caso (dilemas morais adequados à idade). Debate em pequenos grupos.</td>
+                    <td>Lousa, recortes de notícias ou histórias curtas.</td>
+                    <td>Argumentação e respeito ao turno de fala durante o debate.</td>
+                    <td>Livro didático de Projetos Integradores.</td>
+                </tr>
+                <tr>
+                    <td>16/03 a 20/03</td>
+                    <td>Empatia e Respeito às Diferenças</td>
+                    <td>Desenvolver a escuta ativa e o respeito à diversidade no ambiente escolar.</td>
+                    <td>Dinâmica "Calçando os sapatos do outro": role-playing de situações cotidianas de conflito.</td>
+                    <td>Cartões com situações-problema.</td>
+                    <td>Autoavaliação de empatia (Rubrica simples).</td>
+                    <td>Cartilhas de Direitos Humanos da ONU.</td>
+                </tr>
+                <tr>
+                    <td>23/03 a 27/03</td>
+                    <td>Descobrindo Meus Talentos e Potências</td>
+                    <td>Identificar habilidades práticas, criativas ou lógicas que o aluno já possui.</td>
+                    <td>Feira de Talentos em sala: cada aluno apresenta algo que sabe fazer bem (desenhar, cantar, explicar um jogo).</td>
+                    <td>Materiais trazidos pelos próprios alunos.</td>
+                    <td>Engajamento e valorização do talento do colega.</td>
+                    <td>Caderno do Aluno (Projeto de Vida).</td>
+                </tr>
+                <tr>
+                    <td>06/04 a 10/04</td>
+                    <td>O Papel da Escola no Meu Futuro</td>
+                    <td>Relacionar o aprendizado escolar atual com as possibilidades de futuro profissional e pessoal.</td>
+                    <td>Construção de uma ponte visual (desenho) ligando o "Hoje na Escola" ao "Meu Futuro".</td>
+                    <td>Cartolinas, revistas para recorte, cola, tesoura.</td>
+                    <td>Atividade prática (A Ponte) finalizada.</td>
+                    <td>Artigos educacionais sobre evasão escolar e pertencimento.</td>
+                </tr>
+                <tr>
+                    <td>13/04 a 17/04</td>
+                    <td>Primeiros Passos do Meu Projeto de Vida</td>
+                    <td>Sintetizar o aprendizado do bimestre formulando uma meta de curto prazo.</td>
+                    <td>Preenchimento da "Escada dos Sonhos" (1º degrau: o que preciso fazer este ano?).</td>
+                    <td>Formulário impresso "Escada dos Sonhos".</td>
+                    <td>Entrega da meta escrita de forma clara.</td>
+                    <td>Metodologia SMART adaptada para jovens.</td>
+                </tr>
+                <tr>
+                    <td>20/04 a 24/04</td>
+                    <td>Autoavaliação e Conselho de Classe</td>
+                    <td>Refletir sobre o próprio desenvolvimento socioemocional no bimestre.</td>
+                    <td>Preenchimento de rubricas de autoavaliação guiada. Fechamento de notas/conceitos.</td>
+                    <td>Fichas de autoavaliação, diário de classe.</td>
+                    <td>Conselho de Classe. Fechamento de conceitos qualitativos.</td>
+                    <td>Registros de observação do professor.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="footer-doc">
+            <span>AULAS PREVISTAS: 10</span>
+            <span>PROFESSOR: Ednaldo Amancio de Lima</span>
+            <span>VALIDADO EM: ___/___/____</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function baixarPDF(idElemento, nomeArquivo) {
+        const elemento = document.getElementById(idElemento);
+        const opt = {
+            margin:       10,
+            filename:     nomeArquivo,
+            image:        { type: 'jpeg', quality: 0.98 },
+            html2canvas:  { scale: 2, useCORS: true },
+            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        };
+        html2pdf().set(opt).from(elemento).save();
+    }
+
+    function baixarWord(idElemento, nomeArquivo) {
+        var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Planejamento</title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .header-table{width:100%; margin-bottom:20px; border:none;} .header-table td{border:none; text-align:center; vertical-align:middle;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}</style></head><body>";
+        var footer = "</body></html>";
+        var htmlContext = document.getElementById(idElemento).innerHTML;
+        var sourceHTML = header + htmlContext + footer;
+        
+        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+        var fileDownload = document.createElement("a");
+        document.body.appendChild(fileDownload);
+        fileDownload.href = source;
+        fileDownload.download = nomeArquivo;
+        fileDownload.click();
+        document.body.removeChild(fileDownload);
+    }
+</script>
+
+</body>
+</html>

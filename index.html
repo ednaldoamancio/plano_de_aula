@@ -3,572 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planos de Aula Bimestrais - Geografia (Ensino Médio)</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <title>EdHumanas - Educação em Ciências Humanas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Paleta de Cores: Fundo Azul Claro e Detalhes Azul Piscina */
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f9;
+            background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
+            min-height: 100vh;
             color: #333;
+            display: flex;
+            flex-direction: column;
         }
-        .container {
-            max-width: 1200px;
+
+        /* Cabeçalho */
+        header {
+            background-color: #ffffff;
+            padding: 20px 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            color: #00838f; /* Tom mais escuro para leitura */
+            font-weight: 700;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        header h1 span {
+            color: #00bcd4; /* Azul piscina */
+        }
+
+        .subtitle {
+            text-align: center;
+            margin: 50px 20px 20px 20px;
+        }
+
+        .subtitle h2 {
+            font-size: 32px;
+            color: #006064;
+            margin-bottom: 10px;
+        }
+
+        .subtitle p {
+            font-size: 18px;
+            color: #555;
+            max-width: 600px;
             margin: 0 auto;
-            background-color: #fff;
+        }
+
+        /* Container Principal (Grid de Cards) */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            flex: 1; /* Preenche o espaço restante empurrando o footer */
+        }
+
+        /* Estilo dos Cards */
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-bottom: 40px;
-        }
-        .botoes {
-            text-align: right;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e0e0e0;
-        }
-        button {
-            background-color: #0056b3;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin-left: 10px;
-            font-size: 14px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        button:hover {
-            background-color: #004494;
-        }
-        .header-table {
-            width: 100%;
-            border-collapse: collapse;
-            border: none;
-            margin-bottom: 20px;
-        }
-        .header-table td {
-            border: none;
-            vertical-align: middle;
-        }
-        .header-text {
             text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 188, 212, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-top: 5px solid #00bcd4; /* Detalhe azul piscina no topo */
         }
-        .header-text h2, .header-text h3, .header-text h4 {
-            margin: 5px 0;
-            font-weight: normal;
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 188, 212, 0.2);
         }
-        .info-professor {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            font-weight: bold;
-            background-color: #f9f9f9;
-            padding: 10px;
-            border: 1px solid #ddd;
+
+        .card-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
         }
-        table.plano-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-            font-size: 14px;
+
+        .card h3 {
+            color: #00838f;
+            font-size: 22px;
+            margin-bottom: 15px;
         }
-        table.plano-table th, table.plano-table td {
-            border: 1px solid #000;
-            padding: 8px;
-            text-align: left;
-            vertical-align: top;
+
+        .card p {
+            color: #666;
+            font-size: 15px;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
-        table.plano-table th {
-            background-color: #e0e0e0;
-            font-weight: bold;
+
+        /* Botões dos Cards */
+        .btn {
+            display: inline-block;
+            background-color: #00bcd4; /* Azul piscina */
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #0097a7; /* Azul piscina mais escuro no hover */
+            transform: scale(1.05);
+        }
+
+        /* Rodapé */
+        footer {
             text-align: center;
+            padding: 20px;
+            background-color: #ffffff;
+            color: #777;
+            font-size: 14px;
+            border-top: 1px solid #e0e0e0;
         }
-        .footer-doc {
-            margin-top: 40px;
-            display: flex;
-            justify-content: space-between;
-            font-weight: bold;
+        
+        footer a {
+            color: #00bcd4;
+            text-decoration: none;
+            font-weight: 600;
         }
-        .section-title {
-            color: #0056b3;
-            border-bottom: 2px solid #0056b3;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2 class="section-title">Planejamento Geográfico - 1º Ano Ensino Médio</h2>
-    <div class="botoes">
-        <button onclick="baixarPDF('plano-1-ano', 'Planejamento_Geografia_1Ano.pdf')">Baixar 1º Ano em PDF</button>
-        <button onclick="baixarWord('plano-1-ano', 'Planejamento_Geografia_1Ano.doc')">Baixar 1º Ano em Word</button>
+    <header>
+        <h1>Ed<span>Humanas</span></h1>
+        <nav>
+            <a href="#" style="text-decoration: none; color: #00bcd4; font-weight: 600;">Início</a>
+        </nav>
+    </header>
+
+    <div class="subtitle">
+        <h2>Bem-vindo ao Portal EdHumanas</h2>
+        <p>Acesse nossos planejamentos de aula estruturados e focados no desenvolvimento integral dos alunos.</p>
     </div>
 
-    <div id="plano-1-ano">
-        <table class="header-table">
-            <tr>
-                <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
-                <td style="width: 70%;" class="header-text">
-                    <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
-                    <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
-                    <h4>E.E. RECANTO VERDE SOL</h4>
-                    <p style="font-size: 12px; margin: 0;">Rua Pedro Ramazzani, 06 – Recanto Verde Sol – São Paulo – SP – CEP 08381-800</p>
-                    <br>
-                    <h3><strong>PLANEJAMENTO BIMESTRAL - 2026</strong></h3>
-                </td>
-                <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
-            </tr>
-        </table>
-
-        <div class="info-professor">
-            <span>Professor(a): Ednaldo Amancio de Lima</span>
-            <span>Segmento: Ensino Médio</span>
-            <span>Disciplina: Geografia</span>
-            <span>Turmas: 1ª B, 1º C, 1º D</span>
-            <span>Período: Noturno</span>
-            <span>Bimestre: 1º</span>
+    <div class="container">
+        <div class="card">
+            <div class="card-icon">🌍</div>
+            <h3>Geografia - Ensino Médio</h3>
+            <p>Planejamentos bimestrais completos (1º, 2º e 3º Ano) com foco em vestibulares, ENEM e habilidades da BNCC.</p>
+            <a href="plano_de_aula_em_geografia.html" class="btn">Acessar Planejamento</a>
         </div>
 
-        <table class="plano-table">
-            <thead>
-                <tr>
-                    <th width="10%">Semana</th>
-                    <th width="15%">Conteúdo</th>
-                    <th width="20%">A/E - Habilidades</th>
-                    <th width="15%">Estratégia/ Metodologia</th>
-                    <th width="15%">Recursos</th>
-                    <th width="10%">Avaliação</th>
-                    <th width="15%">Fontes de Referências</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>02/02 a 06/02</td>
-                    <td>Conceitos básicos de Geografia</td>
-                    <td>Compreensão de coordenadas; localização de países.</td>
-                    <td>Aula expositiva, leitura de texto e resolução de questões.</td>
-                    <td>Lousa, livro, slide.</td>
-                    <td>Atividade Diagnóstica: Produção textual e leitura.</td>
-                    <td>Livro didático, Atlas Geográfico.</td>
-                </tr>
-                <tr>
-                    <td>09/02 a 13/02</td>
-                    <td>O Ártico e o Antártico</td>
-                    <td>Análise de imagens do Clima no Mundo; Análise de competência escritora e leitora.</td>
-                    <td>Estudo dirigido com mapas e imagens climáticas.</td>
-                    <td>Lousa, livro, slide.</td>
-                    <td>Questões objetivas. Tarefa Paulista.</td>
-                    <td>Livro didático, documentários.</td>
-                </tr>
-                <tr>
-                    <td>23/02 a 27/02</td>
-                    <td>Aula 1 e 2 - Diferenças entre Climatologia e Meteorologia;<br>Conceitos de tempo e clima.</td>
-                    <td>Identificar principais elementos e fatores de controle do clima.</td>
-                    <td>Aula expositiva e analítica. Estudo de texto jornalístico.</td>
-                    <td>Lousa, livro, slide.</td>
-                    <td>Atividades no Livro do aluno.</td>
-                    <td>Livro didático, sites de notícias climáticas.</td>
-                </tr>
-                <tr>
-                    <td>02/03 a 06/03</td>
-                    <td>Aula 3 - Elementos e controles climáticos<br>Aula 4 - Climograma</td>
-                    <td>Compreender a leitura de gráficos do Climograma.</td>
-                    <td>Aula interativa com uso de aplicativos de tempo.</td>
-                    <td>Internet; Tablets.</td>
-                    <td>Avaliação Gamificada.</td>
-                    <td>INMET, Climatempo, Livro didático.</td>
-                </tr>
-                <tr>
-                    <td>09/03 a 13/03</td>
-                    <td>Aula 5 - Elaboração de climogramas<br>Aula 6 - Recursos hídricos</td>
-                    <td>Ler, interpretar e reproduzir um Climograma.</td>
-                    <td>Dinâmica prática de construção de gráficos em planilhas.</td>
-                    <td>Internet; Tablets.</td>
-                    <td>Avaliação Gamificada.</td>
-                    <td>Portal da ANA, Livro didático.</td>
-                </tr>
-                <tr>
-                    <td>16/03 a 20/03</td>
-                    <td>Aula 7 - Gestão sustentável dos recursos hídricos<br>Aula 8 - Relevo</td>
-                    <td>Compreender o ciclo da água e impactos humanos. Identificar relevos.</td>
-                    <td>Estação por rotação. Uso do Google Earth Engine.</td>
-                    <td>Google Earth, cartolina, folhas, tesoura, cola.</td>
-                    <td>Atividade em estações / Mapa mental.</td>
-                    <td>Google Earth Engine, Portal da ANA.</td>
-                </tr>
-                <tr>
-                    <td>23/03 a 27/03</td>
-                    <td>Aula 9 - Relevo e ocupação humana<br>Aula 10 - Riscos geológicos</td>
-                    <td>Analisar vulnerabilidade a riscos geológicos.</td>
-                    <td>Estudo de caso de desastres naturais no Brasil.</td>
-                    <td>Tablets, projetor, vídeos.</td>
-                    <td>Atividade Gamificada.</td>
-                    <td>IBGE, Defesa Civil.</td>
-                </tr>
-                <tr>
-                    <td>06/04 a 10/04</td>
-                    <td>Aula 11 - Prevenção e mitigação de impactos<br>Aula 12 - Biomas da Terra</td>
-                    <td>Propor medidas de mitigação. Identificar biomas da Terra.</td>
-                    <td>Aula expositiva-dialogada e leitura guiada.</td>
-                    <td>Lousa, caderno, livro do aluno.</td>
-                    <td>Questões objetivas e dissertativas.</td>
-                    <td>Livro do aluno, Atlas.</td>
-                </tr>
-                <tr>
-                    <td>13/04 a 17/04</td>
-                    <td>Aula 13 - Biomas do estado de SP<br>Aula 14 - SNUC</td>
-                    <td>Caracterizar biomas paulistas e o SNUC.</td>
-                    <td>Recuperação Intensiva: lúdica (Passa ou repassa).</td>
-                    <td>Jogos lúdicos, campainha, projetor.</td>
-                    <td>Participação no jogo.</td>
-                    <td>Site do MMA, Livro didático.</td>
-                </tr>
-                <tr>
-                    <td>20/04 a 24/04</td>
-                    <td>Revisão de Conteúdos - Conselho de classe</td>
-                    <td>Sintetizar conhecimentos e refletir sobre a aprendizagem.</td>
-                    <td>Fechamento de médias e debate reflexivo.</td>
-                    <td>Diários de classe, relatórios.</td>
-                    <td>Avaliação do Conselho.</td>
-                    <td>Registros do professor.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="footer-doc">
-            <span>AULAS PREVISTAS: _________</span>
-            <span>PROFESSOR: Ednaldo Amancio de Lima</span>
-            <span>VALIDADO EM: ___/___/____</span>
+        <div class="card">
+            <div class="card-icon">🌱</div>
+            <h3>Projeto de Vida - Fundamental II</h3>
+            <p>Roteiros voltados para o 6º Ano com dinâmicas socioemocionais, autoconhecimento e planejamento de futuro.</p>
+            <a href="plano_de_aula_ef_proj_vida.html" class="btn">Acessar Planejamento</a>
         </div>
     </div>
-</div>
 
-<div class="container">
-    <h2 class="section-title">Planejamento Geográfico - 2º Ano Ensino Médio</h2>
-    <div class="botoes">
-        <button onclick="baixarPDF('plano-2-ano', 'Planejamento_Geografia_2Ano.pdf')">Baixar 2º Ano em PDF</button>
-        <button onclick="baixarWord('plano-2-ano', 'Planejamento_Geografia_2Ano.doc')">Baixar 2º Ano em Word</button>
-    </div>
-
-    <div id="plano-2-ano">
-        <table class="header-table">
-            <tr>
-                <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
-                <td style="width: 70%;" class="header-text">
-                    <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
-                    <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
-                    <h4>E.E. RECANTO VERDE SOL</h4>
-                    <p style="font-size: 12px; margin: 0;">Rua Pedro Ramazzani, 06 – Recanto Verde Sol – São Paulo – SP – CEP 08381-800</p>
-                    <br>
-                    <h3><strong>PLANEJAMENTO BIMESTRAL - 2026</strong></h3>
-                </td>
-                <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
-            </tr>
-        </table>
-
-        <div class="info-professor">
-            <span>Professor(a): Ednaldo Amancio de Lima</span>
-            <span>Segmento: Ensino Médio</span>
-            <span>Disciplina: Geografia</span>
-            <span>Turmas: 2º A, B, C, D, E</span>
-            <span>Período: Noturno</span>
-            <span>Bimestre: 1º</span>
-        </div>
-
-        <table class="plano-table">
-            <thead>
-                <tr>
-                    <th width="10%">Semana</th>
-                    <th width="15%">Conteúdo</th>
-                    <th width="20%">A/E - Habilidades</th>
-                    <th width="15%">Estratégia/ Metodologia</th>
-                    <th width="15%">Recursos</th>
-                    <th width="10%">Avaliação</th>
-                    <th width="15%">Fontes de Referências</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>02/02 a 06/02</td>
-                    <td>Conceitos básicos de Geografia – Território, população e governo</td>
-                    <td>Compreensão de coordenadas; localização de países.</td>
-                    <td>Aula expositiva, leitura de texto e resolução de questões.</td>
-                    <td>Lousa, livro, slide.</td>
-                    <td>Atividade Diagnóstica: Produção textual e leitura.</td>
-                    <td>Livro didático, Atlas Geográfico.</td>
-                </tr>
-                <tr>
-                    <td>09/02 a 13/02</td>
-                    <td>Estado, Nação e Povo</td>
-                    <td>Diferenciar os conceitos de Estado, Nação, Território e Povo.</td>
-                    <td>Estudo dirigido com mapas políticos do mundo.</td>
-                    <td>Lousa, TV, slide.</td>
-                    <td>Questões objetivas. Formulário Google.</td>
-                    <td>Livro didático, documentários políticos.</td>
-                </tr>
-                <tr>
-                    <td>23/02 a 27/02</td>
-                    <td>Aula 1 – Demografia<br>Aula 2 – Demografia Brasileira</td>
-                    <td>Compreender conceitos de natalidade, mortalidade e transição demográfica.</td>
-                    <td>Aula expositiva dialogada com análise de pirâmides etárias.</td>
-                    <td>Lousa, livro, slide.</td>
-                    <td>Atividades no Livro do aluno.</td>
-                    <td>IBGE, Censo Demográfico.</td>
-                </tr>
-                <tr>
-                    <td>02/03 a 06/03</td>
-                    <td>Aula 3 – Pesquisa Demográfica<br>Aula 4 – Demografia escolar</td>
-                    <td>Coletar, organizar e analisar dados demográficos do ambiente.</td>
-                    <td>Pesquisa de campo na escola e tabulação gamificada.</td>
-                    <td>Internet; Tablets.</td>
-                    <td>Avaliação Gamificada.</td>
-                    <td>IBGE Educa, Dados da própria escola.</td>
-                </tr>
-                <tr>
-                    <td>09/03 a 13/03</td>
-                    <td>Aula 5 – Economia do Brasil<br>Aula 6 – O Brasil na economia mundial</td>
-                    <td>Analisar a inserção do Brasil na Divisão Internacional do Trabalho (DIT).</td>
-                    <td>Pesquisa orientada sobre pautas de exportação/importação.</td>
-                    <td>Internet; Tablets.</td>
-                    <td>Avaliação Gamificada.</td>
-                    <td>IPEA, MDIC, Sites de economia.</td>
-                </tr>
-                <tr>
-                    <td>16/03 a 20/03</td>
-                    <td>Aula 7 – Brasil: indicadores socioeconômicos<br>Aula 8 – Desigualdade socioeconômica</td>
-                    <td>Interpretar IDH e Gini e debater as raízes espaciais da desigualdade.</td>
-                    <td>Rotação por estações analisando mapas temáticos.</td>
-                    <td>Cartolina, folhas de sulfite, tesoura, cola.</td>
-                    <td>Atividade em estações / Mapa mental.</td>
-                    <td>PNUD, Atlas da Vulnerabilidade Social.</td>
-                </tr>
-                <tr>
-                    <td>23/03 a 27/03</td>
-                    <td>Aula 9 – O Trabalho no Brasil<br>Aula 10 – Estado, nação e território</td>
-                    <td>Relacionar o mercado de trabalho com a organização territorial.</td>
-                    <td>Exibição de curtas e debate interativo sobre o mundo do trabalho.</td>
-                    <td>Tablets, projetor, vídeos.</td>
-                    <td>Atividade Gamificada.</td>
-                    <td>OIT, IBGE, Documentários.</td>
-                </tr>
-                <tr>
-                    <td>06/04 a 10/04</td>
-                    <td>Aula 11 – Formação dos estados e nações no mundo<br>Aula 12 – Povos sem Estado</td>
-                    <td>Identificar a fragmentação de Estados e as lutas de povos apátridas.</td>
-                    <td>Leitura guiada e análise de mapas geopolíticos históricos.</td>
-                    <td>Lousa, caderno, livro do aluno.</td>
-                    <td>Questões objetivas e dissertativas; Tarefa Paulista.</td>
-                    <td>Atlas Geopolítico, Le Monde Diplomatique.</td>
-                </tr>
-                <tr>
-                    <td>13/04 a 17/04</td>
-                    <td>Aula 13 – Conflitos territoriais e geopolítica<br>Aula 14 – Identidade e pertencimento</td>
-                    <td>Analisar conflitos recentes e a relação de pertencimento ao território.</td>
-                    <td>Simulação de conferência internacional (Role-playing) / Quiz.</td>
-                    <td>Jogos lúdicos, campainha, lousa, projetor.</td>
-                    <td>Participação e engajamento no jogo.</td>
-                    <td>ONU, BBC Brasil, Livro didático.</td>
-                </tr>
-                <tr>
-                    <td>20/04 a 24/04</td>
-                    <td>Revisão de Conteúdos - Conselho de classe</td>
-                    <td>Sintetizar demografia e geopolítica; refletir sobre aprendizagem.</td>
-                    <td>Fechamento de médias e roda de conversa.</td>
-                    <td>Diários de classe, relatórios.</td>
-                    <td>Avaliação do Conselho de Classe. Fechamento de notas.</td>
-                    <td>Registros do professor.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="footer-doc">
-            <span>AULAS PREVISTAS: 20</span>
-            <span>PROFESSOR: Ednaldo Amancio de Lima</span>
-            <span>VALIDADO EM: ___/___/____</span>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <h2 class="section-title">Planejamento Geográfico - 3º Ano Ensino Médio (Revisão ENEM)</h2>
-    <div class="botoes">
-        <button onclick="baixarPDF('plano-3-ano', 'Planejamento_Geografia_3Ano.pdf')">Baixar 3º Ano em PDF</button>
-        <button onclick="baixarWord('plano-3-ano', 'Planejamento_Geografia_3Ano.doc')">Baixar 3º Ano em Word</button>
-    </div>
-
-    <div id="plano-3-ano">
-        <table class="header-table">
-            <tr>
-                <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
-                <td style="width: 70%;" class="header-text">
-                    <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
-                    <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
-                    <h4>E.E. RECANTO VERDE SOL</h4>
-                    <p style="font-size: 12px; margin: 0;">Rua Pedro Ramazzani, 06 – Recanto Verde Sol – São Paulo – SP – CEP 08381-800</p>
-                    <br>
-                    <h3><strong>PLANEJAMENTO BIMESTRAL - 2026</strong></h3>
-                </td>
-                <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
-            </tr>
-        </table>
-
-        <div class="info-professor">
-            <span>Professor(a): Ednaldo Amancio de Lima</span>
-            <span>Segmento: Ensino Médio</span>
-            <span>Disciplina: Geografia</span>
-            <span>Turmas: 3º A, B, C, D, E</span>
-            <span>Período: Noturno</span>
-            <span>Bimestre: 1º</span>
-        </div>
-
-        <table class="plano-table">
-            <thead>
-                <tr>
-                    <th width="10%">Semana</th>
-                    <th width="15%">Conteúdo</th>
-                    <th width="20%">A/E - Habilidades (Foco ENEM/Vestibular)</th>
-                    <th width="15%">Estratégia/ Metodologia</th>
-                    <th width="15%">Recursos</th>
-                    <th width="10%">Avaliação</th>
-                    <th width="15%">Fontes de Referências</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>02/02 a 06/02</td>
-                    <td>Revisão: Conceitos básicos e Cartografia</td>
-                    <td>Retomar compreensão de coordenadas e fusos horários aplicados em vestibulares.</td>
-                    <td>Resolução comentada de questões do ENEM e FUVEST.</td>
-                    <td>Lousa, projetor, material impresso.</td>
-                    <td>Simulado Diagnóstico (Estilo ENEM).</td>
-                    <td>Provas anteriores do ENEM, Guia do Estudante.</td>
-                </tr>
-                <tr>
-                    <td>09/02 a 13/02</td>
-                    <td>Revisão: O Ártico e o Antártico</td>
-                    <td>Analisar a geopolítica ambiental e a exploração de recursos nas zonas polares.</td>
-                    <td>Debate sobre atualidades e questões discursivas (Estilo Unesp/Unicamp).</td>
-                    <td>Lousa, livro, slide.</td>
-                    <td>Questões objetivas e argumentação.</td>
-                    <td>Revistas de atualidades, documentários.</td>
-                </tr>
-                <tr>
-                    <td>23/02 a 27/02</td>
-                    <td>Aula 1 e 2 - Climatologia no ENEM</td>
-                    <td>Diferenciar tempo e clima; identificar fatores climáticos e suas consequências espaciais.</td>
-                    <td>Mapeamento mental e análise de itens do ENEM com distratores.</td>
-                    <td>Lousa, apostilas, slide.</td>
-                    <td>Resolução de lista de exercícios.</td>
-                    <td>Banco de questões INEP, sites educacionais.</td>
-                </tr>
-                <tr>
-                    <td>02/03 a 06/03</td>
-                    <td>Aula 3 e 4 - Leitura de Climogramas</td>
-                    <td>Interpretar gráficos climáticos associando-os aos biomas correspondentes em provas.</td>
-                    <td>Aula interativa com projeção de climogramas que já caíram em exames.</td>
-                    <td>Internet; Tablets.</td>
-                    <td>Quiz rápido (Kahoot/Mentimeter).</td>
-                    <td>INMET, Provas de Vestibulares.</td>
-                </tr>
-                <tr>
-                    <td>09/03 a 13/03</td>
-                    <td>Aula 5 e 6 - Recursos Hídricos e Crise Global</td>
-                    <td>Relacionar a gestão hídrica com a matriz energética brasileira e a agricultura.</td>
-                    <td>Estudo de caso (ex: Crise Hídrica em SP) focado em redação e questões abertas.</td>
-                    <td>Internet; Tablets.</td>
-                    <td>Produção textual / Avaliação por pares.</td>
-                    <td>Portal da ANA, Artigos de jornais.</td>
-                </tr>
-                <tr>
-                    <td>16/03 a 20/03</td>
-                    <td>Aula 7 e 8 - Dinâmica do Relevo Terrestre</td>
-                    <td>Diferenciar agentes internos e externos e sua importância para a ocupação humana (ENEM).</td>
-                    <td>Resolução de problemas baseados no Google Earth e mapas topográficos.</td>
-                    <td>Projetor, imagens de satélite.</td>
-                    <td>Atividade de identificação de padrões de relevo.</td>
-                    <td>Google Earth, IBGE.</td>
-                </tr>
-                <tr>
-                    <td>23/03 a 27/03</td>
-                    <td>Aula 9 e 10 - Relevo e Riscos Geológicos no Brasil</td>
-                    <td>Analisar deslizamentos e enchentes sob a ótica da segregação socioespacial (Temas quentes).</td>
-                    <td>Análise de reportagens recentes e conexão com a Geografia Física.</td>
-                    <td>Tablets, projetor, vídeos.</td>
-                    <td>Simulado de Ciências Humanas.</td>
-                    <td>Defesa Civil, Portal de Notícias G1/BBC.</td>
-                </tr>
-                <tr>
-                    <td>06/04 a 10/04</td>
-                    <td>Aula 11 e 12 - Biomas da Terra e Impactos Ambientais</td>
-                    <td>Identificar biomas mundiais, focando nas áreas de hotspots e desmatamento.</td>
-                    <td>Aula expositiva-dialogada com foco em interdisciplinaridade com Biologia.</td>
-                    <td>Lousa, caderno, apostilas de revisão.</td>
-                    <td>Questões padrão ENEM (competências e habilidades).</td>
-                    <td>Atlas Geográfico, Livro do aluno.</td>
-                </tr>
-                <tr>
-                    <td>13/04 a 17/04</td>
-                    <td>Aula 13 e 14 - Biomas Paulistas e SNUC</td>
-                    <td>Caracterizar Mata Atlântica e Cerrado; entender a função de Unidades de Conservação.</td>
-                    <td>Gincana de Revisão (Passa ou repassa com foco em questões paulistas - FUVEST).</td>
-                    <td>Jogos lúdicos, campainha, projetor.</td>
-                    <td>Participação e engajamento na revisão.</td>
-                    <td>Site do MMA, Provas da FUVEST.</td>
-                </tr>
-                <tr>
-                    <td>20/04 a 24/04</td>
-                    <td>Revisão Final - Conselho de classe</td>
-                    <td>Sintetizar conhecimentos, corrigir simulados e traçar estratégias para provas.</td>
-                    <td>Plantão de dúvidas e fechamento reflexivo de médias.</td>
-                    <td>Simulados corrigidos, diários.</td>
-                    <td>Avaliação do Conselho. Fechamento de notas.</td>
-                    <td>Registros do professor.</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="footer-doc">
-            <span>AULAS PREVISTAS: 20</span>
-            <span>PROFESSOR: Ednaldo Amancio de Lima</span>
-            <span>VALIDADO EM: ___/___/____</span>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Função para exportar a div específica em PDF
-    function baixarPDF(idElemento, nomeArquivo) {
-        const elemento = document.getElementById(idElemento);
-        const opt = {
-            margin:       10,
-            filename:     nomeArquivo,
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
-        };
-        html2pdf().set(opt).from(elemento).save();
-    }
-
-    // Função para exportar a div específica em Word (.doc)
-    function baixarWord(idElemento, nomeArquivo) {
-        var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Planejamento</title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .header-table{width:100%; margin-bottom:20px; border:none;} .header-table td{border:none; text-align:center; vertical-align:middle;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}</style></head><body>";
-        var footer = "</body></html>";
-        var htmlContext = document.getElementById(idElemento).innerHTML;
-        var sourceHTML = header + htmlContext + footer;
-        
-        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-        var fileDownload = document.createElement("a");
-        document.body.appendChild(fileDownload);
-        fileDownload.href = source;
-        fileDownload.download = nomeArquivo;
-        fileDownload.click();
-        document.body.removeChild(fileDownload);
-    }
-</script>
+    <footer>
+        <p>&copy; 2026 EdHumanas. Todos os direitos reservados. | <a href="http://www.edhumanas.com">www.edhumanas.com</a></p>
+    </footer>
 
 </body>
 </html>
