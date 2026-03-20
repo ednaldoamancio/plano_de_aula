@@ -199,6 +199,7 @@
         </div>
     </div>
 
+
     <div class="container">
         <h2 class="section-title">Planejamento - Projeto de Vida (7ºs Anos)</h2>
         <div class="botoes">
@@ -228,6 +229,7 @@
                 <span>Período: Tarde (13:00 às 18:30)</span>
                 <span>Bimestre: 1º</span>
             </div>
+            
             <table class="plano-table">
                 <thead>
                     <tr>
@@ -246,6 +248,24 @@
                     <tr><td>26/02 e 27/02</td><td>Mudanças na Adolescência: Quem estou me tornando?</td><td>Compreender e aceitar as mudanças físicas, emocionais e sociais da adolescência.</td><td>Criação de um mapa mental coletivo: "O que muda na nossa idade?".</td><td>Cartolina grande, post-its, canetas coloridas.</td><td>Colaboração e respeito às falas dos colegas.</td><td>Material Inova Educação - Anos Finais.</td></tr>
                     <tr><td>05/03 e 06/03</td><td>Minhas Forças e Vulnerabilidades</td><td>Reconhecer que todos possuem pontos fortes e áreas que precisam de desenvolvimento.</td><td>Atividade "Escudo Pessoal": desenhar um escudo dividindo forças e medos.</td><td>Impressos com modelo de escudo, lápis de cor.</td><td>Avaliação do nível de autoconhecimento demonstrado.</td><td>Caderno do Aluno (Projeto de Vida).</td></tr>
                     <tr><td>12/03 e 13/03</td><td>O Papel do Grupo: Pertencimento e Identidade</td><td>Identificar a importância do convívio em grupo e como ele influencia a identidade.</td><td>Análise de tribos sociais / grupos de interesse na escola. Debate dirigido.</td><td>Imagens de revistas, lousa.</td><td>Qualidade dos argumentos apresentados no debate.</td><td>Textos de apoio sobre juventude.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="html2pdf__page-break"></div>
+
+            <table class="plano-table">
+                <thead>
+                    <tr>
+                        <th width="10%">Semana</th>
+                        <th width="15%">Conteúdo</th>
+                        <th width="20%">A/E - Habilidades Socioemocionais</th>
+                        <th width="15%">Estratégia/ Metodologia</th>
+                        <th width="15%">Recursos</th>
+                        <th width="10%">Avaliação</th>
+                        <th width="15%">Fontes de Referências</th>
+                    </tr>
+                </thead>
+                <tbody>
                     <tr><td>19/03 e 20/03</td><td>Comunicação Não Violenta e Resolução de Conflitos</td><td>Desenvolver a empatia e aplicar a comunicação assertiva para resolver atritos.</td><td>Role-playing: Simulação de conflitos comuns e como resolvê-los usando CNV.</td><td>Casos impressos.</td><td>Rubrica de observação sobre resolução de problemas.</td><td>Cartilha de Mediação de Conflitos Escolar.</td></tr>
                     <tr><td>26/03 e 27/03</td><td>Ampliando o Repertório: Hobbies e Interesses</td><td>Explorar novos interesses e entender como hobbies podem se conectar ao futuro.</td><td>Mural interativo: "O que eu gosto de fazer no tempo livre?".</td><td>Revistas para recorte, tesoura, cola.</td><td>Engajamento na construção do mural.</td><td>Atividades de Projetos Integradores.</td></tr>
                     <tr><td>09/04 e 10/04</td><td>Autogestão: Organizando minha Rotina</td><td>Planejar a rotina de estudos e conciliar com lazer e descanso.</td><td>Elaboração de um "Planner Semanal" personalizado e realista.</td><td>Modelos de Planner impressos.</td><td>Entrega do Planner preenchido de forma coerente.</td><td>Metodologias de Organização de Tempo.</td></tr>
@@ -253,6 +273,7 @@
                     <tr><td>23/04 e 24/04</td><td>Autoavaliação e Conselho de Classe</td><td>Refletir sobre o amadurecimento ao longo do bimestre e postura em sala.</td><td>Preenchimento da rubrica de autoavaliação socioemocional.</td><td>Fichas de autoavaliação.</td><td>Conselho de Classe. Fechamento de conceitos qualitativos.</td><td>Registros do diário de classe.</td></tr>
                 </tbody>
             </table>
+
             <div class="footer-doc">
                 <span>AULAS PREVISTAS: 10</span>
                 <span>PROFESSOR: Ednaldo Amancio de Lima</span>
@@ -260,6 +281,7 @@
             </div>
         </div>
     </div>
+
 
     <div class="container">
         <h2 class="section-title">Planejamento - Projeto de Vida (8º Ano)</h2>
@@ -331,7 +353,6 @@
                 margin:       10, 
                 filename:     nomeArquivo,
                 image:        { type: 'jpeg', quality: 0.98 },
-                // ADICIONADO scrollY: 0 para evitar os espaços em branco no PDF
                 html2canvas:  { scale: 2, useCORS: true, scrollY: 0 }, 
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
                 pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
@@ -348,7 +369,6 @@
             const larguraOriginal = elemento.style.width;
             elemento.style.width = '1100px'; 
             
-            // ADICIONADO scrollY: 0 para evitar os espaços em branco no JPG
             html2canvas(elemento, { scale: 2, useCORS: true, scrollY: 0 }).then(canvas => {
                 let link = document.createElement('a');
                 link.download = nomeArquivo;
