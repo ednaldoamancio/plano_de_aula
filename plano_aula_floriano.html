@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plano de Aula - EE Floriano Peixoto</title>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -325,10 +328,11 @@
         try {
             const elemento = document.getElementById(idElemento);
             const opt = {
-                margin:      , 
+                margin:       10, 
                 filename:     nomeArquivo,
                 image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
+                // ADICIONADO scrollY: 0 para evitar os espaços em branco no PDF
+                html2canvas:  { scale: 2, useCORS: true, scrollY: 0 }, 
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
                 pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
             };
@@ -344,8 +348,8 @@
             const larguraOriginal = elemento.style.width;
             elemento.style.width = '1100px'; 
             
-            // O bundle html2pdf já inclui a função html2canvas nativamente
-            html2canvas(elemento, { scale: 2, useCORS: true }).then(canvas => {
+            // ADICIONADO scrollY: 0 para evitar os espaços em branco no JPG
+            html2canvas(elemento, { scale: 2, useCORS: true, scrollY: 0 }).then(canvas => {
                 let link = document.createElement('a');
                 link.download = nomeArquivo;
                 link.href = canvas.toDataURL('image/jpeg', 0.98);
