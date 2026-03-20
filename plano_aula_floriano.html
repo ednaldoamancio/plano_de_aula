@@ -16,67 +16,72 @@
             max-width: 1200px;
             margin: 0 auto;
             background-color: #fff;
-            padding: 30px;
+            padding: 20px 30px;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             margin-bottom: 40px;
         }
         .botoes {
             text-align: right;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
             border-bottom: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         button {
             background-color: #008080;
             color: white;
             border: none;
             padding: 10px 20px;
-            margin-left: 10px;
             font-size: 14px;
             border-radius: 5px;
             cursor: pointer;
             transition: 0.3s;
         }
-        button:hover {
-            background-color: #005959;
-        }
+        button:hover { background-color: #005959; }
+        .btn-jpg { background-color: #d2691e; }
+        .btn-jpg:hover { background-color: #a0522d; }
+
         .header-table {
             width: 100%;
             border-collapse: collapse;
             border: none;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         .header-table td {
             border: none;
             vertical-align: middle;
         }
-        .header-text {
-            text-align: center;
-        }
-        .header-text h2, .header-text h3, .header-text h4 {
-            margin: 5px 0;
-            font-weight: normal;
-        }
+        .header-text { text-align: center; }
+        .header-text h2 { margin: 0; font-size: 18px; }
+        .header-text h3 { margin: 3px 0; font-size: 15px; }
+        .header-text h4 { margin: 3px 0; font-size: 14px; }
+        .header-text p { font-size: 11px; margin: 0; }
+        
         .info-professor {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: bold;
             background-color: #f9f9f9;
-            padding: 10px;
+            padding: 8px;
             border: 1px solid #ddd;
+            gap: 10px;
+            font-size: 13px;
         }
         table.plano-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 30px;
-            font-size: 14px;
+            margin-bottom: 15px;
+            font-size: 13px;
         }
         table.plano-table th, table.plano-table td {
             border: 1px solid #000;
-            padding: 8px;
+            padding: 6px;
             text-align: left;
             vertical-align: top;
         }
@@ -85,18 +90,45 @@
             font-weight: bold;
             text-align: center;
         }
+        table.plano-table tr {
+            page-break-inside: avoid;
+        }
         .footer-doc {
-            margin-top: 40px;
+            margin-top: 20px;
             display: flex;
             justify-content: space-between;
             font-weight: bold;
+            flex-wrap: wrap;
+            gap: 10px;
+            page-break-inside: avoid;
         }
         .section-title {
             color: #008080;
             border-bottom: 2px solid #008080;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
             text-transform: uppercase;
+            font-size: 20px;
+        }
+
+        /* RESPONSIVIDADE CELULAR */
+        @media (max-width: 768px) {
+            body { margin: 10px; }
+            .container { padding: 15px; }
+            .botoes { justify-content: center; }
+            button { width: 100%; }
+            .header-table, .header-table tbody, .header-table tr, .header-table td {
+                display: block; width: 100% !important; text-align: center !important;
+            }
+            .header-table img { margin-bottom: 10px; }
+            .info-professor { flex-direction: column; text-align: center; }
+            table.plano-table {
+                display: block; overflow-x: auto; -webkit-overflow-scrolling: touch;
+            }
+            table.plano-table th, table.plano-table td {
+                min-width: 150px; white-space: normal;
+            }
+            .footer-doc { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -106,6 +138,7 @@
         <h2 class="section-title">Planejamento - Projeto de Vida (6ºs Anos)</h2>
         <div class="botoes">
             <button onclick="baixarPDF('plano-6-floriano', 'EE_Floriano_Proj_Vida_6Anos.pdf')">Baixar em PDF</button>
+            <button class="btn-jpg" onclick="baixarJPG('plano-6-floriano', 'EE_Floriano_Proj_Vida_6Anos.jpg')">Baixar em JPG</button>
             <button onclick="baixarWord('plano-6-floriano', 'EE_Floriano_Proj_Vida_6Anos.doc')">Baixar em Word</button>
         </div>
         <div id="plano-6-floriano">
@@ -116,9 +149,8 @@
                         <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
                         <h3>UNIDADE REGIONAL DE ENSINO – LESTE 3</h3>
                         <h4>E.E. FLORIANO PEIXOTO</h4>
-                        <p style="font-size: 12px; margin: 0;">Rua Edmundo da Cunha, 95 – Jardim Ester – São Paulo – SP – CEP 08330-230 | Tel: (11) 2919-2287</p>
-                        <br>
-                        <h3><strong>PLANEJAMENTO BIMESTRAL - 2026</strong></h3>
+                        <p>Rua Edmundo da Cunha, 95 – Jardim Ester – São Paulo – SP – CEP 08330-230 | Tel: (11) 2919-2287</p>
+                        <h3 style="margin-top: 10px;"><strong>PLANEJAMENTO BIMESTRAL - 2026</strong></h3>
                     </td>
                     <td style="width: 15%;"></td>
                 </tr>
@@ -168,6 +200,7 @@
         <h2 class="section-title">Planejamento - Projeto de Vida (7ºs Anos)</h2>
         <div class="botoes">
             <button onclick="baixarPDF('plano-7-floriano', 'EE_Floriano_Proj_Vida_7Anos.pdf')">Baixar em PDF</button>
+            <button class="btn-jpg" onclick="baixarJPG('plano-7-floriano', 'EE_Floriano_Proj_Vida_7Anos.jpg')">Baixar em JPG</button>
             <button onclick="baixarWord('plano-7-floriano', 'EE_Floriano_Proj_Vida_7Anos.doc')">Baixar em Word</button>
         </div>
         <div id="plano-7-floriano">
@@ -178,9 +211,8 @@
                         <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
                         <h3>UNIDADE REGIONAL DE ENSINO – LESTE 3</h3>
                         <h4>E.E. FLORIANO PEIXOTO</h4>
-                        <p style="font-size: 12px; margin: 0;">Rua Edmundo da Cunha, 95 – Jardim Ester – São Paulo – SP – CEP 08330-230 | Tel: (11) 2919-2287</p>
-                        <br>
-                        <h3><strong>PLANEJAMENTO BIMESTRAL - 2026</strong></h3>
+                        <p>Rua Edmundo da Cunha, 95 – Jardim Ester – São Paulo – SP – CEP 08330-230 | Tel: (11) 2919-2287</p>
+                        <h3 style="margin-top: 10px;"><strong>PLANEJAMENTO BIMESTRAL - 2026</strong></h3>
                     </td>
                     <td style="width: 15%;"></td>
                 </tr>
@@ -230,6 +262,7 @@
         <h2 class="section-title">Planejamento - Projeto de Vida (8º Ano)</h2>
         <div class="botoes">
             <button onclick="baixarPDF('plano-8-floriano', 'EE_Floriano_Proj_Vida_8Ano.pdf')">Baixar em PDF</button>
+            <button class="btn-jpg" onclick="baixarJPG('plano-8-floriano', 'EE_Floriano_Proj_Vida_8Ano.jpg')">Baixar em JPG</button>
             <button onclick="baixarWord('plano-8-floriano', 'EE_Floriano_Proj_Vida_8Ano.doc')">Baixar em Word</button>
         </div>
         <div id="plano-8-floriano">
@@ -240,9 +273,8 @@
                         <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
                         <h3>UNIDADE REGIONAL DE ENSINO – LESTE 3</h3>
                         <h4>E.E. FLORIANO PEIXOTO</h4>
-                        <p style="font-size: 12px; margin: 0;">Rua Edmundo da Cunha, 95 – Jardim Ester – São Paulo – SP – CEP 08330-230 | Tel: (11) 2919-2287</p>
-                        <br>
-                        <h3><strong>PLANEJAMENTO BIMESTRAL - 2026</strong></h3>
+                        <p>Rua Edmundo da Cunha, 95 – Jardim Ester – São Paulo – SP – CEP 08330-230 | Tel: (11) 2919-2287</p>
+                        <h3 style="margin-top: 10px;"><strong>PLANEJAMENTO BIMESTRAL - 2026</strong></h3>
                     </td>
                     <td style="width: 15%;"></td>
                 </tr>
@@ -290,30 +322,62 @@
 
 <script>
     function baixarPDF(idElemento, nomeArquivo) {
-        const elemento = document.getElementById(idElemento);
-        const opt = {
-            margin:       10,
-            filename:     nomeArquivo,
-            image:        { type: 'jpeg', quality: 0.98 },
-            html2canvas:  { scale: 2, useCORS: true },
-            jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
-        };
-        html2pdf().set(opt).from(elemento).save();
+        try {
+            const elemento = document.getElementById(idElemento);
+            const opt = {
+                margin:      , 
+                filename:     nomeArquivo,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+            html2pdf().set(opt).from(elemento).save();
+        } catch(e) {
+            alert('Erro ao gerar PDF: ' + e.message);
+        }
+    }
+
+    function baixarJPG(idElemento, nomeArquivo) {
+        try {
+            const elemento = document.getElementById(idElemento);
+            const larguraOriginal = elemento.style.width;
+            elemento.style.width = '1100px'; 
+            
+            // O bundle html2pdf já inclui a função html2canvas nativamente
+            html2canvas(elemento, { scale: 2, useCORS: true }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = nomeArquivo;
+                link.href = canvas.toDataURL('image/jpeg', 0.98);
+                link.click();
+                elemento.style.width = larguraOriginal;
+            }).catch(err => {
+                console.error(err);
+                alert("O download JPG foi bloqueado por estar aberto direto da pasta (C:/...). Quando subir pro GitHub vai funcionar!");
+                elemento.style.width = larguraOriginal;
+            });
+        } catch(e) {
+            alert('Erro ao gerar JPG: ' + e.message);
+        }
     }
 
     function baixarWord(idElemento, nomeArquivo) {
-        var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Planejamento</title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .header-table{width:100%; margin-bottom:20px; border:none;} .header-table td{border:none; text-align:center; vertical-align:middle;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}</style></head><body>";
-        var footer = "</body></html>";
-        var htmlContext = document.getElementById(idElemento).innerHTML;
-        var sourceHTML = header + htmlContext + footer;
-        
-        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-        var fileDownload = document.createElement("a");
-        document.body.appendChild(fileDownload);
-        fileDownload.href = source;
-        fileDownload.download = nomeArquivo;
-        fileDownload.click();
-        document.body.removeChild(fileDownload);
+        try {
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Planejamento</title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .header-table{width:100%; margin-bottom:20px; border:none;} .header-table td{border:none; text-align:center; vertical-align:middle;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}</style></head><body>";
+            var footer = "</body></html>";
+            var htmlContext = document.getElementById(idElemento).innerHTML;
+            var sourceHTML = header + htmlContext + footer;
+            
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = nomeArquivo;
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+        } catch(e) {
+            alert('Erro ao gerar Word: ' + e.message);
+        }
     }
 </script>
 
