@@ -3,384 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horários de Aulas - Prof. Ednaldo</title>
+    <title>Horário de Aulas 2026 - Ednaldo</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
     <style>
-        :root {
-            --bg-color: #f4f4f9;
-            --text-color: #333;
-            --table-bg: #fff;
-            --table-border: #ddd;
-            --header-bg: #2c3e50;
-            --header-text: white;
-            --btn-bg: #34495e;
-            --btn-hover: #2c3e50;
-            --btn-save: #27ae60;
-            --btn-save-hover: #219653;
-            --btn-reset: #e74c3c;
-            --btn-reset-hover: #c0392b;
-        }
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
-        [data-theme="dark"] {
-            --bg-color: #1a1a2e;
-            --text-color: #e0e0e0;
-            --table-bg: #16213e;
-            --table-border: #0f3460;
-            --header-bg: #e94560;
-            --header-text: #fff;
-            --btn-bg: #0f3460;
-            --btn-hover: #1a1a2e;
-            --btn-save: #4CAF50;
-            --btn-save-hover: #45a049;
-            --btn-reset: #e94560;
-            --btn-reset-hover: #c8334b;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        h1 {
-            margin-bottom: 5px;
-            font-size: 28px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        h2 {
-            margin-top: 30px;
-            margin-bottom: 10px;
-            font-size: 20px;
-            color: var(--text-color);
-            border-bottom: 2px dashed var(--header-bg);
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        p {
-            font-size: 15px;
-            opacity: 0.9;
-        }
-
-        .controls {
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 15px;
-            cursor: pointer;
-            border: none;
-            border-radius: 6px;
-            background-color: var(--btn-bg);
-            color: white;
-            font-weight: 600;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: background-color 0.3s, transform 0.1s;
-        }
-
-        button:active {
-            transform: scale(0.96);
-        }
-
-        button:hover {
-            background-color: var(--btn-hover);
-        }
-
-        .btn-salvar {
-            background-color: var(--btn-save);
-        }
-
-        .btn-salvar:hover {
-            background-color: var(--btn-save-hover);
-        }
-
-        .btn-reset {
-            background-color: var(--btn-reset);
-        }
-
-        .btn-reset:hover {
-            background-color: var(--btn-reset-hover);
-        }
-
-        .table-container {
-            overflow-x: auto;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: var(--table-bg);
-            font-size: 15px;
-        }
-
-        th, td {
-            border: 1px solid var(--table-border);
-            padding: 12px 8px;
-            text-align: center;
-            width: 16%;
-        }
-
-        th {
-            background-color: var(--header-bg);
-            color: var(--header-text);
-            font-weight: 600;
-        }
-
-        td[contenteditable="true"] {
-            cursor: text;
-            outline: none;
-            transition: background-color 0.2s, transform 0.2s;
-        }
-
-        td[contenteditable="true"]:focus {
-            background-color: rgba(233, 69, 96, 0.2);
-            transform: scale(1.02);
-            border-radius: 4px;
-        }
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
         
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #27ae60;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 15px;
-            position: fixed;
-            z-index: 1000;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 16px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        .painel-mestre { max-width: 1000px; margin: 0 auto 20px auto; background-color: #2c3e50; color: white; padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); text-align: center; }
+        .painel-mestre h1 { margin: 0; font-size: 26px; color: #00bcd4; }
+        .painel-mestre p { margin: 5px 0 0 0; font-size: 16px; color: #e0f7fa; }
+        
+        .container { max-width: 1000px; margin: 0 auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 40px; }
+        .botoes { text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px solid #e0e0e0; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+        
+        button { background-color: #00838f; color: white; border: none; padding: 12px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        button:hover { background-color: #006064; }
+        .btn-jpg { background-color: #d2691e; }
+        .btn-jpg:hover { background-color: #a0522d; }
+        .btn-editar { background-color: #4b0082; }
+        .btn-editar:hover { background-color: #300052; }
+
+        .em-edicao .editavel[contenteditable="true"] { 
+            outline: 2px dashed #4b0082; 
+            border-radius: 4px;
+            cursor: text;
         }
 
-        #toast.show {
-            visibility: visible;
-            animation: fadein 0.5s, fadeout 0.5s 2.5s;
-        }
+        .titulo-tabela { color: #00838f; font-size: 18px; margin-top: 30px; margin-bottom: 10px; text-transform: uppercase; border-left: 5px solid #00bcd4; padding-left: 10px; }
+        
+        table.horario-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 15px; text-align: center; }
+        table.horario-table th, table.horario-table td { border: 1px solid #999; padding: 12px 5px; vertical-align: middle; font-weight: bold; height: 45px;}
+        
+        table.horario-table th { background-color: #00838f; color: white; text-transform: uppercase; letter-spacing: 1px; }
+        table.horario-table td:first-child { background-color: #e0f7fa; color: #006064; width: 12%; } 
+        
+        table.horario-table td.editavel { transition: background-color 0.3s ease; }
 
-        @keyframes fadein {
-            from {bottom: 0; opacity: 0;}
-            to {bottom: 30px; opacity: 1;}
-        }
-
-        @keyframes fadeout {
-            from {bottom: 30px; opacity: 1;}
-            to {bottom: 0; opacity: 0;}
-        }
-
-        /* Confetti Canvas */
-        #confetti-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
+        @media (max-width: 768px) {
+            body { margin: 10px; }
+            .container { padding: 15px; }
+            table.horario-table { display: block; overflow-x: auto; white-space: nowrap; }
         }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <div id="confetti-container"></div>
-
-    <h1>🚀 Painel de Aulas - Prof. Ednaldo 📚</h1>
-    <p>As tabelas são editáveis. Clique nas células para alterar os horários.<br>Não esqueça de salvar para não perder as mágicas!</p>
-
-    <div class="controls">
-        <button onclick="toggleTheme()">🌓 Alternar Tema</button>
-        <button class="btn-salvar" onclick="salvarTabelas()">💾 Salvar Magia</button>
-        <button class="btn-reset" onclick="resetarTabelas()">🔄 Resetar Original</button>
+    <div class="painel-mestre">
+        <h1>Grade de Horários - 2026</h1>
+        <p>Professor Ednaldo Amancio de Lima</p>
     </div>
 
-    <h2>EE Recanto Verde Sol - Geografia - 24 aulas - Noturno - DI 1</h2>
-    <div class="table-container">
-        <table id="tabela1">
-            <thead>
-                <tr>
-                    <th>Aulas</th>
-                    <th>Segunda-feira</th>
-                    <th>Terça-feira</th>
-                    <th>Quarta-feira</th>
-                    <th>Quinta-feira</th>
-                    <th>Sexta-feira</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>1ª Aula</td><td contenteditable="true">3 A</td><td contenteditable="true">3 D</td><td contenteditable="true">2 E</td><td contenteditable="true"></td><td contenteditable="true">3 A</td></tr>
-                <tr><td>2ª Aula</td><td contenteditable="true">1 C</td><td contenteditable="true">2 B</td><td contenteditable="true">3 B</td><td contenteditable="true">2 E</td><td contenteditable="true">3 C</td></tr>
-                <tr><td>3ª Aula</td><td contenteditable="true">2 D</td><td contenteditable="true">3 C</td><td contenteditable="true">2 C</td><td contenteditable="true">1 D</td><td contenteditable="true">2 C</td></tr>
-                <tr><td>4ª Aula</td><td contenteditable="true">3 D</td><td contenteditable="true">1 B</td><td contenteditable="true">1 C</td><td contenteditable="true">2 D</td><td contenteditable="true">1 D</td></tr>
-                <tr><td>5ª Aula</td><td contenteditable="true">1 B</td><td contenteditable="true">3 B</td><td contenteditable="true">2 A</td><td contenteditable="true">2 A</td><td contenteditable="true">2 B</td></tr>
-            </tbody>
-        </table>
+    <div class="container">
+        
+        <div class="botoes">
+            <button class="btn-editar" onclick="toggleEdicao('area-horario', this)">Habilitar Edição</button>
+            <button onclick="baixarPDF('area-horario', 'Horario_Aulas_2026.pdf')">Baixar em PDF</button>
+            <button class="btn-jpg" onclick="baixarJPG('area-horario', 'Horario_Aulas_2026.jpg')">Baixar em JPG</button>
+            <button onclick="baixarWord('area-horario', 'Horario_Aulas_2026.doc')">Baixar em Word</button>
+        </div>
+        
+        <div id="area-horario">
+            
+            <h3 class="titulo-tabela editavel">EE Recanto Verde Sol - Geografia - 24 aulas - Noturno - DI 1</h3>
+            <table class="horario-table">
+                <thead>
+                    <tr>
+                        <th>Aulas</th>
+                        <th>Segunda-feira</th>
+                        <th>Terça-feira</th>
+                        <th>Quarta-feira</th>
+                        <th>Quinta-feira</th>
+                        <th>Sexta-feira</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1ª Aula</td><td class="editavel">3 A</td><td class="editavel"></td><td class="editavel">3 D</td><td class="editavel">2 E</td><td class="editavel">3 A</td></tr>
+                    <tr><td>2ª Aula</td><td class="editavel">1 C</td><td class="editavel">3 B</td><td class="editavel">2 B</td><td class="editavel">2 E</td><td class="editavel">3 C</td></tr>
+                    <tr><td>3ª Aula</td><td class="editavel">2 D</td><td class="editavel">1 D</td><td class="editavel">2 C</td><td class="editavel">3 C</td><td class="editavel">2 C</td></tr>
+                    <tr><td>4ª Aula</td><td class="editavel">3 D</td><td class="editavel">1 C</td><td class="editavel">2 D</td><td class="editavel">1 B</td><td class="editavel">1 D</td></tr>
+                    <tr><td>5ª Aula</td><td class="editavel">1 B</td><td class="editavel">2 A</td><td class="editavel">3 B</td><td class="editavel">2 A</td><td class="editavel">2 B</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="titulo-tabela editavel">EE Recanto Verde Sol - Projeto de vida - 16 aulas Manhã - Di 1 e Di 2</h3>
+            <table class="horario-table">
+                <thead>
+                    <tr>
+                        <th>Aulas</th>
+                        <th>Segunda-feira</th>
+                        <th>Terça-feira</th>
+                        <th>Quarta-feira</th>
+                        <th>Quinta-feira</th>
+                        <th>Sexta-feira</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1ª Aula</td><td class="editavel">6 C</td><td class="editavel"></td><td class="editavel"></td><td class="editavel"></td><td class="editavel"></td></tr>
+                    <tr><td>2ª Aula</td><td class="editavel">8 B</td><td class="editavel"></td><td class="editavel"></td><td class="editavel"></td><td class="editavel">6 F</td></tr>
+                    <tr><td>3ª Aula</td><td class="editavel">6 E</td><td class="editavel"></td><td class="editavel"></td><td class="editavel">9 A</td><td class="editavel">7 B</td></tr>
+                    <tr><td>4ª Aula</td><td class="editavel">7 D</td><td class="editavel"></td><td class="editavel"></td><td class="editavel">9 D</td><td class="editavel">8 A</td></tr>
+                    <tr><td>5ª Aula</td><td class="editavel">6 D</td><td class="editavel"></td><td class="editavel"></td><td class="editavel">9 C</td><td class="editavel">7 E</td></tr>
+                    <tr><td>6ª Aula</td><td class="editavel">6 G</td><td class="editavel"></td><td class="editavel">7 A</td><td class="editavel">9 B</td><td class="editavel">7 C</td></tr>
+                </tbody>
+            </table>
+
+            <h3 class="titulo-tabela editavel">Professor Ednaldo - Segunda e Quarta (Recanto), Terça (Isaac), Quinta e Sexta (Floriano)</h3>
+            <table class="horario-table">
+                <thead>
+                    <tr>
+                        <th>Aulas</th>
+                        <th>Segunda-feira</th>
+                        <th>Terça-feira</th>
+                        <th>Quarta-feira</th>
+                        <th>Quinta-feira</th>
+                        <th>Sexta-feira</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1ª Aula</td><td class="editavel">ATPC - Di 2</td><td class="editavel">7 B</td><td class="editavel">ATPC - Di 2</td><td class="editavel">6 B</td><td class="editavel">6 A</td></tr>
+                    <tr><td>2ª Aula</td><td class="editavel">ATPC - Di 1</td><td class="editavel">7 A</td><td class="editavel">ATPC - Di 2</td><td class="editavel"></td><td class="editavel">6 C</td></tr>
+                    <tr><td>3ª Aula</td><td class="editavel"></td><td class="editavel">6 C</td><td class="editavel"></td><td class="editavel"></td><td class="editavel">7 B</td></tr>
+                    <tr><td>4ª Aula</td><td class="editavel"></td><td class="editavel">6 B</td><td class="editavel"></td><td class="editavel"></td><td class="editavel">7 A</td></tr>
+                    <tr><td>5ª Aula</td><td class="editavel">ATPC - Di 1</td><td class="editavel">6 A</td><td class="editavel">ATPC - Di 1</td><td class="editavel"></td><td class="editavel">8 A</td></tr>
+                    <tr><td>6ª Aula</td><td class="editavel">ATPC - Di 1</td><td class="editavel">7 C</td><td class="editavel">ATPC - Di 1</td><td class="editavel"></td><td class="editavel"></td></tr>
+                </tbody>
+            </table>
+
+        </div>
     </div>
 
-    <h2>EE Recanto Verde Sol - Projeto de Vida - 8 aulas Manhã - DI 1</h2>
-    <div class="table-container">
-        <table id="tabela2">
-            <thead>
-                <tr>
-                    <th>Aulas</th>
-                    <th>Segunda-feira</th>
-                    <th>Terça-feira</th>
-                    <th>Quarta-feira</th>
-                    <th>Quinta-feira</th>
-                    <th>Sexta-feira</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>1ª Aula</td><td contenteditable="true">6 C</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-                <tr><td>2ª Aula</td><td contenteditable="true">8 B</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true">6 F</td><td contenteditable="true"></td></tr>
-                <tr><td>3ª Aula</td><td contenteditable="true">6 E</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true">9 A</td><td contenteditable="true">7 B</td></tr>
-                <tr><td>4ª Aula</td><td contenteditable="true">7 D</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true">9 D</td><td contenteditable="true">8 A</td></tr>
-                <tr><td>5ª Aula</td><td contenteditable="true">6 D</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true">9 C</td><td contenteditable="true">7 E</td></tr>
-                <tr><td>6ª Aula</td><td contenteditable="true">6 G</td><td contenteditable="true">7 A</td><td contenteditable="true"></td><td contenteditable="true">9 B</td><td contenteditable="true">7 C</td></tr>
-            </tbody>
-        </table>
-    </div>
+<script>
+    function aplicarCores() {
+        const celulas = document.querySelectorAll('table.horario-table td.editavel');
+        
+        celulas.forEach(td => {
+            let texto = td.innerText.trim().toUpperCase();
+            let textoLimpo = texto.replace(/\s+/g, '');
+            
+            // Fundo padrão branco para espaços vazios (janelas)
+            td.style.backgroundColor = '#ffffff';
+            td.style.color = '#333';
 
-    <h2>Seg/Qua (Recanto), Ter (Isaac), Qui/Sex (Floriano)</h2>
-    <div class="table-container">
-        <table id="tabela3">
-            <thead>
-                <tr>
-                    <th>Aulas</th>
-                    <th>Segunda-feira</th>
-                    <th>Terça-feira</th>
-                    <th>Quarta-feira</th>
-                    <th>Quinta-feira</th>
-                    <th>Sexta-feira</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>1ª Aula</td><td contenteditable="true">ATPC - Di 2</td><td contenteditable="true">7 B</td><td contenteditable="true">ATPC - Di 2</td><td contenteditable="true">6 B</td><td contenteditable="true">6 A</td></tr>
-                <tr><td>2ª Aula</td><td contenteditable="true">ATPC - Di 1</td><td contenteditable="true">7 A</td><td contenteditable="true">ATPC - Di 2</td><td contenteditable="true"></td><td contenteditable="true">6 C</td></tr>
-                <tr><td>3ª Aula</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true">6 C</td><td contenteditable="true">7 B</td><td contenteditable="true"></td></tr>
-                <tr><td>4ª Aula</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true">6 B</td><td contenteditable="true">7 A</td><td contenteditable="true"></td></tr>
-                <tr><td>5ª Aula</td><td contenteditable="true">ATPC - Di 1</td><td contenteditable="true">6 A</td><td contenteditable="true">ATPC - Di 1</td><td contenteditable="true"></td><td contenteditable="true">8 A</td></tr>
-                <tr><td>6ª Aula</td><td contenteditable="true">ATPC - Di 1</td><td contenteditable="true">7 C</td><td contenteditable="true">ATPC - Di 1</td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <div id="toast">✨ Alterações salvas com sucesso! ✨</div>
+            if (textoLimpo === '' || textoLimpo === '-') {
+                td.style.backgroundColor = '#ffffff';
+            } else if (textoLimpo.startsWith('1')) {
+                td.style.backgroundColor = '#d4e6f1'; // Azul Pastel (1ª Série)
+            } else if (textoLimpo.startsWith('2')) {
+                td.style.backgroundColor = '#dcedc1'; // Verde Pastel (2ª Série)
+            } else if (textoLimpo.startsWith('3')) {
+                td.style.backgroundColor = '#fff9c4'; // Amarelo Pastel (3ª Série)
+            } else if (textoLimpo.startsWith('6')) {
+                td.style.backgroundColor = '#e1bee7'; // Lilás Pastel (6º Ano)
+            } else if (textoLimpo.startsWith('7')) {
+                td.style.backgroundColor = '#f8bbd0'; // Rosa Pastel (7º Ano)
+            } else if (textoLimpo.startsWith('8')) {
+                td.style.backgroundColor = '#ffccbc'; // Pêssego Pastel (8º Ano)
+            } else if (textoLimpo.startsWith('9')) {
+                td.style.backgroundColor = '#b2dfdb'; // Ciano Pastel (9º Ano)
+            } else if (textoLimpo.includes('ATPC')) {
+                td.style.backgroundColor = '#cfd8dc'; // Cinza (ATPC)
+                td.style.color = '#111'; 
+            }
+        });
+    }
 
-    <script>
-        // Função para alternar o tema
-        function toggleTheme() {
-            const body = document.body;
-            if (body.getAttribute('data-theme') === 'dark') {
-                body.removeAttribute('data-theme');
-            } else {
-                body.setAttribute('data-theme', 'dark');
+    window.onload = aplicarCores;
+
+    document.addEventListener('input', function(e) {
+        if (e.target.classList.contains('editavel')) {
+            aplicarCores();
+        }
+    });
+
+    let memoriaOriginal = "";
+    let isEditing = false;
+
+    function toggleEdicao(idElemento, btn) {
+        const elemento = document.getElementById(idElemento);
+        const editaveis = elemento.querySelectorAll('.editavel');
+
+        if (!isEditing) {
+            memoriaOriginal = elemento.innerHTML; 
+            
+            editaveis.forEach(el => el.setAttribute('contenteditable', 'true'));
+            elemento.classList.add('em-edicao');
+            btn.innerText = "Desabilitar Edição";
+            btn.style.backgroundColor = "#ff4500"; 
+            isEditing = true;
+        } else {
+            editaveis.forEach(el => el.setAttribute('contenteditable', 'false'));
+            elemento.classList.remove('em-edicao');
+            btn.innerText = "Habilitar Edição";
+            btn.style.backgroundColor = "#4b0082";
+            isEditing = false;
+        }
+    }
+
+    function restaurarDocumento(idElemento) {
+        if (memoriaOriginal) {
+            document.getElementById(idElemento).innerHTML = memoriaOriginal;
+            
+            const btn = document.querySelector('.btn-editar');
+            btn.innerText = "Habilitar Edição";
+            btn.style.backgroundColor = "#4b0082";
+            document.getElementById(idElemento).classList.remove('em-edicao');
+            isEditing = false;
+            
+            aplicarCores(); 
+        }
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'TD' && e.target.isContentEditable) {
+            if (e.key === 'Enter') {
+                e.preventDefault(); 
             }
         }
+    });
 
-        // Exibir notificação (Toast)
-        function showToast() {
-            const toast = document.getElementById("toast");
-            toast.className = "show";
-            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
-        }
+    function baixarPDF(idElemento, nomeArquivo) {
+        try {
+            if(isEditing) document.getElementById(idElemento).classList.remove('em-edicao');
 
-        // Lógica dos Confetes 🎉
-        function atirarConfetes() {
-            const container = document.getElementById('confetti-container');
-            const colors = ['#e94560', '#f4d160', '#4CAF50', '#8ac6d1', '#ffffff'];
+            const elemento = document.getElementById(idElemento);
+            const opt = {
+                margin:       10, 
+                filename:     nomeArquivo,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, scrollY: 0 }, 
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' } 
+            };
             
-            for (let i = 0; i < 80; i++) {
-                const confete = document.createElement('div');
-                confete.style.position = 'absolute';
-                confete.style.width = Math.random() * 10 + 5 + 'px';
-                confete.style.height = Math.random() * 10 + 5 + 'px';
-                confete.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                confete.style.left = Math.random() * 100 + 'vw';
-                confete.style.top = '-10px';
-                confete.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-                confete.style.transform = `rotate(${Math.random() * 360}deg)`;
-                container.appendChild(confete);
-
-                const animacao = confete.animate([
-                    { transform: `translate3d(0,0,0) rotate(0deg)`, opacity: 1 },
-                    { transform: `translate3d(${Math.random()*300 - 150}px, 100vh, 0) rotate(${Math.random()*720}deg)`, opacity: 0 }
-                ], {
-                    duration: Math.random() * 1500 + 1500,
-                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-                });
-
-                animacao.onfinish = () => confete.remove();
-            }
-        }
-
-        // Função para Salvar
-        function salvarTabelas() {
-            const tabelas = ['tabela1', 'tabela2', 'tabela3'];
-            
-            tabelas.forEach(id => {
-                const tabela = document.getElementById(id);
-                const dados = [];
-                for (let i = 0, row; row = tabela.rows[i + 1]; i++) { 
-                    const linha = [];
-                    for (let j = 0, col; col = row.cells[j]; j++) {
-                        linha.push(col.innerText);
-                    }
-                    dados.push(linha);
-                }
-                localStorage.setItem(id, JSON.stringify(dados));
+            html2pdf().set(opt).from(elemento).save().then(() => {
+                if(isEditing) restaurarDocumento(idElemento);
             });
             
-            atirarConfetes();
-            showToast();
-        }
+        } catch(e) { alert('Erro ao gerar PDF: ' + e.message); }
+    }
 
-        // Função para Resetar (Voltar ao Original)
-        function resetarTabelas() {
-            if(confirm("🚨 Tem certeza que deseja apagar todas as edições e voltar ao horário original?")) {
-                localStorage.clear();
-                location.reload(); // Recarrega a página puxando o HTML original acima
-            }
-        }
+    function baixarJPG(idElemento, nomeArquivo) {
+        try {
+            if(isEditing) document.getElementById(idElemento).classList.remove('em-edicao');
 
-        // Carregar dados salvos ao iniciar a página
-        window.onload = function() {
-            const tabelas = ['tabela1', 'tabela2', 'tabela3'];
+            const elemento = document.getElementById(idElemento);
+            const larguraOriginal = elemento.style.width;
+            elemento.style.width = '1000px'; 
             
-            tabelas.forEach(id => {
-                const dadosSalvos = localStorage.getItem(id);
-                if (dadosSalvos) {
-                    const dados = JSON.parse(dadosSalvos);
-                    const tabela = document.getElementById(id);
-                    
-                    for (let i = 0; i < dados.length; i++) {
-                        const row = tabela.rows[i + 1];
-                        if(row) {
-                            for (let j = 0; j < dados[i].length; j++) {
-                                row.cells[j].innerText = dados[i][j];
-                            }
-                        }
-                    }
-                }
+            html2canvas(elemento, { scale: 2, useCORS: true, scrollY: 0 }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = nomeArquivo;
+                link.href = canvas.toDataURL('image/jpeg', 0.98);
+                link.click();
+                elemento.style.width = larguraOriginal;
+                if(isEditing) restaurarDocumento(idElemento);
             });
-        };
-    </script>
+        } catch(e) { alert('Erro ao gerar JPG: ' + e.message); }
+    }
+
+    function baixarWord(idElemento, nomeArquivo) {
+        try {
+            if(isEditing) document.getElementById(idElemento).classList.remove('em-edicao');
+
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Horário</title><style>table.horario-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:14px; text-align:center;} table.horario-table th, table.horario-table td{border:1px solid black; padding:8px;} table.horario-table th{background-color:#00838f; color:white;} h3.titulo-tabela{color:#00838f; font-size:16px;}</style></head><body>";
+            var footer = "</body></html>";
+            
+            var htmlContext = document.getElementById(idElemento).innerHTML;
+            htmlContext = htmlContext.replace(/contenteditable="true"/g, "");
+            htmlContext = htmlContext.replace(/contenteditable="false"/g, "");
+            
+            var sourceHTML = header + htmlContext + footer;
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = nomeArquivo;
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+            
+            if(isEditing) restaurarDocumento(idElemento);
+        } catch(e) { alert('Erro ao gerar Word: ' + e.message); }
+    }
+</script>
+
 </body>
 </html>
