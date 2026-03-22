@@ -42,6 +42,12 @@
         }
 
         header h1 span { color: #00bcd4; }
+        
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
 
         .subtitle {
             text-align: center;
@@ -61,13 +67,13 @@
             margin: 0 auto;
         }
 
-        /* Container Principal (Grid de Cards ajustado para 2 colunas) */
+        /* Container Principal */
         .container {
-            max-width: 800px; /* Reduzi um pouco a largura máxima para 2 cards ficarem mais elegantes */
+            max-width: 1000px; 
             margin: 40px auto;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 40px;
             flex: 1;
         }
@@ -76,7 +82,7 @@
         .card {
             background-color: #ffffff;
             border-radius: 12px;
-            padding: 40px 30px; /* Aumentei o padding interno para dar mais respiro */
+            padding: 40px 30px;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0, 188, 212, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -91,7 +97,7 @@
         }
 
         .card-icon {
-            font-size: 60px; /* Ícones um pouco maiores */
+            font-size: 60px;
             margin-bottom: 20px;
         }
 
@@ -121,6 +127,8 @@
             font-size: 16px;
             transition: background-color 0.3s ease, transform 0.2s ease;
             margin-top: auto;
+            border: none;
+            cursor: pointer;
         }
 
         .btn:hover {
@@ -140,24 +148,16 @@
         footer a { color: #00bcd4; text-decoration: none; font-weight: 600; }
         footer a:hover { text-decoration: underline; }
 
-        /* ==========================================
-           MODO RESPONSIVO (Celulares e Tablets)
-           ========================================== */
+        /* MODO RESPONSIVO */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
                 padding: 15px 20px;
                 gap: 15px;
             }
-            .subtitle {
-                margin: 30px 15px 15px 15px;
-            }
-            .subtitle h2 {
-                font-size: 26px;
-            }
-            .subtitle p {
-                font-size: 16px;
-            }
+            .subtitle { margin: 30px 15px 15px 15px; }
+            .subtitle h2 { font-size: 26px; }
+            .subtitle p { font-size: 16px; }
             .container {
                 grid-template-columns: 1fr;
                 gap: 25px;
@@ -193,6 +193,13 @@
             <h3>Projeto de Vida Integrado</h3>
             <p>Painel unificado. Acesse os planos do 6º ao 9º Ano para as escolas Recanto, Isaac e Floriano em um só lugar.</p>
             <a href="plano_projeto_vida_unificado.html" class="btn">Acessar Projeto de Vida</a>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⏰</div>
+            <h3>Horário Escolar 2026</h3>
+            <p>Organização é o segredo do sucesso! Consulte as grades de horários das turmas para o ano letivo.</p>
+            <a href="horario_2026.html" class="btn">Acessar Horários</a>
         </div>
     </div>
 
