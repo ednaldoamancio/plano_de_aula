@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EdHumanas - Educação em Ciências Humanas</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         /* Variáveis de Cores (Claro / Escuro) */
         :root {
@@ -106,7 +105,7 @@
 
         /* Container Principal */
         .container {
-            max-width: 1000px; /* Aumentado para acomodar os 3 cards maravilhosamente */
+            max-width: 1000px;
             margin: 40px auto;
             padding: 0 20px;
             display: grid;
@@ -237,21 +236,21 @@
             <div class="card-icon">🌍</div>
             <h3>Geografia - Ensino Médio</h3>
             <p>Planejamentos do período noturno (Recanto Verde Sol). Foco em vestibulares, ENEM e habilidades da BNCC.</p>
-            <a href="plano_de_aula_em_geografia_recanto.html" class="btn btn-confete">Acessar Geografia</a>
+            <a href="plano_de_aula_em_geografia_recanto.html" class="btn">Acessar Geografia</a>
         </div>
 
         <div class="card">
             <div class="card-icon">🚀</div>
             <h3>Projeto de Vida Integrado</h3>
             <p>Painel unificado. Acesse os planos do 6º ao 9º Ano para as escolas Recanto, Isaac e Floriano em um só lugar.</p>
-            <a href="plano_projeto_vida_unificado.html" class="btn btn-confete">Acessar Projeto de Vida</a>
+            <a href="plano_projeto_vida_unificado.html" class="btn">Acessar Projeto de Vida</a>
         </div>
 
         <div class="card">
             <div class="card-icon">⏰</div>
             <h3>Horário Escolar 2026</h3>
             <p>Organização é o segredo do sucesso! Consulte as grades de horários das turmas para o ano letivo.</p>
-            <a href="horario_2026.html" class="btn btn-confete">Acessar Horários</a>
+            <a href="horario_2026.html" class="btn">Acessar Horários</a>
         </div>
     </div>
 
@@ -260,7 +259,7 @@
     </footer>
 
     <script>
-        // Lógica do Modo Escuro + Confetes!
+        // Lógica do Modo Escuro 
         const btnTema = document.getElementById('btn-tema');
         const body = document.body;
 
@@ -273,30 +272,6 @@
             } else {
                 btnTema.textContent = '🌙';
             }
-
-            // Explosão de confetes ao trocar de tema!
-            confetti({
-                particleCount: 150,
-                spread: 80,
-                origin: { y: 0.2 },
-                colors: ['#00bcd4', '#e94560', '#ffffff', '#ffd700']
-            });
-        });
-
-        // Adicionando uma chuvinha de confetes também ao clicar nos botões dos cards
-        const botoesConfete = document.querySelectorAll('.btn-confete');
-        botoesConfete.forEach(botao => {
-            botao.addEventListener('click', (e) => {
-                // Não previne o comportamento padrão (o link vai funcionar), mas solta confete!
-                confetti({
-                    particleCount: 50,
-                    spread: 50,
-                    origin: { 
-                        x: e.clientX / window.innerWidth,
-                        y: e.clientY / window.innerHeight
-                    }
-                });
-            });
         });
     </script>
 </body>
