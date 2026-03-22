@@ -61,14 +61,14 @@
             margin: 0 auto;
         }
 
-        /* Container Principal (Grid de Cards) */
+        /* Container Principal (Grid de Cards ajustado para 2 colunas) */
         .container {
-            max-width: 1000px;
+            max-width: 800px; /* Reduzi um pouco a largura máxima para 2 cards ficarem mais elegantes */
             margin: 40px auto;
             padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 40px;
             flex: 1;
         }
 
@@ -76,7 +76,7 @@
         .card {
             background-color: #ffffff;
             border-radius: 12px;
-            padding: 30px;
+            padding: 40px 30px; /* Aumentei o padding interno para dar mais respiro */
             text-align: center;
             box-shadow: 0 10px 20px rgba(0, 188, 212, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -91,20 +91,20 @@
         }
 
         .card-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
+            font-size: 60px; /* Ícones um pouco maiores */
+            margin-bottom: 20px;
         }
 
         .card h3 {
             color: #00838f;
-            font-size: 22px;
+            font-size: 24px;
             margin-bottom: 15px;
         }
 
         .card p {
             color: #666;
             font-size: 15px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             line-height: 1.6;
             flex-grow: 1;
         }
@@ -115,10 +115,10 @@
             background-color: #00bcd4;
             color: #ffffff;
             text-decoration: none;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 15px 25px;
+            border-radius: 30px;
             font-weight: 600;
-            font-size: 15px;
+            font-size: 16px;
             transition: background-color 0.3s ease, transform 0.2s ease;
             margin-top: auto;
         }
@@ -159,8 +159,8 @@
                 font-size: 16px;
             }
             .container {
-                grid-template-columns: 1fr; /* Força 1 coluna em telas pequenas */
-                gap: 20px;
+                grid-template-columns: 1fr;
+                gap: 25px;
                 margin: 20px auto;
             }
         }
@@ -171,7 +171,7 @@
     <header>
         <h1>Ed<span>Humanas</span></h1>
         <nav>
-            <a href="https://sites.google.com/view/edhumanas/" style="text-decoration: none; color: #00bcd4; font-weight: 600;">Início</a>
+            <a href="#" style="text-decoration: none; color: #00bcd4; font-weight: 600;">Início</a>
         </nav>
     </header>
 
@@ -184,29 +184,15 @@
         <div class="card">
             <div class="card-icon">🌍</div>
             <h3>Geografia - Ensino Médio</h3>
-            <p>Planejamentos bimestrais completos com foco em vestibulares, ENEM e habilidades da BNCC.</p>
-            <a href="plano_de_aula_em_geografia.html" class="btn">Acessar Planejamento</a>
-        </div>
-
-        <div class="card">
-            <div class="card-icon">🌱</div>
-            <h3>Proj. Vida - Recanto Verde Sol</h3>
-            <p>Roteiros voltados para o Fundamental II com dinâmicas socioemocionais e planejamento de futuro.</p>
-            <a href="plano_de_aula_ef_proj_vida.html" class="btn">Acessar Planejamento</a>
+            <p>Planejamentos do período noturno (Recanto Verde Sol). Foco em vestibulares, ENEM e habilidades da BNCC.</p>
+            <a href="plano_de_aula_em_geografia_recanto.html" class="btn">Acessar Geografia</a>
         </div>
 
         <div class="card">
             <div class="card-icon">🚀</div>
-            <h3>Proj. Vida - Isaac Schraiber</h3>
-            <p>Planejamentos para os 6ºs e 7ºs Anos com foco em autoconhecimento, empatia e rotina de estudos.</p>
-            <a href="plano_aula_isaac.html" class="btn">Acessar Planejamento</a>
-        </div>
-
-        <div class="card">
-            <div class="card-icon">💡</div>
-            <h3>Proj. Vida - Floriano Peixoto</h3>
-            <p>Aulas para 6ºs, 7ºs e 8º Ano abordando convivência, cyberbullying e o mundo do trabalho.</p>
-            <a href="plano_aula_floriano.html" class="btn">Acessar Planejamento</a>
+            <h3>Projeto de Vida Integrado</h3>
+            <p>Painel unificado. Acesse os planos do 6º ao 9º Ano para as escolas Recanto, Isaac e Floriano em um só lugar.</p>
+            <a href="plano_projeto_vida_unificado.html" class="btn">Acessar Projeto de Vida</a>
         </div>
     </div>
 

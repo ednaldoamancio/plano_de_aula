@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Planejamento - Ednaldo</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
+        
+        /* Painel Mestre */
+        .painel-mestre { max-width: 1200px; margin: 0 auto 20px auto; background-color: #2c3e50; color: white; padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+        .painel-mestre h1 { margin: 0; font-size: 22px; color: #f1c40f; }
+        .seletor-escola { padding: 10px; font-size: 16px; border-radius: 5px; border: none; font-weight: bold; cursor: pointer; }
+        
+        .container { max-width: 1200px; margin: 0 auto; background-color: #fff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 40px; }
+        .botoes { text-align: right; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; }
+        
+        button { background-color: #008080; color: white; border: none; padding: 10px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        button:hover { background-color: #005959; }
+        .btn-jpg { background-color: #d2691e; }
+        .btn-jpg:hover { background-color: #a0522d; }
+        .btn-editar { background-color: #4b0082; }
+        .btn-editar:hover { background-color: #300052; }
+
+        .em-edicao .editavel[contenteditable="true"] { 
+            outline: 2px dashed #4b0082; 
+            background-color: #fcf8ff;
+            padding: 2px;
+            border-radius: 4px;
+        }
+
+        .header-table { width: 100%; border-collapse: collapse; border: none; margin-bottom: 15px; }
+        .header-table td { border: none; vertical-align: middle; }
+        .header-text { text-align: center; }
+        .header-text h2 { margin: 0; font-size: 18px; }
+        .header-text h3 { margin: 3px 0; font-size: 15px; }
+        .header-text h4 { margin: 3px 0; font-size: 14px; }
+        .header-text p { font-size: 11px; margin: 0; }
+        
+        .info-professor { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 15px; font-weight: bold; background-color: #f9f9f9; padding: 8px; border: 1px solid #ddd; gap: 10px; font-size: 13px; }
+        table.plano-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 13px; }
+        table.plano-table th, table.plano-table td { border: 1px solid #000; padding: 6px; text-align: left; vertical-align: top; }
+        table.plano-table th { background-color: #e0e0e0; font-weight: bold; text-align: center; }
+        table.plano-table tr { page-break-inside: avoid; }
+        
+        .footer-doc { margin-top: 20px; display: flex; justify-content: space-between; font-weight: bold; flex-wrap: wrap; gap: 10px; page-break-inside: avoid; }
+        .section-title { color: #008080; border-bottom: 2px solid #008080; padding-bottom: 5px; margin-bottom: 15px; text-transform: uppercase; font-size: 20px; }
+
+        @media (max-width: 768px) {
+            .painel-mestre { flex-direction: column; text-align: center; }
+            .seletor-escola { width: 100%; }
+            body { margin: 10px; }
+            .container { padding: 15px; }
+            .botoes { justify-content: center; }
+            button { width: 100%; }
+            .header-table, .header-table tbody, .header-table tr, .header-table td { display: block; width: 100% !important; text-align: center !important; }
+            .header-table img { margin-bottom: 10px; }
+            .info-professor { flex-direction: column; text-align: center; }
+            table.plano-table { display: block; overflow-x: auto; }
+            table.plano-table th, table.plano-table td { min-width: 150px; white-space: normal; }
+            .footer-doc { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="painel-mestre">
+        <h1>Painel do Professor - Projetos de Vida</h1>
+        <div>
+            <label for="seletorEscola" style="margin-right: 10px; font-weight: bold;">Escola Ativa:</label>
+            <select id="seletorEscola" class="seletor-escola" onchange="alterarEscola()">
+                <option value="recanto">E.E. Recanto Verde Sol</option>
+                <option value="isaac">E.E. Prof. Isaac Schraiber</option>
+                <option value="floriano">E.E. Floriano Peixoto</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="section-title">Planejamento - 6ºs Anos</h2>
+        <div class="botoes">
+            <button class="btn-editar" onclick="toggleEdicao('plano-6-ano', this)">Habilitar Edição</button>
+            <button onclick="baixarPDF('plano-6-ano', 'Planejamento_6Anos.pdf')">Baixar PDF</button>
+            <button class="btn-jpg" onclick="baixarJPG('plano-6-ano', 'Planejamento_6Anos.jpg')">Baixar JPG</button>
+            <button onclick="baixarWord('plano-6-ano', 'Planejamento_6Anos.doc')">Baixar Word</button>
+        </div>
+        
+        <div id="plano-6-ano">
+            <table class="header-table">
+                <tr>
+                    <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
+                    <td style="width: 70%;" class="header-text">
+                        <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
+                        <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
+                        <h4><span class="editavel nome-escola">E.E. RECANTO VERDE SOL</span></h4>
+                        <p><span class="editavel endereco-escola">Rua Recanto Verde Sol, 73 – Iguatemi – São Paulo – SP – CEP 08381-800 | Tel: (11) 2253-3600</span></p>
+                        <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL - 2026</span></strong></h3>
+                    </td>
+                    <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" class="logo-escola" alt="Logo Escola" style="max-width: 80px;"></td>
+                </tr>
+            </table>
+            <div class="info-professor">
+                <span>Professor(a): <span class="editavel">Ednaldo Amancio de Lima</span></span>
+                <span>Segmento: <span class="editavel">Ensino Fundamental II</span></span>
+                <span>Disciplina: <span class="editavel">Projeto de Vida</span></span>
+                <span>Turmas: <span class="editavel">6ºs Anos C, D, E, F, G</span></span>
+                <span>Período: <span class="editavel">Diurno</span></span>
+                <span>Bimestre: <span class="editavel">1º</span></span>
+            </div>
+            
+            <table class="plano-table">
+                <thead>
+                    <tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">A/E - Hab. Socioemocionais</th><th width="15%">Estratégia/ Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Referências</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Sondagem Diagnóstica 1: Acolhimento e Vínculo</td><td class="editavel">Expressar-se com segurança; identificar o nível de engajamento da turma.</td><td class="editavel">Roda de conversa guiada e dinâmica de apresentação.</td><td class="editavel">Rolo de barbante, lousa.</td><td class="editavel">Observação diagnóstica do nível de interação.</td><td class="editavel">Caderno do Professor.</td></tr>
+                    <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Sondagem Diagnóstica 2: Minha História e Sonhos</td><td class="editavel">Mapear expectativas de futuro e identificar defasagens.</td><td class="editavel">Criação de um "Mapa dos Sonhos" individual.</td><td class="editavel">Folhas sulfites, lápis de cor.</td><td class="editavel">Análise qualitativa das produções.</td><td class="editavel">Instituto Ayrton Senna.</td></tr>
+                    <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Identidade: Quem sou eu?</td><td class="editavel">Reconhecer suas características pessoais e áreas de melhoria.</td><td class="editavel">Atividade "Espelho, espelho meu": perfil pessoal.</td><td class="editavel">Impressos do perfil pessoal.</td><td class="editavel">Participação e entrega do perfil.</td><td class="editavel">Programa Inova Educação.</td></tr>
+                    <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Inteligência Emocional</td><td class="editavel">Reconhecer e nomear emoções básicas e como lidar com elas.</td><td class="editavel">Gamificação: "Termômetro das Emoções" e análise de vídeos.</td><td class="editavel">Projetor, post-its coloridos.</td><td class="editavel">Reflexão escrita curta.</td><td class="editavel">Filme Divertida Mente, Textos.</td></tr>
+                    <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Valores e Princípios</td><td class="editavel">Diferenciar regras de valores e a importância da ética.</td><td class="editavel">Estudo de caso (dilemas morais). Debate em grupos.</td><td class="editavel">Lousa, recortes de notícias.</td><td class="editavel">Argumentação e respeito.</td><td class="editavel">Livro de Projetos Integradores.</td></tr>
+                </tbody>
+            </table>
+
+            <div class="html2pdf__page-break"></div>
+
+            <table class="plano-table">
+                <thead>
+                    <tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">A/E - Hab. Socioemocionais</th><th width="15%">Estratégia/ Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Referências</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Empatia e Respeito</td><td class="editavel">Desenvolver a escuta ativa e o respeito à diversidade.</td><td class="editavel">Dinâmica "Calçando os sapatos do outro".</td><td class="editavel">Cartões com situações-problema.</td><td class="editavel">Autoavaliação de empatia.</td><td class="editavel">Cartilhas de Direitos Humanos.</td></tr>
+                    <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Meus Talentos e Potências</td><td class="editavel">Identificar habilidades criativas ou lógicas do aluno.</td><td class="editavel">Feira de Talentos em sala de aula.</td><td class="editavel">Materiais dos próprios alunos.</td><td class="editavel">Engajamento e valorização.</td><td class="editavel">Caderno do Aluno.</td></tr>
+                    <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">A Escola no Meu Futuro</td><td class="editavel">Relacionar aprendizado com possibilidades de futuro.</td><td class="editavel">Construção de uma ponte visual "Hoje" ao "Futuro".</td><td class="editavel">Cartolinas, revistas, cola.</td><td class="editavel">Atividade prática finalizada.</td><td class="editavel">Artigos educacionais.</td></tr>
+                    <tr><td class="editavel">13/04 a 17/04</td><td class="editavel">Passos do Projeto de Vida</td><td class="editavel">Sintetizar aprendizado formulando uma meta de curto prazo.</td><td class="editavel">Preenchimento da "Escada dos Sonhos".</td><td class="editavel">Formulário impresso.</td><td class="editavel">Entrega da meta escrita.</td><td class="editavel">Metodologia SMART.</td></tr>
+                    <tr><td class="editavel">20/04 a 24/04</td><td class="editavel">Autoavaliação e Conselho</td><td class="editavel">Refletir sobre o próprio desenvolvimento no bimestre.</td><td class="editavel">Preenchimento de rubricas de autoavaliação guiada.</td><td class="editavel">Fichas de autoavaliação.</td><td class="editavel">Conselho de Classe.</td><td class="editavel">Observação do professor.</td></tr>
+                </tbody>
+            </table>
+            <div class="footer-doc">
+                <span>AULAS PREVISTAS: <span class="editavel">10</span></span>
+                <span>PROFESSOR: <span class="editavel">Ednaldo Amancio de Lima</span></span>
+                <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2 class="section-title">Planejamento - 7ºs Anos</h2>
+        <div class="botoes">
+            <button class="btn-editar" onclick="toggleEdicao('plano-7-ano', this)">Habilitar Edição</button>
+            <button onclick="baixarPDF('plano-7-ano', 'Planejamento_7Anos.pdf')">Baixar PDF</button>
+            <button class="btn-jpg" onclick="baixarJPG('plano-7-ano', 'Planejamento_7Anos.jpg')">Baixar JPG</button>
+            <button onclick="baixarWord('plano-7-ano', 'Planejamento_7Anos.doc')">Baixar Word</button>
+        </div>
+        
+        <div id="plano-7-ano">
+            <table class="header-table">
+                <tr>
+                    <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
+                    <td style="width: 70%;" class="header-text">
+                        <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
+                        <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
+                        <h4><span class="editavel nome-escola">E.E. RECANTO VERDE SOL</span></h4>
+                        <p><span class="editavel endereco-escola">Rua Recanto Verde Sol, 73 – Iguatemi – São Paulo – SP – CEP 08381-800 | Tel: (11) 2253-3600</span></p>
+                        <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL - 2026</span></strong></h3>
+                    </td>
+                    <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" class="logo-escola" alt="Logo Escola" style="max-width: 80px;"></td>
+                </tr>
+            </table>
+            <div class="info-professor">
+                <span>Professor(a): <span class="editavel">Ednaldo Amancio de Lima</span></span>
+                <span>Segmento: <span class="editavel">Ensino Fundamental II</span></span>
+                <span>Disciplina: <span class="editavel">Projeto de Vida</span></span>
+                <span>Turmas: <span class="editavel">7ºs Anos A, B, C, D, E</span></span>
+                <span>Período: <span class="editavel">Diurno</span></span>
+                <span>Bimestre: <span class="editavel">1º</span></span>
+            </div>
+            
+            <table class="plano-table">
+                <thead>
+                    <tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">A/E - Hab. Socioemocionais</th><th width="15%">Estratégia/ Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Referências</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Reencontro e Acolhimento</td><td class="editavel">Fortalecer vínculo com o grupo e expressar expectativas.</td><td class="editavel">Dinâmica "Corrente de Palavras" sobre o ano.</td><td class="editavel">Lousa, marcadores.</td><td class="editavel">Observação de engajamento.</td><td class="editavel">Caderno do Professor.</td></tr>
+                    <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Meus Avanços e Desafios</td><td class="editavel">Refletir sobre o ano anterior e desafios atuais.</td><td class="editavel">Produção de uma "Carta para Mim Mesmo".</td><td class="editavel">Folha pautada, envelopes.</td><td class="editavel">Entrega da carta estruturada.</td><td class="editavel">Instituto Ayrton Senna.</td></tr>
+                    <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Mudanças na Adolescência</td><td class="editavel">Compreender mudanças físicas, emocionais e sociais.</td><td class="editavel">Mapa mental coletivo: "O que muda na nossa idade?".</td><td class="editavel">Cartolina, post-its.</td><td class="editavel">Colaboração e respeito.</td><td class="editavel">Material Inova Educação.</td></tr>
+                    <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Forças e Vulnerabilidades</td><td class="editavel">Reconhecer que todos possuem pontos fortes e a melhorar.</td><td class="editavel">Atividade "Escudo Pessoal" (forças vs medos).</td><td class="editavel">Modelos impressos.</td><td class="editavel">Nível de autoconhecimento.</td><td class="editavel">Caderno do Aluno.</td></tr>
+                    <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">O Papel do Grupo</td><td class="editavel">Identificar influência do convívio em grupo na identidade.</td><td class="editavel">Análise de grupos sociais. Debate dirigido.</td><td class="editavel">Projetor, lousa.</td><td class="editavel">Qualidade dos argumentos.</td><td class="editavel">Textos de apoio.</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="html2pdf__page-break"></div>
+            
+            <table class="plano-table">
+                <thead>
+                    <tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">A/E - Hab. Socioemocionais</th><th width="15%">Estratégia/ Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Referências</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Comunicação Não Violenta</td><td class="editavel">Desenvolver empatia e resolver atritos com diálogo.</td><td class="editavel">Role-playing: Simulação de conflitos comuns.</td><td class="editavel">Casos impressos.</td><td class="editavel">Resolução de problemas.</td><td class="editavel">Mediação de Conflitos.</td></tr>
+                    <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Hobbies e Interesses</td><td class="editavel">Explorar interesses e conexão com o futuro.</td><td class="editavel">Mural interativo sobre tempo livre.</td><td class="editavel">Revistas, cola, tesoura.</td><td class="editavel">Construção do mural.</td><td class="editavel">Projetos Integradores.</td></tr>
+                    <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Autogestão de Rotina</td><td class="editavel">Planejar estudos e conciliar com lazer e descanso.</td><td class="editavel">Elaboração de Planner Semanal personalizado.</td><td class="editavel">Modelos de Planner.</td><td class="editavel">Entrega do Planner coerente.</td><td class="editavel">Metodologias de Organização.</td></tr>
+                    <tr><td class="editavel">13/04 a 17/04</td><td class="editavel">Conectando Interesses e Escola</td><td class="editavel">Relacionar gosto pessoal com disciplinas curriculares.</td><td class="editavel">Teia do Conhecimento: ligar hobbies a matérias.</td><td class="editavel">Lousa, giz colorido.</td><td class="editavel">Participação nas conexões.</td><td class="editavel">Diretrizes Inova.</td></tr>
+                    <tr><td class="editavel">20/04 a 24/04</td><td class="editavel">Autoavaliação</td><td class="editavel">Refletir sobre amadurecimento ao longo do bimestre.</td><td class="editavel">Preenchimento de rubrica socioemocional.</td><td class="editavel">Fichas de avaliação.</td><td class="editavel">Conselho de Classe.</td><td class="editavel">Diário de classe.</td></tr>
+                </tbody>
+            </table>
+            <div class="footer-doc">
+                <span>AULAS PREVISTAS: <span class="editavel">10</span></span>
+                <span>PROFESSOR: <span class="editavel">Ednaldo Amancio de Lima</span></span>
+                <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2 class="section-title">Planejamento - 8ºs Anos</h2>
+        <div class="botoes">
+            <button class="btn-editar" onclick="toggleEdicao('plano-8-ano', this)">Habilitar Edição</button>
+            <button onclick="baixarPDF('plano-8-ano', 'Planejamento_8Anos.pdf')">Baixar PDF</button>
+            <button class="btn-jpg" onclick="baixarJPG('plano-8-ano', 'Planejamento_8Anos.jpg')">Baixar JPG</button>
+            <button onclick="baixarWord('plano-8-ano', 'Planejamento_8Anos.doc')">Baixar Word</button>
+        </div>
+        
+        <div id="plano-8-ano">
+            <table class="header-table">
+                <tr>
+                    <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
+                    <td style="width: 70%;" class="header-text">
+                        <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
+                        <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
+                        <h4><span class="editavel nome-escola">E.E. RECANTO VERDE SOL</span></h4>
+                        <p><span class="editavel endereco-escola">Rua Recanto Verde Sol, 73 – Iguatemi – São Paulo – SP – CEP 08381-800 | Tel: (11) 2253-3600</span></p>
+                        <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL - 2026</span></strong></h3>
+                    </td>
+                    <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" class="logo-escola" alt="Logo Escola" style="max-width: 80px;"></td>
+                </tr>
+            </table>
+            <div class="info-professor">
+                <span>Professor(a): <span class="editavel">Ednaldo Amancio de Lima</span></span>
+                <span>Segmento: <span class="editavel">Ensino Fundamental II</span></span>
+                <span>Disciplina: <span class="editavel">Projeto de Vida</span></span>
+                <span>Turmas: <span class="editavel">8ºs Anos A, B</span></span>
+                <span>Período: <span class="editavel">Diurno</span></span>
+                <span>Bimestre: <span class="editavel">1º</span></span>
+            </div>
+            
+            <table class="plano-table">
+                <thead>
+                    <tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">A/E - Hab. Socioemocionais</th><th width="15%">Estratégia/ Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Referências</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Acolhimento e Engajamento</td><td class="editavel">Reestabelecer o compromisso e foco nos estudos.</td><td class="editavel">Dinâmica do "Barco": O que nos impulsiona ou ancora?</td><td class="editavel">Lousa, post-its.</td><td class="editavel">Nível de criticidade e foco.</td><td class="editavel">Caderno do Professor.</td></tr>
+                    <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Mapeamento de Habilidades</td><td class="editavel">Analisar resolução de problemas e criatividade.</td><td class="editavel">Desafio em grupo de construção/estratégia (ex: Torre).</td><td class="editavel">Folhas, fita adesiva.</td><td class="editavel">Dinâmica em grupo e liderança.</td><td class="editavel">Instituto Ayrton Senna.</td></tr>
+                    <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Valores Éticos e Cidadania</td><td class="editavel">Refletir sobre a ética nas relações e ambiente digital.</td><td class="editavel">Análise de casos de "Cyberbullying".</td><td class="editavel">Projetor, matérias de jornal.</td><td class="editavel">Capacidade argumentativa.</td><td class="editavel">Caderno do Aluno.</td></tr>
+                    <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Impacto Social ao Meu Redor</td><td class="editavel">Reconhecer problemas da comunidade local e pensar soluções.</td><td class="editavel">Mapeamento do território: problemas na vizinhança.</td><td class="editavel">Mapas locais, caderno.</td><td class="editavel">Apresentação de propostas.</td><td class="editavel">Programa Inova Educação.</td></tr>
+                    <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Sonhos vs. Metas</td><td class="editavel">Diferenciar a idealização da planificação estruturada.</td><td class="editavel">Construção de um quadro comparativo (Meta SMART).</td><td class="editavel">Lousa, caderno.</td><td class="editavel">Entrega: Minha primeira meta SMART.</td><td class="editavel">Metodologia SMART.</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="html2pdf__page-break"></div>
+            
+            <table class="plano-table">
+                <thead>
+                    <tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">A/E - Hab. Socioemocionais</th><th width="15%">Estratégia/ Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Referências</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">O Mundo do Trabalho</td><td class="editavel">Explorar a diversidade de profissões e como ajudam a sociedade.</td><td class="editavel">Painel das Profissões: Pesquisa sobre áreas de atuação.</td><td class="editavel">Internet ou revistas.</td><td class="editavel">Apresentação oral sobre a pesquisa.</td><td class="editavel">Guia de Profissões.</td></tr>
+                    <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Educação Financeira Básica</td><td class="editavel">Compreender noções de planejamento, poupança e consumo.</td><td class="editavel">Simulação: "Como gerenciar uma mesada ou lucro".</td><td class="editavel">Planilhas de orçamento.</td><td class="editavel">Resolução de simulação financeira.</td><td class="editavel">BNCC - Temas Contemporâneos.</td></tr>
+                    <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Tomada de Decisão Responsável</td><td class="editavel">Analisar riscos e impactos antes de tomar decisões.</td><td class="editavel">Atividade "A Encruzilhada": Estudo de dilemas de juventude.</td><td class="editavel">Fichas com cenários.</td><td class="editavel">Qualidade da reflexão escrita.</td><td class="editavel">Inteligência Emocional.</td></tr>
+                    <tr><td class="editavel">13/04 a 17/04</td><td class="editavel">Portfólio de Interesses</td><td class="editavel">Sistematizar o autoconhecimento adquirido no formato portfólio.</td><td class="editavel">Criação do "Meu Inventário Pessoal" (Habilidades e interesses).</td><td class="editavel">Folha estruturada.</td><td class="editavel">Entrega do Inventário Pessoal.</td><td class="editavel">Diretrizes Inova.</td></tr>
+                    <tr><td class="editavel">20/04 a 24/04</td><td class="editavel">Conselho e Autoavaliação</td><td class="editavel">Avaliar criticamente o próprio progresso nas competências.</td><td class="editavel">Preenchimento da rubrica de autoavaliação do bimestre.</td><td class="editavel">Fichas de avaliação.</td><td class="editavel">Fechamento de notas.</td><td class="editavel">Registros do diário.</td></tr>
+                </tbody>
+            </table>
+            <div class="footer-doc">
+                <span>AULAS PREVISTAS: <span class="editavel">10</span></span>
+                <span>PROFESSOR: <span class="editavel">Ednaldo Amancio de Lima</span></span>
+                <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <h2 class="section-title">Planejamento - 9ºs Anos</h2>
+        <div class="botoes">
+            <button class="btn-editar" onclick="toggleEdicao('plano-9-ano', this)">Habilitar Edição</button>
+            <button onclick="baixarPDF('plano-9-ano', 'Planejamento_9Anos.pdf')">Baixar PDF</button>
+            <button class="btn-jpg" onclick="baixarJPG('plano-9-ano', 'Planejamento_9Anos.jpg')">Baixar JPG</button>
+            <button onclick="baixarWord('plano-9-ano', 'Planejamento_9Anos.doc')">Baixar Word</button>
+        </div>
+        
+        <div id="plano-9-ano">
+            <table class="header-table">
+                <tr>
+                    <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
+                    <td style="width: 70%;" class="header-text">
+                        <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
+                        <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
+                        <h4><span class="editavel nome-escola">E.E. RECANTO VERDE SOL</span></h4>
+                        <p><span class="editavel endereco-escola">Rua Recanto Verde Sol, 73 – Iguatemi – São Paulo – SP – CEP 08381-800 | Tel: (11) 2253-3600</span></p>
+                        <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL - 2026</span></strong></h3>
+                    </td>
+                    <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" class="logo-escola" alt="Logo Escola" style="max-width: 80px;"></td>
+                </tr>
+            </table>
+            <div class="info-professor">
+                <span>Professor(a): <span class="editavel">Ednaldo Amancio de Lima</span></span>
+                <span>Segmento: <span class="editavel">Ensino Fundamental II</span></span>
+                <span>Disciplina: <span class="editavel">Projeto de Vida</span></span>
+                <span>Turmas: <span class="editavel">9ºs Anos A, B, C, D</span></span>
+                <span>Período: <span class="editavel">Diurno</span></span>
+                <span>Bimestre: <span class="editavel">1º</span></span>
+            </div>
+            
+            <table class="plano-table">
+                <thead>
+                    <tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">A/E - Hab. Socioemocionais</th><th width="15%">Estratégia/ Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Referências</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">O Ano da Transição</td><td class="editavel">Focar na importância do último ano do EF e responsabilidades.</td><td class="editavel">Dinâmica "Linha do Tempo": Passado, Presente e EM.</td><td class="editavel">Lousa, caderno.</td><td class="editavel">Maturidade na projeção futura.</td><td class="editavel">Caderno do Professor.</td></tr>
+                    <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Nivelamento Pessoal</td><td class="editavel">Avaliar a capacidade de traçar objetivos e clareza sobre o perfil.</td><td class="editavel">Questionário diagnóstico sobre áreas de afinidade.</td><td class="editavel">Formulário impresso.</td><td class="editavel">Mapeamento do perfil da turma.</td><td class="editavel">Instituto Ayrton Senna.</td></tr>
+                    <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Fim de Ciclo e Ensino Médio</td><td class="editavel">Alinhar expectativas e reduzir ansiedades sobre a nova etapa.</td><td class="editavel">Conversa: "Mitos e Verdades sobre o Ensino Médio".</td><td class="editavel">Lousa, projetor.</td><td class="editavel">Participação e esclarecimento.</td><td class="editavel">Diretrizes Novo Ensino Médio.</td></tr>
+                    <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Itinerários Formativos</td><td class="editavel">Compreender a estrutura do Ensino Médio e opções.</td><td class="editavel">Apresentação visual das áreas de conhecimento.</td><td class="editavel">Infográficos.</td><td class="editavel">Pequeno quiz de compreensão.</td><td class="editavel">Orientações SEDUC.</td></tr>
+                    <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Carreiras e Vocações</td><td class="editavel">Mapear áreas de maior afinidade com testes vocacionais.</td><td class="editavel">Aplicação de questionário vocacional (Ex: RIASEC).</td><td class="editavel">Testes impressos.</td><td class="editavel">Reflexão final no caderno.</td><td class="editavel">Teoria de Holland.</td></tr>
+                </tbody>
+            </table>
+            
+            <div class="html2pdf__page-break"></div>
+            
+            <table class="plano-table">
+                <thead>
+                    <tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">A/E - Hab. Socioemocionais</th><th width="15%">Estratégia/ Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Referências</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Protagonismo Juvenil</td><td class="editavel">Incentivar a postura proativa nos estudos e vida comunitária.</td><td class="editavel">Estudo de biografias de jovens protagonistas.</td><td class="editavel">Textos biográficos.</td><td class="editavel">Debate sobre protagonismo hoje.</td><td class="editavel">Caderno do Aluno.</td></tr>
+                    <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Meu Primeiro Currículo</td><td class="editavel">Desenvolver habilidade de apresentar suas qualificações.</td><td class="editavel">Oficina de Currículo Jovem Aprendiz.</td><td class="editavel">Modelos no quadro.</td><td class="editavel">Entrega do rascunho de currículo.</td><td class="editavel">Guia de Inserção Laboral.</td></tr>
+                    <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Plano de Ação (Médio Prazo)</td><td class="editavel">Planejar passos para vestibulinho ou escolha da EM.</td><td class="editavel">Criação do "Mapa de Metas" bimestrais.</td><td class="editavel">Folhas A4, canetas.</td><td class="editavel">Coerência das metas traçadas.</td><td class="editavel">Metodologia 5W2H.</td></tr>
+                    <tr><td class="editavel">13/04 a 17/04</td><td class="editavel">Projeto de Vida Consolidado</td><td class="editavel">Sintetizar a visão de futuro construída no bimestre.</td><td class="editavel">"Pitch" (Apresentação rápida) de 2 min do aluno.</td><td class="editavel">Recursos livres.</td><td class="editavel">Apresentação oral (Postura).</td><td class="editavel">Materiais Inova.</td></tr>
+                    <tr><td class="editavel">20/04 a 24/04</td><td class="editavel">Autoavaliação e Fechamento</td><td class="editavel">Estabelecer compromissos para o próximo bimestre.</td><td class="editavel">Preenchimento da rubrica de autoavaliação.</td><td class="editavel">Fichas de avaliação.</td><td class="editavel">Conselho de Classe e notas.</td><td class="editavel">Diário de classe.</td></tr>
+                </tbody>
+            </table>
+            <div class="footer-doc">
+                <span>AULAS PREVISTAS: <span class="editavel">10</span></span>
+                <span>PROFESSOR: <span class="editavel">Ednaldo Amancio de Lima</span></span>
+                <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // BANCO DE DADOS DAS ESCOLAS 100% ATUALIZADO
+    const dadosEscolas = {
+        "recanto": {
+            nome: "E.E. RECANTO VERDE SOL",
+            endereco: "Rua Recanto Verde Sol, 73 – Iguatemi – São Paulo – SP – CEP 08381-800 | Tel: (11) 2253-3600",
+            logo: "logo_escola_recanto.jpg"
+        },
+        "isaac": {
+            nome: "E.E. PROF. ISAAC SCHRAIBER",
+            endereco: "Rua Álvaro do Prado, 165 – Parque São Rafael – São Paulo – SP – CEP 08311-060 | Tel: (11) 2962-9018",
+            logo: "logo_escola_isaac.jpg" 
+        },
+        "floriano": {
+            nome: "E.E. FLORIANO PEIXOTO",
+            endereco: "Rua Edmundo da Cunha, 95 – Jardim Ester – São Paulo – SP – CEP 08330-230 | Tel: (11) 2919-2287",
+            logo: "logo_escola_floriano.jpg" 
+        }
+    };
+
+    // FUNÇÃO QUE TROCA A ESCOLA EM TODOS OS DOCUMENTOS
+    function alterarEscola() {
+        if(editandoId) {
+            alert("Feche o modo de edição ativo antes de trocar de escola!");
+            document.getElementById('seletorEscola').value = escolaAtual; 
+            return;
+        }
+
+        const escolaSelecionada = document.getElementById('seletorEscola').value;
+        const dados = dadosEscolas[escolaSelecionada];
+        escolaAtual = escolaSelecionada;
+
+        document.querySelectorAll('.nome-escola').forEach(el => el.innerText = dados.nome);
+        document.querySelectorAll('.endereco-escola').forEach(el => el.innerText = dados.endereco);
+        document.querySelectorAll('.logo-escola').forEach(el => el.src = dados.logo);
+    }
+
+    let memoriaOriginal = {};
+    let editandoId = null; 
+    let escolaAtual = "recanto";
+
+    // Função de Habilitar Edição
+    function toggleEdicao(idElemento, btn) {
+        const elemento = document.getElementById(idElemento);
+        const editaveis = elemento.querySelectorAll('.editavel');
+
+        if (editandoId !== idElemento) {
+            if (editandoId) {
+                alert("Por favor, conclua a edição ou faça o download da turma que já está aberta antes de editar outra.");
+                return;
+            }
+
+            memoriaOriginal[idElemento] = elemento.innerHTML;
+            
+            editaveis.forEach(el => el.setAttribute('contenteditable', 'true'));
+            elemento.classList.add('em-edicao');
+            btn.innerText = "Desabilitar Edição";
+            btn.style.backgroundColor = "#ff4500"; 
+            editandoId = idElemento;
+        } else {
+            editaveis.forEach(el => el.setAttribute('contenteditable', 'false'));
+            elemento.classList.remove('em-edicao');
+            btn.innerText = "Habilitar Edição";
+            btn.style.backgroundColor = "#4b0082";
+            editandoId = null;
+        }
+    }
+
+    function restaurarDocumento(idElemento) {
+        if (memoriaOriginal[idElemento]) {
+            document.getElementById(idElemento).innerHTML = memoriaOriginal[idElemento];
+            
+            const container = document.getElementById(idElemento).parentElement;
+            const btn = container.querySelector('.btn-editar');
+            btn.innerText = "Habilitar Edição";
+            btn.style.backgroundColor = "#4b0082";
+            document.getElementById(idElemento).classList.remove('em-edicao');
+            editandoId = null;
+            
+            alert("✅ Download concluído com as suas alterações!\n\nO documento base foi restaurado e está pronto para uso novamente.");
+        }
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.target.isContentEditable) {
+            let maxChars = e.target.tagName === 'TD' ? 250 : 80; 
+            let teclasPermitidas = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Tab'];
+            
+            if (e.target.innerText.length >= maxChars && !teclasPermitidas.includes(e.key) && !e.ctrlKey && !e.metaKey) {
+                e.preventDefault(); 
+            }
+        }
+    });
+
+    function baixarPDF(idElemento, nomeArquivo) {
+        try {
+            if(editandoId === idElemento) document.getElementById(idElemento).classList.remove('em-edicao');
+            
+            let nomeEscolaAbrev = dadosEscolas[document.getElementById('seletorEscola').value].nome.replace("E.E. ", "").replace(/ /g, "_").replace(/\./g, "");
+            nomeArquivo = nomeArquivo.replace(".pdf", "_" + nomeEscolaAbrev + ".pdf");
+
+            const elemento = document.getElementById(idElemento);
+            const opt = {
+                margin:       10, 
+                filename:     nomeArquivo,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true, scrollY: 0 }, 
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
+                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+            
+            html2pdf().set(opt).from(elemento).save().then(() => {
+                restaurarDocumento(idElemento);
+            });
+            
+        } catch(e) { alert('Erro ao gerar PDF: ' + e.message); }
+    }
+
+    function baixarJPG(idElemento, nomeArquivo) {
+        try {
+            if(editandoId === idElemento) document.getElementById(idElemento).classList.remove('em-edicao');
+            
+            let nomeEscolaAbrev = dadosEscolas[document.getElementById('seletorEscola').value].nome.replace("E.E. ", "").replace(/ /g, "_").replace(/\./g, "");
+            nomeArquivo = nomeArquivo.replace(".jpg", "_" + nomeEscolaAbrev + ".jpg");
+
+            const elemento = document.getElementById(idElemento);
+            const larguraOriginal = elemento.style.width;
+            elemento.style.width = '1100px'; 
+            
+            html2canvas(elemento, { scale: 2, useCORS: true, scrollY: 0 }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = nomeArquivo;
+                link.href = canvas.toDataURL('image/jpeg', 0.98);
+                link.click();
+                elemento.style.width = larguraOriginal;
+                restaurarDocumento(idElemento);
+            }).catch(err => {
+                elemento.style.width = larguraOriginal;
+                restaurarDocumento(idElemento);
+            });
+        } catch(e) { alert('Erro ao gerar JPG: ' + e.message); }
+    }
+
+    function baixarWord(idElemento, nomeArquivo) {
+        try {
+            if(editandoId === idElemento) document.getElementById(idElemento).classList.remove('em-edicao');
+            
+            let nomeEscolaAbrev = dadosEscolas[document.getElementById('seletorEscola').value].nome.replace("E.E. ", "").replace(/ /g, "_").replace(/\./g, "");
+            nomeArquivo = nomeArquivo.replace(".doc", "_" + nomeEscolaAbrev + ".doc");
+
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Planejamento</title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .header-table{width:100%; margin-bottom:20px; border:none;} .header-table td{border:none; text-align:center; vertical-align:middle;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}</style></head><body>";
+            var footer = "</body></html>";
+            
+            var htmlContext = document.getElementById(idElemento).innerHTML;
+            htmlContext = htmlContext.replace(/contenteditable="true"/g, "");
+            htmlContext = htmlContext.replace(/contenteditable="false"/g, "");
+            
+            var sourceHTML = header + htmlContext + footer;
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = nomeArquivo;
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+            
+            restaurarDocumento(idElemento);
+        } catch(e) { alert('Erro ao gerar Word: ' + e.message); }
+    }
+</script>
+
+</body>
+</html>
