@@ -27,7 +27,6 @@
             --footer-border: #444;
         }
 
-        /* Reset básico */
         * {
             margin: 0;
             padding: 0;
@@ -127,8 +126,9 @@
             flex-direction: column;
         }
 
+        /* Destaque para card restrito */
         .card.card-lock {
-            border-top: 5px solid #e74c3c; /* Borda vermelha para áreas restritas */
+            border-top: 5px solid #e74c3c;
         }
 
         .card:hover {
@@ -243,43 +243,43 @@
 
     <div class="subtitle">
         <h2>Bem-vindo ao Portal EdHumanas</h2>
-        <p>Acesse nossos planejamentos de aula estruturados e focados no desenvolvimento integral dos alunos.</p>
+        <p>Acesse seus planejamentos de aula estruturados e organizados em um único painel.</p>
     </div>
 
     <div class="container">
         <div class="card">
             <div class="card-icon">🌍</div>
             <h3>Geografia - E.M.</h3>
-            <p>Planejamentos do período noturno (Recanto Verde Sol). Foco em vestibulares, ENEM e habilidades da BNCC.</p>
+            <p>Planejamentos do período noturno (Recanto Verde Sol). Foco em vestibulares, ENEM e BNCC.</p>
             <a href="plano_de_aula_em_geografia_recanto.html" class="btn">Acessar Geografia</a>
         </div>
 
         <div class="card">
             <div class="card-icon">🚀</div>
-            <h3>Projeto de Vida Integrado</h3>
-            <p>Painel unificado. Acesse os planos do 6º ao 9º Ano para as escolas Recanto, Isaac e Floriano em um só lugar.</p>
+            <h3>Projeto de Vida Unificado</h3>
+            <p>Painel geral. Acesse os planos de PV do 6º ao 9º Ano para as escolas Recanto, Isaac e Floriano.</p>
             <a href="plano_projeto_vida_unificado.html" class="btn">Acessar Projeto de Vida</a>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📝</div>
+            <h3>PEI - Aulas Adaptadas</h3>
+            <p>Modelo pedagógico detalhado para edição do Plano Educacional Individualizado (Modelo em branco).</p>
+            <a href="pei.html" class="btn">Acessar PEI</a>
         </div>
 
         <div class="card">
             <div class="card-icon">⏰</div>
             <h3>Horário Escolar 2026</h3>
-            <p>Organização é o segredo do sucesso! Consulte as grades de horários das turmas para o ano letivo.</p>
+            <p>Consulte as grades de horários das turmas para o ano letivo.</p>
             <a href="horario_2026.html" class="btn">Acessar Horários</a>
         </div>
         
         <div class="card card-lock">
-            <div class="card-icon">🧠</div>
-            <h3>Planejamento Inclusivo (DUA)</h3>
-            <p>Acesso restrito. Mapa de aulas semanais de Projeto de Vida adaptadas para a Educação Especial.</p>
-            <button class="btn btn-lock" onclick="verificarSenha('alunos_com_deficiencia.html')">🔒 Acesso Restrito</button>
-        </div>
-
-        <div class="card card-lock">
-            <div class="card-icon">📄</div>
-            <h3>Gestão de PEIs (Anexo IV)</h3>
-            <p>Acesso restrito. Gerador automático e dinâmico do Plano Educacional Individualizado.</p>
-            <button class="btn btn-lock" onclick="verificarSenha('sistema_pei_dinamico.html')">🔒 Acesso Restrito</button>
+            <div class="card-icon">🔒</div>
+            <h3>Dados Sigilosos (NEE)</h3>
+            <p>Área restrita. Lista completa de alunos com deficiência, diagnósticos e turmas.</p>
+            <button class="btn btn-lock" onclick="verificarSenha('alunos_com_deficiencia.html')">Acessar Lista de Alunos</button>
         </div>
     </div>
 
@@ -303,14 +303,14 @@
             }
         });
 
-        // Lógica da Senha para Arquivos Restritos
+        // Lógica da Senha para o Arquivo Restrito
         function verificarSenha(urlDestino) {
-            let senha = prompt("ÁREA RESTRITA (LGPD/ECA)\nPor favor, insira a senha de acesso:");
+            let senha = prompt("ACESSO RESTRITO (LGPD / ECA)\nPor favor, insira a senha para acessar os dados dos alunos:");
             
             if (senha === "67343474") {
                 window.location.href = urlDestino;
             } else if (senha !== null) {
-                alert("Senha incorreta. Acesso negado.");
+                alert("Senha incorreta. Acesso negado para proteção dos dados dos menores.");
             }
         }
     </script>
