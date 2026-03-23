@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEI Inteligente - Projeto de Vida</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f0f2f5; color: #333; }
+        
+        .painel-mestre { max-width: 900px; margin: 0 auto 20px auto; background-color: #2c3e50; color: white; padding: 20px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .painel-mestre h1 { margin: 0 0 5px 0; font-size: 20px; }
+        .painel-mestre p { margin: 0; font-size: 13px; color: #bdc3c7; }
+
+        .seletores { display: flex; gap: 15px; margin-top: 15px; }
+        select { flex: 1; padding: 10px; font-size: 14px; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; cursor: pointer; outline: none; }
+
+        .container { max-width: 900px; margin: 0 auto 40px auto; background-color: #fff; padding: 30px 40px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); display: none; }
+        .container.ativo { display: block; }
+
+        .barra-ferramentas { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ecf0f1; padding-bottom: 15px; margin-bottom: 20px; }
+        .status-salvamento { font-size: 12px; color: #27ae60; font-weight: bold; display: none; }
+        .botoes { display: flex; gap: 8px; }
+        
+        button { background-color: #34495e; color: white; border: none; padding: 8px 15px; font-size: 13px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        button:hover { background-color: #2c3e50; }
+        .btn-pdf { background-color: #c0392b; } .btn-pdf:hover { background-color: #a53125; }
+        .btn-word { background-color: #2980b9; } .btn-word:hover { background-color: #2471a3; }
+        .btn-editar { background-color: #f39c12; color: #fff; } .btn-editar:hover { background-color: #d68910; }
+
+        .em-edicao .editavel { outline: 2px dashed #f39c12; background-color: #fdfbf7; padding: 5px; border-radius: 3px; }
+        
+        .pei-doc { color: #000; font-size: 13px; line-height: 1.5; }
+        .cabecalho-doc { text-align: center; margin-bottom: 20px; font-weight: bold; }
+        
+        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 13px; }
+        th, td { border: 1px solid #bdc3c7; padding: 8px; vertical-align: top; }
+        th { background-color: #f8f9f9; text-align: left; }
+        
+        .topico { font-weight: bold; margin-top: 20px; margin-bottom: 5px; background-color: #ecf0f1; padding: 6px; border-left: 4px solid #34495e; }
+        .caixa-texto { border: 1px solid #bdc3c7; min-height: 50px; padding: 10px; margin-bottom: 15px; background-color: #fff; }
+        
+        .assinaturas { margin-top: 50px; display: flex; justify-content: space-between; text-align: center; font-size: 12px; }
+        .assinaturas div { width: 22%; border-top: 1px solid #000; padding-top: 5px; }
+
+        ul { margin: 0; padding-left: 20px; }
+        li { margin-bottom: 4px; }
+
+        @media (max-width: 768px) {
+            .seletores { flex-direction: column; }
+            .barra-ferramentas { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .assinaturas { flex-wrap: wrap; gap: 20px; }
+            .assinaturas div { width: 45%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="painel-mestre">
+        <h1>Gerador Automático de PEI - Anexo IV</h1>
+        <p>E.E. Recanto Verde Sol | Disciplina: Projeto de Vida | 1º Bimestre | Prof. Ednaldo</p>
+        
+        <div class="seletores">
+            <select id="seletorSerie" onchange="carregarAlunos()">
+                <option value="">1. Selecione a Série...</option>
+                <option value="6">6ºs Anos</option>
+                <option value="7">7ºs Anos</option>
+                <option value="8">8ºs Anos</option>
+                <option value="9">9ºs Anos</option>
+            </select>
+            
+            <select id="seletorAluno" onchange="gerarPEI()" disabled>
+                <option value="">2. Selecione o Aluno...</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="container-pei" class="container">
+        </div>
+
+    <script>
+        // BANCO DE DADOS TÉCNICO E PRÉ-PREENCHIDO
+        const baseDeDados = {
+            '1': { serie: '6', turma: 'C', nome: 'ENZZO GABRIEL DA SILVA MOTA', deficiencia: 'AUTISTA INFANTIL',
+              habilidades: 'Reconhecer rotinas escolares e limites sociais (EF06PV01); Identificar e nomear emoções básicas em si e nos outros (EF06PV02).',
+              conteudos: 'Acolhimento; Inteligência Emocional (Alegria/Tristeza/Raiva); Regras de convivência em sala de aula.',
+              estrategias: '<ul><li>Utilização de agenda visual diária afixada na mesa para antecipação das rotinas das aulas de PV.</li><li>Adaptação do material com redução de estímulos visuais periféricos para evitar distração e sobrecarga.</li><li>Comunicação pautada em comandos curtos, diretos e literais, evitando metáforas.</li><li>Implementação de pausas estruturadas (Time-out) de 3 a 5 minutos caso apresente sinais de desregulação sensorial.</li></ul>',
+              avaliacao: '<ul><li>Avaliação formativa baseada na observação do uso funcional do termômetro de emoções durante conflitos.</li><li>Verificação da capacidade de transição entre as atividades com menor nível de ansiedade.</li><li>Participação avaliada pela entrega de produções individuais (desenhos/apontamentos), sem exigência de exposição oral perante a turma.</li></ul>',
+              recursos: 'Pictogramas de rotina (padrão ARASAAC), termômetro visual de emoções impresso e plastificado, cronômetro de mesa.'
+            },
+            '2': { serie: '6', turma: 'E', nome: 'ENZO GABRIEL GONCALVES MARIANO', deficiencia: 'INTELECTUAL',
+              habilidades: 'Reconhecer sua identidade e marcos da história pessoal (EF06PV03); Expressar preferências e interesses práticos (EF06PV04).',
+              conteudos: 'Minha história; Identidade e Características Pessoais; Passos iniciais do Projeto de Vida.',
+              estrategias: '<ul><li>Adaptação curricular metodológica: textos teóricos substituídos por informações concretas e visuais.</li><li>Uso do método de pareamento (imagem-ação) e colagem para montagem do "Mapa dos Sonhos", reduzindo a barreira da escrita extensa.</li><li>Instruções divididas em etapas singulares (um comando por vez) com demonstração prévia do professor.</li><li>Apoio de colega-tutor para mediação em atividades em grupo.</li></ul>',
+              avaliacao: '<ul><li>Avaliação centrada no processo produtivo e no engajamento manual durante as aulas.</li><li>Respostas validadas por meio de múltipla escolha simples com apoio visual ou oralmente (perguntas diretas: Sim/Não).</li></ul>',
+              recursos: 'Revistas para recorte, tesoura adaptada, cola bastão, folhas sulfites A3, pranchas de escolha binária.'
+            },
+            '14': { serie: '6', turma: 'G', nome: 'IAGO CRISTIAN FABRI DE MELO', deficiencia: 'INTELECTUAL, AUTISTA INFANTIL',
+              habilidades: 'Aceitar e seguir combinados de convivência (EF06PV01); Demonstrar escolhas básicas de interesse (EF06PV04).',
+              conteudos: 'Acolhimento e Vínculo; Identidade; Combinados da Turma.',
+              estrategias: '<ul><li>Rotina visual altamente estruturada com previsibilidade do início ao fim da aula.</li><li>Fracionamento do tempo de atenção: atividades práticas de no máximo 10 minutos seguidas de troca de estímulo.</li><li>Uso de materiais concretos e manipuláveis para manter a atenção focada.</li><li>Estratégia de modelação: o professor executa a ação primeiro, solicita que o aluno imite e oferece reforço positivo imediato.</li></ul>',
+              avaliacao: '<ul><li>Observação do nível de tolerância à permanência em sala de aula durante a execução das tarefas curtas.</li><li>Validação da aprendizagem por meio do apontamento funcional em pranchas visuais.</li></ul>',
+              recursos: 'Painel de rotina plastificado com velcro, massinha de modelar/blocos lógicos para regulação, cronômetro visual.'
+            },
+            '3': { serie: '7', turma: 'A', nome: 'PAULO HENRIQUE GATTO DA SILVA', deficiencia: 'INTELECTUAL',
+              habilidades: 'Reconhecer transformações próprias da adolescência (EF07PV01); Identificar suas forças e potenciais (EF07PV02).',
+              conteudos: 'Mudanças na Adolescência (Físico/Mental); Autoconhecimento prático; Autogestão de tarefas.',
+              estrategias: '<ul><li>Abordagem dos conceitos abstratos da adolescência vinculados a exemplos práticos do cotidiano do aluno (higiene, vestuário, humor).</li><li>Substituição de produções textuais complexas pela construção do "Escudo Pessoal" com uso de adesivos e desenhos.</li><li>Treino de habilidades sociais por meio de scripts visuais de "Como pedir ajuda" ou "Como esperar a vez".</li></ul>',
+              avaliacao: '<ul><li>Reconhecimento de, no mínimo, duas habilidades próprias apontadas no material visual produzido.</li><li>Observação da autonomia funcional: capacidade de utilizar o cartão de "ajuda" corretamente no dia a dia.</li></ul>',
+              recursos: 'Escudo de papelão estruturado, adesivos ilustrativos de ações/hobbies, cartões sinalizadores de mesa.'
+            },
+            '4': { serie: '7', turma: 'B', nome: 'BERNARDO DO CARMO VITORINO', deficiencia: 'BAIXA VISAO',
+              habilidades: 'Desenvolver escuta ativa e planejamento de rotina diária (EF07PV03/EF07PV04).',
+              conteudos: 'Comunicação Não Violenta; Organização de Rotina Semanal.',
+              estrategias: '<ul><li>Adaptação de material impresso: uso de macrotipo (fonte Arial ou Verdana, tamanho 24, espaçamento 1.5).</li><li>Material com alto contraste (impressão com fundo amarelo e letras pretas) e sem uso de cores que confundam a leitura.</li><li>Posicionamento estratégico do aluno na primeira fileira, com iluminação favorável (sem reflexo no quadro).</li><li>Verbalização (audiodescrição) imediata de todos os apontamentos ou registros feitos na lousa pelo professor.</li></ul>',
+              avaliacao: '<ul><li>Priorização de métodos avaliativos orais.</li><li>Quando a avaliação for impressa (macrotipo), concessão de 50% de tempo adicional para leitura e resolução.</li></ul>',
+              recursos: 'Planner semanal em tamanho A3, cadernos de pauta ampliada, lupa de mão (se de uso pessoal do aluno).'
+            },
+            '5': { serie: '7', turma: 'D', nome: 'BRYAN DOS SANTOS VITOR', deficiencia: 'BAIXA VISAO',
+              habilidades: 'Conectar hobbies e interesses com componentes curriculares (EF07PV05); Realizar autoavaliação (EF07PV06).',
+              conteudos: 'Hobbies e Escola; Teia do Conhecimento; Feira de Talentos.',
+              estrategias: '<ul><li>Substituição de atividades de leitura de imagens complexas por descrições verbais detalhadas.</li><li>Uso de canetas hidrográficas grossas e papel sem pauta para facilitar os registros do próprio aluno.</li><li>Garantia de acessibilidade no ambiente físico da sala (carteira central, livre de obstáculos no chão).</li></ul>',
+              avaliacao: '<ul><li>Avaliação formativa por meio de rodas de conversa, valorizando a expressão oral das conexões feitas nas aulas.</li><li>Autoavaliação guiada oralmente pelo professor.</li></ul>',
+              recursos: 'Canetas hidrográficas de ponta grossa (preta/azul escuro), folhas em branco, recursos de áudio.'
+            },
+            '6': { serie: '7', turma: 'E', nome: 'JOAO VICENTE RODRIGUES DUTRA', deficiencia: 'INTELECTUAL, AUTISTA INFANTIL',
+              habilidades: 'Participar de dinâmicas de convívio (EF07PV07); Autorregular emoções em situações de conflito (EF07PV08).',
+              conteudos: 'O Papel do Grupo; Empatia; Comunicação Não Violenta.',
+              estrategias: '<ul><li>Disponibilização de pranchas de Comunicação Alternativa e Ampliada (CAA) para viabilizar a interação e expressão de necessidades.</li><li>Adaptação das dinâmicas de grupo: o aluno participa observando ou executando uma ação periférica previamente combinada, respeitando seu limite de interação.</li><li>Estruturação de um "canto de desaceleração" na sala para momentos de sobrecarga.</li></ul>',
+              avaliacao: '<ul><li>Avaliação do nível de tolerância à proximidade social durante as propostas coletivas.</li><li>Uso funcional da prancha de CAA para solicitar itens ou demonstrar estado emocional.</li></ul>',
+              recursos: 'Pranchas de CAA laminadas, abafador de ruídos (fones), cronômetro visual para delimitar tempo nas atividades.'
+            },
+            '7': { serie: '8', turma: 'B', nome: 'DAVI SOARES SARAIVA', deficiencia: 'AUTISTA INFANTIL',
+              habilidades: 'Mapear espaços do território escolar (EF08PV01); Compreender o conceito sequencial de metas (EF08PV02).',
+              conteudos: 'Impacto no Território; Sonhos vs Metas (Metodologia SMART adaptada).',
+              estrategias: '<ul><li>Mapeamento de território feito através de mapas visuais da escola focando em trajetos exatos e literais (sem abstrações de "comunidade local").</li><li>Tradução da Metodologia SMART para um jogo de tabuleiro sequencial (cada passo para a meta é uma casa no tabuleiro).</li><li>Comunicação isenta de dupla interpretação, sarcasmo ou metáforas.</li></ul>',
+              avaliacao: '<ul><li>Observação da capacidade de completar a trilha estruturada de uma meta de curto prazo.</li><li>Validação da capacidade de identificar rotas e espaços seguros no ambiente escolar através do mapa.</li></ul>',
+              recursos: 'Planta baixa da escola impressa e colorida, jogo de tabuleiro adaptado com pinos, marcadores visuais.'
+            },
+            '8': { serie: '8', turma: 'B', nome: 'HELOISA VIANA MARQUES DE OLIVEIRA', deficiencia: 'INTELECTUAL, AUTISTA INFANTIL',
+              habilidades: 'Associar objetos e rotinas diárias ao mundo do trabalho (EF08PV03); Noções funcionais de troca e valor (EF08PV04).',
+              conteudos: 'O Mundo do Trabalho; Educação Financeira Prática (Noções Básicas).',
+              estrategias: '<ul><li>Atividade de pareamento funcional intensivo: associar a imagem do profissional com o objeto físico real que ele utiliza (ex: colher -> cozinheiro).</li><li>Simulação lúdica (Mercadinho da Sala) para trabalhar a ação motora e cognitiva de "entregar um valor" e "receber um produto".</li><li>Apoio físico ou pareamento por mediação total nas atividades de montagem.</li></ul>',
+              avaliacao: '<ul><li>Verificação da associação correta de objetos cotidianos às suas respectivas funções laborais simples.</li><li>Participação intencional na dinâmica de troca de itens simulando o comércio.</li></ul>',
+              recursos: 'Cards de profissões plastificados em macrotipo, objetos reais (plástico/madeira), dinheiro de brinquedo texturizado.'
+            },
+            '9': { serie: '8', turma: 'B', nome: 'LEANDRO OLIVEIRA MENDES', deficiencia: 'INTELECTUAL',
+              habilidades: 'Atuar cooperativamente em tarefas de equipe (EF08PV05); Tomar decisões baseadas em segurança (EF08PV06).',
+              conteudos: 'Habilidades Colaborativas; Tomada de Decisão (Ações seguras vs Inseguras).',
+              estrategias: '<ul><li>Simplificação do estudo de caso: uso de placas visuais Verde (Certo/Seguro) e Vermelha (Errado/Perigoso) para classificar atitudes rotineiras.</li><li>Designação de papéis claros e concretos nos trabalhos em grupo (ex: o aluno será o "Organizador das folhas").</li><li>Uso de checklists com apoio de imagens para nortear a execução de suas tarefas.</li></ul>',
+              avaliacao: '<ul><li>Assertividade ao levantar as placas nas simulações de dilemas de segurança e convivência.</li><li>Adesão responsável à função prática que lhe foi delegada no trabalho em equipe.</li></ul>',
+              recursos: 'Placas de sinalização coloridas com palitos de sorvete, crachás de identificação de funções, checklists visuais.'
+            },
+            '10': { serie: '8', turma: 'B', nome: 'SAMUEL FERREIRA DOS SANTOS', deficiencia: 'INTELECTUAL',
+              habilidades: 'Sistematizar interesses em um portfólio físico (EF08PV07); Reconhecer valores éticos elementares (EF08PV08).',
+              conteudos: 'Portfólio de Interesses Pessoais; Valores Éticos Básicos aplicados à escola.',
+              estrategias: '<li>Criação de portfólio tangível (pasta catálogo) onde o aluno seleciona e arquiva colagens de seus interesses, garantindo um resultado concreto.</li><li>Análise de casos morais substituída por leitura mediada de histórias em quadrinhos curtas focadas em amizade e respeito.</li><li>Provisão de feedback imediato e reforço positivo para cada etapa concluída.</li>',
+              avaliacao: '<ul><li>Entrega e manuseio autônomo do portfólio contendo no mínimo 3 áreas de preferência identificadas.</li><li>Participação na análise dos quadrinhos por meio de apontamentos ou respostas curtas.</li></ul>',
+              recursos: 'Pastas catálogo com plásticos, revistas diversas, cola, histórias em quadrinhos com situações-problema.'
+            },
+            '11': { serie: '9', turma: 'B', nome: 'MIGUEL AUGUSTO TEIXEIRA SILVA', deficiencia: 'MULTIPLA, FISICA - OUTROS, INTELECTUAL',
+              habilidades: 'Experienciar e explorar áreas do conhecimento de forma sensorial (EF09PV02).',
+              conteudos: 'Fim do Ensino Fundamental; Itinerários Formativos (Exploração Sensorial Básica).',
+              estrategias: '<ul><li>Atividades de exploração tátil direta utilizando bandejas temáticas para representar áreas (ex: terra/folhas para Ciências; calculadora/ábaco para Exatas).</li><li>Garantia de posicionamento adequado e conforto na cadeira de rodas para viabilizar o alcance motor na mesa.</li><li>Utilização de acionadores mecânicos ou pranchas de direcionamento de olhar para viabilizar a capacidade de escolha do aluno.</li></ul>',
+              avaliacao: '<ul><li>Leitura atenta dos sinais corporais: observação de expressões de agrado/desagrado (sorriso, relaxamento ou tensão muscular) perante os estímulos sensoriais.</li><li>Avaliação da intencionalidade do olhar para concretizar uma escolha guiada.</li></ul>',
+              recursos: 'Bandejas sensoriais temáticas, pranchas de CAA baseadas no olhar, suporte físico/motor contínuo do mediador.'
+            },
+            '12': { serie: '9', turma: 'D', nome: 'ISABELLA CORREIA VIEIRA TAVARES', deficiencia: 'FISICA - PARALISIA CEREBRAL',
+              habilidades: 'Elaborar projeto futuro funcional (EF09PV03); Desenvolver autonomia na produção de documentos (EF09PV04).',
+              conteudos: 'Itinerários e Escolhas; Construção do Primeiro Currículo (Versão Digital).',
+              estrategias: '<ul><li>Eliminação de barreiras metodológicas através de Tecnologias Assistivas: uso de computador com teclado virtual/adaptado ou mouse tipo colmeia.</li><li>Construção do currículo/portfólio realizada de forma 100% digital, substituindo a exigência motora fina da escrita manual.</li><li>Adequação do mobiliário escolar para encaixe ergonômico da cadeira de rodas.</li></ul>',
+              avaliacao: '<ul><li>Entrega do currículo pessoal formatado digitalmente, valorizando a autonomia tecnológica.</li><li>Flexibilização de tempo: acréscimo de tempo necessário para a digitação em decorrência da restrição de mobilidade.</li></ul>',
+              recursos: 'Computador ou tablet da escola, softwares de acessibilidade nativos do sistema operacional, mesa adaptada.'
+            },
+            '13': { serie: '9', turma: 'D', nome: 'THIAGO ALEXANDRE FREITAS DE JESUS', deficiencia: 'AUTISTA INFANTIL',
+              habilidades: 'Compreender rotinas e espaços do Ensino Médio (EF09PV05); Apresentar plano de curto prazo (EF09PV06).',
+              conteudos: 'A Transição Escolar; Pitch (Apresentação) do Projeto de Vida.',
+              estrategias: '<ul><li>Dessensibilização sobre a mudança de ciclo escolar mediante o uso de fotografias estruturadas da possível futura escola, reduzindo picos de ansiedade frente ao desconhecido.</li><li>Adaptação do "Pitch" (apresentação final): o aluno poderá gravar um vídeo curto sozinho em casa ou apresentar apenas para o professor, eliminando a barreira da exposição social para a turma.</li><li>Elaboração de mapa de metas em formato de fluxograma visual estrito.</li></ul>',
+              avaliacao: '<ul><li>Aprovação condicionada à entrega da apresentação em formato alternativo (vídeo/slides).</li><li>Observação da regulação emocional do aluno ao longo das discussões sobre o novo ciclo escolar.</li></ul>',
+              recursos: 'Fotografias impressas (Ontem/Hoje/Amanhã), software de apresentação, smartphone para gravação (recurso próprio).'
+            }
+        };
+
+        let alunoAtualId = null;
+
+        function carregarAlunos() {
+            const serie = document.getElementById('seletorSerie').value;
+            const seletorAluno = document.getElementById('seletorAluno');
+            const container = document.getElementById('container-pei');
+            
+            seletorAluno.innerHTML = '<option value="">2. Selecione o Aluno...</option>';
+            container.classList.remove('ativo');
+            
+            if (!serie) {
+                seletorAluno.disabled = true;
+                return;
+            }
+
+            seletorAluno.disabled = false;
+            for (let id in baseDeDados) {
+                if (baseDeDados[id].serie === serie) {
+                    seletorAluno.innerHTML += `<option value="${id}">${baseDeDados[id].nome} (Turma ${baseDeDados[id].turma})</option>`;
+                }
+            }
+        }
+
+        function gerarPEI() {
+            alunoAtualId = document.getElementById('seletorAluno').value;
+            const container = document.getElementById('container-pei');
+            
+            if (!alunoAtualId) {
+                container.classList.remove('ativo');
+                return;
+            }
+
+            // CARREGA DADOS: Tenta pegar do LocalStorage primeiro. Se não existir, pega do baseDeDados.
+            const dadosSalvos = localStorage.getItem('pei_' + alunoAtualId);
+            const dados = dadosSalvos ? JSON.parse(dadosSalvos) : baseDeDados[alunoAtualId];
+            
+            const html = `
+                <div class="barra-ferramentas">
+                    <div>
+                        <button class="btn-editar" id="btn-edit" onclick="toggleEdicao()">Habilitar Edição</button>
+                        <span id="aviso-salvo" class="status-salvamento">✓ Alterações salvas automaticamente!</span>
+                    </div>
+                    <div class="botoes">
+                        <button class="btn-pdf" onclick="baixarPDF('${dados.nome}')">Baixar PDF</button>
+                        <button class="btn-word" onclick="baixarWord('${dados.nome}')">Baixar Word</button>
+                    </div>
+                </div>
+                
+                <div id="doc-pei" class="pei-doc">
+                    <table style="width:100%; border:none; margin-bottom:20px;">
+                        <tr>
+                            <td style="width:15%; border:none; text-align:left; vertical-align:middle;">
+                                <img src="logo_sp.png" alt="Logo SP" style="max-height: 70px;">
+                            </td>
+                            <td style="width:70%; border:none; text-align:center; vertical-align:middle; line-height:1.2;">
+                                <div style="font-weight:bold; font-size:14px;">SECRETARIA DE ESTADO DA EDUCAÇÃO</div>
+                                <div style="font-weight:bold; font-size:14px; margin:4px 0;">E.E. RECANTO VERDE SOL – URE LESTE 3</div>
+                                <div style="font-weight:bold; font-size:15px; margin-top:8px;">ANEXO IV – PLANO EDUCACIONAL INDIVIDUALIZADO – PEI</div>
+                            </td>
+                            <td style="width:15%; border:none; text-align:right; vertical-align:middle;">
+                                <img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-height: 70px;">
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table>
+                        <tr><td colspan="2"><strong>Nome do estudante:</strong> <span class="editavel" id="campo_nome">${dados.nome}</span></td></tr>
+                        <tr>
+                            <td><strong>Ano/Série:</strong> <span class="editavel" id="campo_serie">${dados.serie}º Ano</span> &nbsp;|&nbsp; <strong>Turma:</strong> <span class="editavel" id="campo_turma">${dados.turma}</span> &nbsp;|&nbsp; <strong>Turno:</strong> Manhã</td>
+                        </tr>
+                        <tr><td colspan="2"><strong>Diagnóstico/Condição Clínica:</strong> <span class="editavel" id="campo_deficiencia">${dados.deficiencia}</span></td></tr>
+                        <tr><td colspan="2"><strong>Professor Regente / Especialista:</strong> <span class="editavel">Ednaldo Amancio de Lima</span></td></tr>
+                        <tr><td colspan="2"><strong>Componente Curricular:</strong> Projeto de Vida (Planejamento Bimestral de 10 Semanas)</td></tr>
+                        <tr><td colspan="2"><strong>Período Letivo:</strong> ( X ) 1° Bimestre</td></tr>
+                    </table>
+
+                    <div class="topico">1. Habilidades do Currículo Paulista e Conteúdos Desenvolvidos</div>
+                    <table>
+                        <tr><th width="50%">Habilidades a serem desenvolvidas/adaptadas</th><th width="50%">Conteúdos Trabalhados</th></tr>
+                        <tr>
+                            <td class="editavel" id="campo_habilidades">${dados.habilidades}</td>
+                            <td class="editavel" id="campo_conteudos">${dados.conteudos}</td>
+                        </tr>
+                    </table>
+
+                    <div class="topico">2. Estratégias Pedagógicas, Metodologias e Acessibilidade (DUA)</div>
+                    <div class="caixa-texto editavel" id="campo_estrategias">${dados.estrategias}</div>
+
+                    <div class="topico">3. Instrumentos de Avaliação Inclusiva e Acompanhamento</div>
+                    <div class="caixa-texto editavel" id="campo_avaliacao">${dados.avaliacao}</div>
+
+                    <div class="topico">4. Recursos Utilizados (Materiais Adapados, CAA, Tecnologias)</div>
+                    <div class="caixa-texto editavel" id="campo_recursos">${dados.recursos}</div>
+
+                    <p style="text-align:left; margin-top:25px;">São Paulo, ____ de ________________ de 2026.</p>
+                    
+                    <div class="assinaturas">
+                        <div><br>Diretor de Escola</div>
+                        <div><br>Coordenador (CGP)</div>
+                        <div><br>Professor Especializado</div>
+                        <div><br>Prof. Ednaldo A. Lima</div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            container.classList.add('ativo');
+            adicionarEventosDeSalvamento();
+        }
+
+        // --- SISTEMA DE EDIÇÃO E SALVAMENTO AUTOMÁTICO ---
+        let modoEdicao = false;
+
+        function toggleEdicao() {
+            const elemento = document.getElementById('doc-pei');
+            const editaveis = elemento.querySelectorAll('.editavel');
+            const btn = document.getElementById('btn-edit');
+
+            modoEdicao = !modoEdicao;
+
+            if (modoEdicao) {
+                editaveis.forEach(el => el.setAttribute('contenteditable', 'true'));
+                elemento.classList.add('em-edicao');
+                btn.innerText = "Desabilitar Edição";
+                btn.style.backgroundColor = "#c53030"; 
+            } else {
+                editaveis.forEach(el => el.setAttribute('contenteditable', 'false'));
+                elemento.classList.remove('em-edicao');
+                btn.innerText = "Habilitar Edição";
+                btn.style.backgroundColor = "#f39c12";
+            }
+        }
+
+        function adicionarEventosDeSalvamento() {
+            const editaveis = document.querySelectorAll('.editavel');
+            editaveis.forEach(el => {
+                el.addEventListener('input', salvarModificacoesNoLocal);
+            });
+        }
+
+        function salvarModificacoesNoLocal() {
+            if (!alunoAtualId) return;
+            
+            // Coleta os dados atuais na tela
+            let dadosAtualizados = {
+                nome: document.getElementById('campo_nome').innerHTML,
+                serie: document.getElementById('campo_serie').innerHTML.replace('º Ano', '').trim(),
+                turma: document.getElementById('campo_turma').innerHTML,
+                deficiencia: document.getElementById('campo_deficiencia').innerHTML,
+                habilidades: document.getElementById('campo_habilidades').innerHTML,
+                conteudos: document.getElementById('campo_conteudos').innerHTML,
+                estrategias: document.getElementById('campo_estrategias').innerHTML,
+                avaliacao: document.getElementById('campo_avaliacao').innerHTML,
+                recursos: document.getElementById('campo_recursos').innerHTML
+            };
+
+            // Salva no navegador do usuário
+            localStorage.setItem('pei_' + alunoAtualId, JSON.stringify(dadosAtualizados));
+
+            // Mostra aviso de salvo
+            const aviso = document.getElementById('aviso-salvo');
+            aviso.style.display = 'inline-block';
+            setTimeout(() => { aviso.style.display = 'none'; }, 2000);
+        }
+
+        // --- EXPORTAÇÃO ---
+        function prepararParaExportacao() {
+            if (modoEdicao) toggleEdicao(); 
+        }
+
+        function baixarPDF(nome) {
+            prepararParaExportacao();
+            const opt = { margin: 10, filename: `PEI_PV_${nome.replace(/ /g, '_')}.pdf`, image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } };
+            html2pdf().set(opt).from(document.getElementById('doc-pei')).save();
+        }
+
+        function baixarWord(nome) {
+            prepararParaExportacao();
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>PEI</title><style>body{font-family:Arial; font-size:12px;} table{width:100%; border-collapse:collapse; margin-bottom:15px;} th, td{border:1px solid black; padding:5px; text-align:left;} .topico{font-weight:bold; background-color:#ecf0f1; padding:5px; margin-top:15px;} .caixa-texto{border:1px solid black; padding:10px; margin-bottom:15px;} .assinaturas{width:100%; display:table; margin-top:40px;} .ass-box{display:table-cell; width:25%; text-align:center; padding:10px; border-top:1px solid black;}</style></head><body>";
+            var footer = "</body></html>";
+            
+            var htmlContext = document.getElementById('doc-pei').innerHTML;
+            
+            // Limpeza de tags
+            htmlContext = htmlContext.replace(/contenteditable="true"/g, "").replace(/contenteditable="false"/g, "");
+            
+            // Corrige assinaturas para o Word
+            htmlContext = htmlContext.replace(/<div class="assinaturas">/g, "<table style='border:none; margin-top:40px; text-align:center;'><tr style='border:none;'>");
+            htmlContext = htmlContext.replace(/<div><br>Diretor de Escola<\/div>/g, "<td style='border:none; border-top:1px solid black;'>Diretor de Escola</td>");
+            htmlContext = htmlContext.replace(/<div><br>Coordenador \(CGP\)<\/div>/g, "<td style='border:none; border-top:1px solid black;'>Coordenador (CGP)</td>");
+            htmlContext = htmlContext.replace(/<div><br>Professor Especializado<\/div>/g, "<td style='border:none; border-top:1px solid black;'>Professor Especializado</td>");
+            htmlContext = htmlContext.replace(/<div><br>Prof\. Ednaldo A\. Lima<\/div><\/div>/g, "<td style='border:none; border-top:1px solid black;'>Prof. Ednaldo A. Lima</td></tr></table>");
+
+            var sourceHTML = header + htmlContext + footer;
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = `PEI_PV_${nome.replace(/ /g, '_')}.doc`;
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+        }
+    </script>
+</body>
+</html>

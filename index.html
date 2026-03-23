@@ -105,7 +105,7 @@
 
         /* Container Principal */
         .container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 40px auto;
             padding: 0 20px;
             display: grid;
@@ -127,6 +127,10 @@
             flex-direction: column;
         }
 
+        .card.card-lock {
+            border-top: 5px solid #e74c3c; /* Borda vermelha para áreas restritas */
+        }
+
         .card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 188, 212, 0.3);
@@ -146,14 +150,14 @@
 
         .card h3 {
             color: var(--title-color);
-            font-size: 24px;
+            font-size: 22px;
             margin-bottom: 15px;
             transition: color 0.5s ease;
         }
 
         .card p {
             color: var(--text-sub);
-            font-size: 15px;
+            font-size: 14px;
             margin-bottom: 30px;
             line-height: 1.6;
             flex-grow: 1;
@@ -169,19 +173,30 @@
             padding: 15px 25px;
             border-radius: 30px;
             font-weight: 600;
-            font-size: 16px;
+            font-size: 14px;
             transition: background-color 0.3s ease, transform 0.2s ease;
             margin-top: auto;
             border: none;
             cursor: pointer;
         }
 
+        .btn-lock {
+            background-color: #e74c3c;
+        }
+
         body.dark-mode .btn { background-color: #e94560; }
         body.dark-mode .btn:hover { background-color: #ff6b81; }
+        
+        body.dark-mode .btn-lock { background-color: #c0392b; }
+        body.dark-mode .btn-lock:hover { background-color: #e74c3c; }
 
         .btn:hover {
             background-color: #0097a7;
             transform: scale(1.05);
+        }
+        
+        .btn-lock:hover {
+            background-color: #c0392b;
         }
 
         footer {
@@ -234,7 +249,7 @@
     <div class="container">
         <div class="card">
             <div class="card-icon">🌍</div>
-            <h3>Geografia - Ensino Médio</h3>
+            <h3>Geografia - E.M.</h3>
             <p>Planejamentos do período noturno (Recanto Verde Sol). Foco em vestibulares, ENEM e habilidades da BNCC.</p>
             <a href="plano_de_aula_em_geografia_recanto.html" class="btn">Acessar Geografia</a>
         </div>
@@ -251,6 +266,20 @@
             <h3>Horário Escolar 2026</h3>
             <p>Organização é o segredo do sucesso! Consulte as grades de horários das turmas para o ano letivo.</p>
             <a href="horario_2026.html" class="btn">Acessar Horários</a>
+        </div>
+        
+        <div class="card card-lock">
+            <div class="card-icon">🧠</div>
+            <h3>Planejamento Inclusivo (DUA)</h3>
+            <p>Acesso restrito. Mapa de aulas semanais de Projeto de Vida adaptadas para a Educação Especial.</p>
+            <button class="btn btn-lock" onclick="verificarSenha('alunos_com_deficiencia.html')">🔒 Acesso Restrito</button>
+        </div>
+
+        <div class="card card-lock">
+            <div class="card-icon">📄</div>
+            <h3>Gestão de PEIs (Anexo IV)</h3>
+            <p>Acesso restrito. Gerador automático e dinâmico do Plano Educacional Individualizado.</p>
+            <button class="btn btn-lock" onclick="verificarSenha('sistema_pei_dinamico.html')">🔒 Acesso Restrito</button>
         </div>
     </div>
 
@@ -273,6 +302,17 @@
                 btnTema.textContent = '🌙';
             }
         });
+
+        // Lógica da Senha para Arquivos Restritos
+        function verificarSenha(urlDestino) {
+            let senha = prompt("ÁREA RESTRITA (LGPD/ECA)\nPor favor, insira a senha de acesso:");
+            
+            if (senha === "67343474") {
+                window.location.href = urlDestino;
+            } else if (senha !== null) {
+                alert("Senha incorreta. Acesso negado.");
+            }
+        }
     </script>
 </body>
 </html>
