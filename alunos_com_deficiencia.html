@@ -13,7 +13,7 @@
         }
 
         .table-container {
-            max-width: 1200px;
+            max-width: 1400px; /* Aumentado para acomodar a nova coluna */
             margin: 0 auto;
             overflow-x: auto;
         }
@@ -50,6 +50,23 @@
         tr:hover {
             background-color: #f0f0f0;
         }
+
+        /* Estilo sutil de botão para os links dos alunos */
+        .student-link {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .student-link:hover {
+            background-color: #e0e0e0;
+        }
     </style>
 </head>
 <body>
@@ -60,6 +77,7 @@
                 <tr>
                     <th>Nome do Aluno</th>
                     <th>RA</th>
+                    <th>Nome Estado / Escola</th>
                     <th>Tipo de Ensino</th>
                     <th>Série/Ano</th>
                     <th>Deficiência</th>
@@ -67,144 +85,205 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>ISABELLA CORREIA VIEIRA TAVARES</td>
+                    <td><a href="planos_fundamental/isabella_tavares.pdf" class="student-link">ISABELLA CORREIA VIEIRA TAVARES</a></td>
                     <td>000115748236</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>9º ANO D MANHA ANUAL</td>
                     <td>FISICA - PARALISIA CEREBRAL</td>
                 </tr>
                 <tr>
-                    <td>THIAGO ALEXANDRE FREITAS DE JESUS</td>
+                    <td><a href="planos_fundamental/thiago_alexandre.pdf" class="student-link">THIAGO ALEXANDRE FREITAS DE JESUS</a></td>
                     <td>000115760572</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>9º ANO D MANHA ANUAL</td>
                     <td>AUTISTA INFANTIL</td>
                 </tr>
                 <tr>
-                    <td>MIGUEL AUGUSTO TEIXEIRA SILVA</td>
+                    <td><a href="planos_fundamental/miguel_augusto.pdf" class="student-link">MIGUEL AUGUSTO TEIXEIRA SILVA</a></td>
                     <td>000112619938</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>9º ANO B MANHA ANUAL</td>
                     <td>MULTIPLA, FISICA - OUTROS, INTELECTUAL</td>
                 </tr>
                 <tr>
-                    <td>DAVI SOARES SARAIVA</td>
+                    <td><a href="planos_fundamental/davi_soares.pdf" class="student-link">DAVI SOARES SARAIVA</a></td>
                     <td>000115802263</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>8º ANO B MANHA ANUAL</td>
                     <td>AUTISTA INFANTIL</td>
                 </tr>
                 <tr>
-                    <td>HELOISA VIANA MARQUES DE OLIVEIRA</td>
+                    <td><a href="planos_fundamental/heloisa_viana.pdf" class="student-link">HELOISA VIANA MARQUES DE OLIVEIRA</a></td>
                     <td>000113479110</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>8º ANO B MANHA ANUAL</td>
                     <td>INTELECTUAL, AUTISTA INFANTIL</td>
                 </tr>
                 <tr>
-                    <td>LEANDRO OLIVEIRA MENDES</td>
+                    <td><a href="planos_fundamental/leandro_oliveira.pdf" class="student-link">LEANDRO OLIVEIRA MENDES</a></td>
                     <td>000115728059</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>8º ANO B MANHA ANUAL</td>
                     <td>INTELECTUAL</td>
                 </tr>
                 <tr>
-                    <td>SAMUEL FERREIRA DOS SANTOS</td>
+                    <td><a href="planos_fundamental/samuel_ferreira.pdf" class="student-link">SAMUEL FERREIRA DOS SANTOS</a></td>
                     <td>000115377087</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>8º ANO B MANHA ANUAL</td>
                     <td>INTELECTUAL</td>
                 </tr>
                 <tr>
-                    <td>JOAO VICENTE RODRIGUES DUTRA</td>
+                    <td><a href="planos_fundamental/joao_vicente.pdf" class="student-link">JOAO VICENTE RODRIGUES DUTRA</a></td>
                     <td>000115867438</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>7º ANO E MANHA ANUAL</td>
                     <td>INTELECTUAL, AUTISTA INFANTIL</td>
                 </tr>
                 <tr>
-                    <td>BRYAN DOS SANTOS VITOR</td>
+                    <td><a href="planos_fundamental/bryan_dos_santos.pdf" class="student-link">BRYAN DOS SANTOS VITOR</a></td>
                     <td>000114965790</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>7º ANO D MANHA ANUAL</td>
                     <td>BAIXA VISAO</td>
                 </tr>
                 <tr>
-                    <td>BERNARDO DO CARMO VITORINO</td>
+                    <td><a href="planos_fundamental/bernardo_do_carmo.pdf" class="student-link">BERNARDO DO CARMO VITORINO</a></td>
                     <td>000115866708</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>7º ANO B MANHA ANUAL</td>
                     <td>BAIXA VISAO</td>
                 </tr>
                 <tr>
-                    <td>PAULO HENRIQUE GATTO DA SILVA</td>
+                    <td><a href="planos_fundamental/paulo_henrique.pdf" class="student-link">PAULO HENRIQUE GATTO DA SILVA</a></td>
                     <td>000120940355</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>7º ANO A MANHA ANUAL</td>
                     <td>INTELECTUAL</td>
                 </tr>
                 <tr>
-                    <td>IAGO CRISTIAN FABRI DE MELO</td>
+                    <td><a href="planos_fundamental/iago_cristian.pdf" class="student-link">IAGO CRISTIAN FABRI DE MELO</a></td>
                     <td>000125118913</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>6º ANO G MANHA ANUAL</td>
                     <td>INTELECTUAL, AUTISTA INFANTIL</td>
                 </tr>
                 <tr>
-                    <td>ENZO GABRIEL GONCALVES MARIANO</td>
+                    <td><a href="planos_fundamental/enzo_gabriel_m.pdf" class="student-link">ENZO GABRIEL GONCALVES MARIANO</a></td>
                     <td>000115971896</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>6º ANO E MANHA ANUAL</td>
                     <td>INTELECTUAL</td>
                 </tr>
                 <tr>
-                    <td>ENZZO GABRIEL DA SILVA MOTA</td>
+                    <td><a href="planos_fundamental/enzzo_gabriel_mt.pdf" class="student-link">ENZZO GABRIEL DA SILVA MOTA</a></td>
                     <td>000122333930</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>6º ANO C MANHA ANUAL</td>
                     <td>AUTISTA INFANTIL</td>
                 </tr>
                 <tr>
-                    <td>GUSTAVO CALORIO VERISSIMO</td>
+                    <td><a href="planos_fundamental/gustavo_calorio.pdf" class="student-link">GUSTAVO CALORIO VERISSIMO</a></td>
                     <td>000114401503</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>6º ANO B MANHA ANUAL</td>
                     <td>AUTISTA INFANTIL</td>
                 </tr>
                 <tr>
-                    <td>MIGUEL MONTENEGRO DOS SANTOS</td>
+                    <td><a href="planos_fundamental/miguel_montenegro.pdf" class="student-link">MIGUEL MONTENEGRO DOS SANTOS</a></td>
                     <td>000116188996</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>6º ANO B MANHA ANUAL</td>
                     <td>MULTIPLA, FISICA - OUTROS, INTELECTUAL, AUTISTA INFANTIL</td>
                 </tr>
                 <tr>
-                    <td>VITORIA DA SILVA DE LIMA</td>
+                    <td><a href="planos_fundamental/vitoria_lima.pdf" class="student-link">VITORIA DA SILVA DE LIMA</a></td>
                     <td>000120585446</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>6º ANO A MANHA ANUAL</td>
                     <td>SURDEZ LEVE OU MODERADA, FISICA - OUTROS, INTELECTUAL</td>
                 </tr>
                 <tr>
-                    <td>SAMUEL ISAQUE VIEIRA DE LIMA</td>
+                    <td><a href="planos_fundamental/samuel_isaque.pdf" class="student-link">SAMUEL ISAQUE VIEIRA DE LIMA</a></td>
                     <td>000120911737</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>5º ANO D TARDE ANUAL</td>
                     <td>INTELECTUAL, AUTISTA INFANTIL</td>
                 </tr>
                 <tr>
-                    <td>PYETRO FARIAS CUNHA</td>
+                    <td><a href="planos_fundamental/pyetro_farias.pdf" class="student-link">PYETRO FARIAS CUNHA</a></td>
                     <td>000116220297</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>4º ANO C TARDE ANUAL</td>
                     <td>AUTISTA INFANTIL</td>
                 </tr>
                 <tr>
-                    <td>ARTHUR JESUS DOURADO</td>
+                    <td><a href="planos_fundamental/arthur_jesus.pdf" class="student-link">ARTHUR JESUS DOURADO</a></td>
                     <td>000116195049</td>
+                    <td>-</td>
                     <td>ENSINO FUNDAMENTAL DE 9 ANOS</td>
                     <td>4º ANO A TARDE ANUAL</td>
                     <td>FISICA - CADEIRANTE</td>
+                </tr>
+
+                <tr>
+                    <td>BRENO DURÃES DA MATTA</td>
+                    <td>000112003944</td>
+                    <td>RECANTO VERDE SOL</td>
+                    <td>NOVO ENSINO MÉDIO</td>
+                    <td>2ª SÉRIE D NOITE ANUAL</td>
+                    <td>INTELECTUAL</td>
+                </tr>
+                <tr>
+                    <td>ELZA VITÓRIA SANTOS MOURA</td>
+                    <td>000114377647</td>
+                    <td>RECANTO VERDE SOL</td>
+                    <td>NOVO ENSINO MÉDIO</td>
+                    <td>2ª SÉRIE C NOITE ANUAL</td>
+                    <td>INTELECTUAL, AUTISTA INFANTIL</td>
+                </tr>
+                <tr>
+                    <td>JOÃO PEDRO MARTINS DE JESUS</td>
+                    <td>000111722994</td>
+                    <td>RECANTO VERDE SOL</td>
+                    <td>NOVO ENSINO MÉDIO</td>
+                    <td>3ª SÉRIE D NOITE ANUAL</td>
+                    <td>AUTISTA INFANTIL</td>
+                </tr>
+                <tr>
+                    <td>NYCOLAS LISBOA GOMES DE SA</td>
+                    <td>000113272668</td>
+                    <td>RECANTO VERDE SOL</td>
+                    <td>NOVO ENSINO MÉDIO</td>
+                    <td>1ª SÉRIE D NOITE ANUAL</td>
+                    <td>SINDROME DE DOWN, AUTISTA INFANTIL</td>
+                </tr>
+                <tr>
+                    <td>THAINARA CARVALHO DE LIMA</td>
+                    <td>000110797310</td>
+                    <td>RECANTO VERDE SOL</td>
+                    <td>NOVO ENSINO MÉDIO</td>
+                    <td>2ª SÉRIE E NOITE ANUAL</td>
+                    <td>INTELECTUAL</td>
                 </tr>
             </tbody>
         </table>
