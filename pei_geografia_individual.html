@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEI - Geografia Ensino Médio</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f0f2f5; color: #333; }
+        
+        /* Estilos da Tabela */
+        .cabecalho-pagina { text-align: center; }
+        .table-container { max-width: 1200px; margin: 0 auto 40px auto; overflow-x: auto; background-color: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+        table.lista-alunos { width: 100%; border-collapse: collapse; font-size: 14px; }
+        table.lista-alunos th, table.lista-alunos td { padding: 10px 12px; border: 1px solid #e0e0e0; text-align: left; }
+        table.lista-alunos th { background-color: #2c3e50; color: white; font-weight: bold; text-transform: uppercase; font-size: 12px; }
+        table.lista-alunos tr:nth-child(even) { background-color: #fafafa; }
+        table.lista-alunos tr:hover { background-color: #f0f0f0; }
+        .student-link { display: inline-block; padding: 6px 10px; background-color: #00838f; border-radius: 4px; color: white; text-decoration: none; font-weight: bold; transition: 0.2s; cursor: pointer; }
+        .student-link:hover { background-color: #006064; }
+
+        /* Estilos do Painel PEI */
+        .painel-mestre { max-width: 900px; margin: 0 auto 20px auto; background-color: #2c3e50; color: white; padding: 20px; border-radius: 6px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        .painel-mestre h1 { margin: 0 0 5px 0; font-size: 20px; }
+        .painel-mestre p { margin: 0; font-size: 13px; color: #bdc3c7; }
+
+        .container { max-width: 900px; margin: 0 auto 40px auto; background-color: #fff; padding: 30px 40px; border-radius: 6px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); display: none; }
+        .container.ativo { display: block; }
+        
+        .barra-ferramentas { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ecf0f1; padding-bottom: 15px; margin-bottom: 20px; }
+        .status-salvamento { font-size: 12px; color: #27ae60; font-weight: bold; display: none; }
+        .botoes { display: flex; gap: 8px; }
+        
+        button { background-color: #34495e; color: white; border: none; padding: 8px 15px; font-size: 13px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: 0.2s; }
+        button:hover { background-color: #2c3e50; }
+        .btn-imprimir { background-color: #c0392b; } .btn-imprimir:hover { background-color: #a53125; }
+        .btn-word { background-color: #2980b9; } .btn-word:hover { background-color: #2471a3; }
+        .btn-editar { background-color: #f39c12; color: #fff; } .btn-editar:hover { background-color: #d68910; }
+
+        .em-edicao .editavel { outline: 2px dashed #f39c12; background-color: #fdfbf7; padding: 5px; border-radius: 3px; }
+        
+        .pei-doc { color: #000; font-size: 13px; line-height: 1.5; }
+        table.tabela-pei { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 13px; }
+        table.tabela-pei th, table.tabela-pei td { border: 1px solid #bdc3c7; padding: 8px; vertical-align: top; }
+        table.tabela-pei th { background-color: #f8f9f9; text-align: left; }
+        
+        .topico { font-weight: bold; margin-top: 20px; margin-bottom: 5px; background-color: #ecf0f1; padding: 6px; border-left: 4px solid #34495e; }
+        .caixa-texto { border: 1px solid #bdc3c7; min-height: 50px; padding: 10px; margin-bottom: 15px; background-color: #fff; }
+        
+        .assinaturas { margin-top: 50px; display: flex; justify-content: space-between; text-align: center; font-size: 12px; }
+        .assinaturas div { width: 22%; border-top: 1px solid #000; padding-top: 5px; }
+
+        ul { margin: 0; padding-left: 20px; }
+        li { margin-bottom: 4px; }
+
+        /* REGRAS DE IMPRESSÃO NATIVA */
+        @media print {
+            body { background-color: #fff; margin: 0; padding: 0; }
+            .cabecalho-pagina, .table-container, .barra-ferramentas, .painel-mestre { display: none !important; }
+            .container { box-shadow: none; border: none; padding: 0; margin: 0; width: 100%; max-width: none; }
+            .tabela-pei { page-break-inside: avoid; }
+            tr { page-break-inside: avoid; page-break-after: auto; }
+            table.tabela-pei th, .topico { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+
+        @media (max-width: 768px) {
+            .barra-ferramentas { flex-direction: column; gap: 10px; align-items: flex-start; }
+            .assinaturas { flex-wrap: wrap; gap: 20px; }
+            .assinaturas div { width: 45%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cabecalho-pagina">
+        <h2 style="color: #2c3e50;">Lista de Alunos - PEI Geografia (Ensino Médio)</h2>
+        <p style="margin-bottom: 30px; color: #555;">Clique no nome do aluno para abrir e gerar o PEI adaptado para Geografia.</p>
+    </div>
+
+    <div class="table-container">
+        <table class="lista-alunos">
+            <thead>
+                <tr>
+                    <th>Nome do Aluno</th>
+                    <th>RA</th>
+                    <th>Tipo de Ensino</th>
+                    <th>Série/Turma</th>
+                    <th>Deficiência</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><a onclick="abrirPEI('24')" class="student-link">NYCOLAS LISBOA GOMES DE SA</a></td><td>000113272668</td><td>NOVO ENSINO MÉDIO</td><td>1ª SÉRIE D</td><td>SINDROME DE DOWN, AUTISTA</td></tr>
+                <tr><td><a onclick="abrirPEI('21')" class="student-link">BRENO DURÃES DA MATTA</a></td><td>000112003944</td><td>NOVO ENSINO MÉDIO</td><td>2ª SÉRIE D</td><td>INTELECTUAL</td></tr>
+                <tr><td><a onclick="abrirPEI('22')" class="student-link">ELZA VITÓRIA SANTOS MOURA</a></td><td>000114377647</td><td>NOVO ENSINO MÉDIO</td><td>2ª SÉRIE C</td><td>INTELECTUAL, AUTISTA INFANTIL</td></tr>
+                <tr><td><a onclick="abrirPEI('25')" class="student-link">THAINARA CARVALHO DE LIMA</a></td><td>000110797310</td><td>NOVO ENSINO MÉDIO</td><td>2ª SÉRIE E</td><td>INTELECTUAL</td></tr>
+                <tr><td><a onclick="abrirPEI('23')" class="student-link">JOÃO PEDRO MARTINS DE JESUS</a></td><td>000111722994</td><td>NOVO ENSINO MÉDIO</td><td>3ª SÉRIE D</td><td>AUTISTA INFANTIL</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="ancora-pei"></div>
+    <div class="painel-mestre" id="painel-mestre" style="display:none;">
+        <h1>Documento PEI - Anexo IV</h1>
+        <p>E.E. Recanto Verde Sol | Disciplina: Geografia | Prof. Ednaldo</p>
+    </div>
+
+    <div id="container-pei" class="container"></div>
+
+    <script>
+        // BANCO DE DADOS - ADAPTADO PARA GEOGRAFIA DO ENSINO MÉDIO
+        const baseDeDados = {
+            '24': { serie: '1ª SÉRIE', turma: 'D', nome: 'NYCOLAS LISBOA GOMES DE SA', deficiencia: 'SINDROME DE DOWN, AUTISTA', 
+                habilidades: 'Compreender noções espaciais básicas e identificar elementos climáticos simples (Sol, Chuva, Frio).', 
+                conteudos: 'Climatologia Básica e Cartografia Tátil.', 
+                estrategias: '<ul><li>Utilização de pictogramas de clima para registro diário de "Como está o tempo hoje?".</li><li>Adaptação de mapas utilizando texturas (lixa, algodão) para representar diferentes relevos ou nuvens.</li><li>Comunicação pautada em comandos curtos e uso de rotina visual afixada na mesa.</li></ul>', 
+                avaliacao: '<ul><li>Avaliação através de pareamento: associar a imagem da roupa (casaco/camiseta) ao pictograma do clima correspondente.</li><li>Participação avaliada por observação em sala.</li></ul>', 
+                recursos: 'Painel visual de clima com velcro, texturas diversas (lixa, EVA, algodão), impressos em alto contraste.' 
+            },
+            '21': { serie: '2ª SÉRIE', turma: 'D', nome: 'BRENO DURÃES DA MATTA', deficiencia: 'INTELECTUAL', 
+                habilidades: 'Reconhecer o crescimento da população através de infográficos simplificados e linguagem concreta.', 
+                conteudos: 'Demografia: Crescimento e distribuição populacional.', 
+                estrategias: '<ul><li>Substituição de teorias demográficas complexas por atividades de contagem e representação com material concreto (ex: usar blocos para representar "muita gente" vs "pouca gente").</li><li>Uso de mapas demográficos com cores fortes e legendas iconográficas em vez de texto extenso.</li><li>Mediação passo a passo (fracionamento da atividade).</li></ul>', 
+                avaliacao: '<ul><li>Avaliação formativa: preenchimento de gráficos de barra simples utilizando adesivos ou pintura guiada.</li><li>Questões de múltipla escolha com apoio de imagens.</li></ul>', 
+                recursos: 'Material dourado ou blocos de montar, mapas de densidade demográfica ampliados, lápis de cor.' 
+            },
+            '22': { serie: '2ª SÉRIE', turma: 'C', nome: 'ELZA VITÓRIA SANTOS MOURA', deficiencia: 'INTELECTUAL, AUTISTA INFANTIL', 
+                habilidades: 'Identificar motivos que levam as pessoas a mudarem de lugar (migração) associando à história familiar.', 
+                conteudos: 'Migrações e Urbanização Brasileira.', 
+                estrategias: '<ul><li>Abordagem do tema "Migração" através da história afetiva da aluna (de onde vieram os avós/pais), construindo uma linha narrativa visual.</li><li>Uso de Histórias Sociais em quadrinhos para explicar o processo de saída do campo para a cidade (êxodo rural).</li><li>Ambiente previsível com limite de estímulos visuais periféricos.</li></ul>', 
+                avaliacao: '<ul><li>Validação do conhecimento através da construção de um painel de recortes (cidade x campo).</li><li>Identificação correta de figuras rurais e urbanas.</li></ul>', 
+                recursos: 'Revistas para recorte, templates de quadrinhos em branco, mapa do Brasil simplificado.' 
+            },
+            '25': { serie: '2ª SÉRIE', turma: 'E', nome: 'THAINARA CARVALHO DE LIMA', deficiencia: 'INTELECTUAL', 
+                habilidades: 'Reconhecer problemas estruturais no espaço urbano do próprio bairro e arredores.', 
+                conteudos: 'Problemas Socioambientais Urbanos.', 
+                estrategias: '<ul><li>Estudo do entorno: analisar fotografias das ruas próximas à escola (Jardim Limoeiro/Recanto Verde Sol) para identificar lixo, alagamentos ou trânsito.</li><li>Construção de Maquete ou Mapa Mental tátil relacionando o que é "bom" e "ruim" na infraestrutura da cidade.</li><li>Trabalho colaborativo com um aluno-tutor.</li></ul>', 
+                avaliacao: '<ul><li>Avaliação centrada na produção do mapa mental com recortes ou desenhos de sua vivência urbana.</li><li>Rodas de conversa (oralidade preferida em relação à escrita extensa).</li></ul>', 
+                recursos: 'Fotografias impressas do bairro, cartolina, cola, tesoura.' 
+            },
+            '23': { serie: '3ª SÉRIE', turma: 'D', nome: 'JOÃO PEDRO MARTINS DE JESUS', deficiencia: 'AUTISTA INFANTIL', 
+                habilidades: 'Compreender o conceito de integração de países e localizar continentes/blocos em mapas simplificados.', 
+                conteudos: 'Geopolítica e Blocos Econômicos (Mercosul/BRICS).', 
+                estrategias: '<ul><li>Tradução de "Blocos Econômicos" para conceitos de "Grupos/Equipes" usando analogias literais e diretas (sem sarcasmo ou figuras de linguagem complexas).</li><li>Atividade de pareamento visual: ligar a bandeira do país ao espaço geográfico no mapa-múndi adaptado.</li><li>Estipular pausas (Time-out) de regulação se houver excesso de informações na aula expositiva.</li></ul>', 
+                avaliacao: '<ul><li>Preenchimento de um planisfério mudo com o auxílio de consulta visual ou bandeiras adesivas.</li><li>Questões objetivas e curtas, evitando enunciados longos e interpretativos.</li></ul>', 
+                recursos: 'Planisfério impresso tamanho A3, bandeiras de países impressas com velcro/adesivo, fones abafadores (se necessário).' 
+            }
+        };
+
+        let alunoAtualId = null;
+
+        function abrirPEI(id) {
+            alunoAtualId = id;
+            const container = document.getElementById('container-pei');
+            const painel = document.getElementById('painel-mestre');
+            
+            const dadosSalvos = localStorage.getItem('pei_geo_' + alunoAtualId);
+            const dados = dadosSalvos ? JSON.parse(dadosSalvos) : baseDeDados[alunoAtualId];
+            
+            const html = `
+                <div class="barra-ferramentas">
+                    <div>
+                        <button class="btn-editar" id="btn-edit" onclick="toggleEdicao()">Habilitar Edição</button>
+                        <span id="aviso-salvo" class="status-salvamento">✓ Alterações salvas automaticamente!</span>
+                    </div>
+                    <div class="botoes">
+                        <button class="btn-imprimir" onclick="imprimirPEI()">Imprimir / PDF</button>
+                        <button class="btn-word" onclick="baixarWord('${dados.nome}')">Baixar Word</button>
+                    </div>
+                </div>
+                
+                <div id="doc-pei" class="pei-doc">
+                    <table style="width:100%; border:none; margin-bottom:20px;">
+                        <tr>
+                            <td style="width:100%; border:none; text-align:center; vertical-align:middle; line-height:1.2;">
+                                <div style="font-weight:bold; font-size:14px;">SECRETARIA DE ESTADO DA EDUCAÇÃO</div>
+                                <div style="font-weight:bold; font-size:14px; margin:4px 0;">E.E. RECANTO VERDE SOL – URE LESTE 3</div>
+                                <div style="font-weight:bold; font-size:15px; margin-top:8px;">ANEXO IV – PLANO EDUCACIONAL INDIVIDUALIZADO – PEI</div>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="tabela-pei">
+                        <tr><td colspan="2"><strong>Nome do estudante:</strong> <span class="editavel" id="campo_nome">${dados.nome}</span></td></tr>
+                        <tr>
+                            <td><strong>Série/Ano:</strong> <span class="editavel" id="campo_serie">${dados.serie}</span> &nbsp;|&nbsp; <strong>Turma:</strong> <span class="editavel" id="campo_turma">${dados.turma}</span> &nbsp;|&nbsp; <strong>Turno:</strong> Noturno</td>
+                        </tr>
+                        <tr><td colspan="2"><strong>Diagnóstico/Condição Clínica:</strong> <span class="editavel" id="campo_deficiencia">${dados.deficiencia}</span></td></tr>
+                        <tr><td colspan="2"><strong>Professor Regente:</strong> <span class="editavel">Ednaldo Amancio de Lima</span></td></tr>
+                        <tr><td colspan="2"><strong>Componente Curricular:</strong> Geografia</td></tr>
+                    </table>
+
+                    <div class="topico">1. Habilidades e Conteúdos Desenvolvidos</div>
+                    <table class="tabela-pei">
+                        <tr><th width="50%">Habilidades a serem desenvolvidas</th><th width="50%">Conteúdos Trabalhados</th></tr>
+                        <tr>
+                            <td class="editavel" id="campo_habilidades">${dados.habilidades}</td>
+                            <td class="editavel" id="campo_conteudos">${dados.conteudos}</td>
+                        </tr>
+                    </table>
+
+                    <div class="topico">2. Estratégias Pedagógicas, Metodologias e Acessibilidade (DUA)</div>
+                    <div class="caixa-texto editavel" id="campo_estrategias">${dados.estrategias}</div>
+
+                    <div class="topico">3. Instrumentos de Avaliação Inclusiva e Acompanhamento</div>
+                    <div class="caixa-texto editavel" id="campo_avaliacao">${dados.avaliacao}</div>
+
+                    <div class="topico">4. Recursos Utilizados (Materiais Adaptados, CAA, Tecnologias)</div>
+                    <div class="caixa-texto editavel" id="campo_recursos">${dados.recursos}</div>
+
+                    <p style="text-align:left; margin-top:25px;">São Paulo, ____ de ________________ de 2026.</p>
+                    
+                    <div class="assinaturas">
+                        <div><br>Diretor de Escola</div>
+                        <div><br>Coordenador (CGP)</div>
+                        <div><br>Professor Especializado</div>
+                        <div><br>Prof. Ednaldo A. Lima</div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            painel.style.display = "block";
+            container.classList.add('ativo');
+            adicionarEventosDeSalvamento();
+
+            document.getElementById('ancora-pei').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        let modoEdicao = false;
+
+        function toggleEdicao() {
+            const elemento = document.getElementById('doc-pei');
+            const editaveis = elemento.querySelectorAll('.editavel');
+            const btn = document.getElementById('btn-edit');
+
+            modoEdicao = !modoEdicao;
+
+            if (modoEdicao) {
+                editaveis.forEach(el => el.setAttribute('contenteditable', 'true'));
+                elemento.classList.add('em-edicao');
+                btn.innerText = "Desabilitar Edição";
+                btn.style.backgroundColor = "#c53030"; 
+            } else {
+                editaveis.forEach(el => el.setAttribute('contenteditable', 'false'));
+                elemento.classList.remove('em-edicao');
+                btn.innerText = "Habilitar Edição";
+                btn.style.backgroundColor = "#f39c12";
+                salvarModificacoesNoLocal();
+            }
+        }
+
+        function adicionarEventosDeSalvamento() {
+            const editaveis = document.querySelectorAll('.editavel');
+            editaveis.forEach(el => {
+                el.addEventListener('input', salvarModificacoesNoLocal);
+            });
+        }
+
+        function salvarModificacoesNoLocal() {
+            if (!alunoAtualId) return;
+            
+            let dadosAtualizados = {
+                nome: document.getElementById('campo_nome').innerHTML,
+                serie: document.getElementById('campo_serie').innerHTML,
+                turma: document.getElementById('campo_turma').innerHTML,
+                deficiencia: document.getElementById('campo_deficiencia').innerHTML,
+                habilidades: document.getElementById('campo_habilidades').innerHTML,
+                conteudos: document.getElementById('campo_conteudos').innerHTML,
+                estrategias: document.getElementById('campo_estrategias').innerHTML,
+                avaliacao: document.getElementById('campo_avaliacao').innerHTML,
+                recursos: document.getElementById('campo_recursos').innerHTML
+            };
+
+            // Salva com o prefixo 'pei_geo_' para não misturar com o de Projeto de Vida
+            localStorage.setItem('pei_geo_' + alunoAtualId, JSON.stringify(dadosAtualizados));
+
+            const aviso = document.getElementById('aviso-salvo');
+            aviso.style.display = 'inline-block';
+            setTimeout(() => { aviso.style.display = 'none'; }, 2000);
+        }
+
+        function prepararParaExportacao() {
+            if (modoEdicao) toggleEdicao(); 
+        }
+
+        function imprimirPEI() {
+            prepararParaExportacao(); 
+            window.print(); 
+        }
+
+        function baixarWord(nome) {
+            prepararParaExportacao();
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>PEI Geografia</title><style>body{font-family:Arial; font-size:12px;} table{width:100%; border-collapse:collapse; margin-bottom:15px;} th, td{border:1px solid black; padding:5px; text-align:left;} .topico{font-weight:bold; background-color:#ecf0f1; padding:5px; margin-top:15px;} .caixa-texto{border:1px solid black; padding:10px; margin-bottom:15px;}</style></head><body>";
+            var footer = "</body></html>";
+            
+            var htmlContext = document.getElementById('doc-pei').innerHTML;
+            htmlContext = htmlContext.replace(/contenteditable="true"/g, "").replace(/contenteditable="false"/g, "");
+            
+            htmlContext = htmlContext.replace(/<div class="assinaturas">/g, "<table style='border:none; margin-top:40px; text-align:center;'><tr style='border:none;'>");
+            htmlContext = htmlContext.replace(/<div><br>Diretor de Escola<\/div>/g, "<td style='border:none; border-top:1px solid black;'>Diretor de Escola</td>");
+            htmlContext = htmlContext.replace(/<div><br>Coordenador \(CGP\)<\/div>/g, "<td style='border:none; border-top:1px solid black;'>Coordenador (CGP)</td>");
+            htmlContext = htmlContext.replace(/<div><br>Professor Especializado<\/div>/g, "<td style='border:none; border-top:1px solid black;'>Professor Especializado</td>");
+            htmlContext = htmlContext.replace(/<div><br>Prof\. Ednaldo A\. Lima<\/div><\/div>/g, "<td style='border:none; border-top:1px solid black;'>Prof. Ednaldo A. Lima</td></tr></table>");
+
+            var sourceHTML = header + htmlContext + footer;
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = `PEI_Geografia_${nome.replace(/ /g, '_')}.doc`;
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+        }
+    </script>
+</body>
+</html>

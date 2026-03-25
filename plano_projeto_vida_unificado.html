@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Planejamento - Ednaldo</title>
     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
@@ -16,6 +15,11 @@
         .painel-mestre h1 { margin: 0; font-size: 22px; color: #f1c40f; }
         .seletor-escola { padding: 10px; font-size: 16px; border-radius: 5px; border: none; font-weight: bold; cursor: pointer; }
         
+        /* Botões do Topo */
+        .botoes-topo { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
+        .btn-inclusivo { background-color: #3498db; color: white; padding: 10px 15px; border-radius: 5px; font-size: 14px; font-weight: bold; text-decoration: none; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .btn-inclusivo:hover { background-color: #2980b9; }
+
         .container { max-width: 1200px; margin: 0 auto; background-color: #fff; padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 40px; }
         .botoes { text-align: right; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 2px solid #e0e0e0; display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; }
         
@@ -25,6 +29,8 @@
         .btn-jpg:hover { background-color: #a0522d; }
         .btn-editar { background-color: #4b0082; }
         .btn-editar:hover { background-color: #300052; }
+        .btn-imprimir { background-color: #27ae60; }
+        .btn-imprimir:hover { background-color: #1e8449; }
 
         .em-edicao .editavel[contenteditable="true"] { 
             outline: 2px dashed #4b0082; 
@@ -52,6 +58,7 @@
 
         @media (max-width: 768px) {
             .painel-mestre { flex-direction: column; text-align: center; }
+            .botoes-topo { justify-content: center; width: 100%; }
             .seletor-escola { width: 100%; }
             body { margin: 10px; }
             .container { padding: 15px; }
@@ -64,19 +71,31 @@
             table.plano-table th, table.plano-table td { min-width: 150px; white-space: normal; }
             .footer-doc { flex-direction: column; text-align: center; }
         }
+
+        /* Ocultar elementos desnecessários na hora da impressão */
+        @media print {
+            .painel-mestre, .botoes { display: none !important; }
+            body { background-color: #fff; margin: 0; }
+            .container { box-shadow: none; margin: 0; padding: 0; page-break-after: always; }
+            .html2pdf__page-break { page-break-before: always; }
+        }
     </style>
 </head>
 <body>
 
     <div class="painel-mestre">
-        <h1>Painel do Professor - Projetos de Vida</h1>
-        <div>
-            <label for="seletorEscola" style="margin-right: 10px; font-weight: bold;">Escola Ativa:</label>
-            <select id="seletorEscola" class="seletor-escola" onchange="alterarEscola()">
-                <option value="recanto">E.E. Recanto Verde Sol</option>
-                <option value="isaac">E.E. Prof. Isaac Schraiber</option>
-                <option value="floriano">E.E. Floriano Peixoto</option>
-            </select>
+        <h1>Painel do Professor - Projetos de Vida (Versão Geral)</h1>
+        <div class="botoes-topo">
+            <a href="plano_de_aula_inclusivo.html" class="btn-inclusivo">🧩 Acessar Versão Inclusiva (TEA/DI)</a>
+            
+            <div>
+                <label for="seletorEscola" style="margin-right: 10px; font-weight: bold;">Escola Ativa:</label>
+                <select id="seletorEscola" class="seletor-escola" onchange="alterarEscola()">
+                    <option value="recanto">E.E. Recanto Verde Sol</option>
+                    <option value="isaac">E.E. Prof. Isaac Schraiber</option>
+                    <option value="floriano">E.E. Floriano Peixoto</option>
+                </select>
+            </div>
         </div>
     </div>
 
@@ -84,7 +103,7 @@
         <h2 class="section-title">Planejamento - 6ºs Anos</h2>
         <div class="botoes">
             <button class="btn-editar" onclick="toggleEdicao('plano-6-ano', this)">Habilitar Edição</button>
-            <button onclick="baixarPDF('plano-6-ano', 'Planejamento_6Anos.pdf')">Baixar PDF</button>
+            <button class="btn-imprimir" onclick="window.print()">🖨️ Imprimir</button>
             <button class="btn-jpg" onclick="baixarJPG('plano-6-ano', 'Planejamento_6Anos.jpg')">Baixar JPG</button>
             <button onclick="baixarWord('plano-6-ano', 'Planejamento_6Anos.doc')">Baixar Word</button>
         </div>
@@ -147,12 +166,11 @@
         </div>
     </div>
 
-
     <div class="container">
         <h2 class="section-title">Planejamento - 7ºs Anos</h2>
         <div class="botoes">
             <button class="btn-editar" onclick="toggleEdicao('plano-7-ano', this)">Habilitar Edição</button>
-            <button onclick="baixarPDF('plano-7-ano', 'Planejamento_7Anos.pdf')">Baixar PDF</button>
+            <button class="btn-imprimir" onclick="window.print()">🖨️ Imprimir</button>
             <button class="btn-jpg" onclick="baixarJPG('plano-7-ano', 'Planejamento_7Anos.jpg')">Baixar JPG</button>
             <button onclick="baixarWord('plano-7-ano', 'Planejamento_7Anos.doc')">Baixar Word</button>
         </div>
@@ -215,12 +233,11 @@
         </div>
     </div>
 
-
     <div class="container">
         <h2 class="section-title">Planejamento - 8ºs Anos</h2>
         <div class="botoes">
             <button class="btn-editar" onclick="toggleEdicao('plano-8-ano', this)">Habilitar Edição</button>
-            <button onclick="baixarPDF('plano-8-ano', 'Planejamento_8Anos.pdf')">Baixar PDF</button>
+            <button class="btn-imprimir" onclick="window.print()">🖨️ Imprimir</button>
             <button class="btn-jpg" onclick="baixarJPG('plano-8-ano', 'Planejamento_8Anos.jpg')">Baixar JPG</button>
             <button onclick="baixarWord('plano-8-ano', 'Planejamento_8Anos.doc')">Baixar Word</button>
         </div>
@@ -283,12 +300,11 @@
         </div>
     </div>
 
-
     <div class="container">
         <h2 class="section-title">Planejamento - 9ºs Anos</h2>
         <div class="botoes">
             <button class="btn-editar" onclick="toggleEdicao('plano-9-ano', this)">Habilitar Edição</button>
-            <button onclick="baixarPDF('plano-9-ano', 'Planejamento_9Anos.pdf')">Baixar PDF</button>
+            <button class="btn-imprimir" onclick="window.print()">🖨️ Imprimir</button>
             <button class="btn-jpg" onclick="baixarJPG('plano-9-ano', 'Planejamento_9Anos.jpg')">Baixar JPG</button>
             <button onclick="baixarWord('plano-9-ano', 'Planejamento_9Anos.doc')">Baixar Word</button>
         </div>
@@ -399,7 +415,7 @@
 
         if (editandoId !== idElemento) {
             if (editandoId) {
-                alert("Por favor, conclua a edição ou faça o download da turma que já está aberta antes de editar outra.");
+                alert("Por favor, conclua a edição ou imprima a turma que já está aberta antes de editar outra.");
                 return;
             }
 
@@ -430,7 +446,7 @@
             document.getElementById(idElemento).classList.remove('em-edicao');
             editandoId = null;
             
-            alert("✅ Download concluído com as suas alterações!\n\nO documento base foi restaurado e está pronto para uso novamente.");
+            alert("✅ Ação concluída!\n\nO documento base foi restaurado e está pronto para uso novamente.");
         }
     }
 
@@ -444,30 +460,6 @@
             }
         }
     });
-
-    function baixarPDF(idElemento, nomeArquivo) {
-        try {
-            if(editandoId === idElemento) document.getElementById(idElemento).classList.remove('em-edicao');
-            
-            let nomeEscolaAbrev = dadosEscolas[document.getElementById('seletorEscola').value].nome.replace("E.E. ", "").replace(/ /g, "_").replace(/\./g, "");
-            nomeArquivo = nomeArquivo.replace(".pdf", "_" + nomeEscolaAbrev + ".pdf");
-
-            const elemento = document.getElementById(idElemento);
-            const opt = {
-                margin:       10, 
-                filename:     nomeArquivo,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true, scrollY: 0 }, 
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' },
-                pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
-            };
-            
-            html2pdf().set(opt).from(elemento).save().then(() => {
-                restaurarDocumento(idElemento);
-            });
-            
-        } catch(e) { alert('Erro ao gerar PDF: ' + e.message); }
-    }
 
     function baixarJPG(idElemento, nomeArquivo) {
         try {
