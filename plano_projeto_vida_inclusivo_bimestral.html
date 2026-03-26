@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto de Vida EM - Inclusivo</title>
+    <title>Projeto de Vida EF II - Inclusivo</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
@@ -11,10 +11,13 @@
         body { font-family: Arial, sans-serif; margin: 0; padding: 0 0 40px 0; background-color: #f4f4f9; color: #333; }
         
         /* Menu de Navegação Global */
-        .nav-global { background-color: #1a252f; padding: 15px 20px; display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .nav-global { background-color: #1a252f; padding: 15px 20px; display: flex; justify-content: center; align-items: center; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         .nav-global a { color: #ecf0f1; text-decoration: none; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: bold; transition: 0.3s; border: 1px solid transparent; }
         .nav-global a:hover { background-color: #2c3e50; border: 1px solid #bdc3c7; }
         .nav-global a.ativo { background-color: #3498db; color: #fff; border: 1px solid #2980b9; }
+        
+        .seletor-box { display: flex; align-items: center; background: #2c3e50; padding: 5px 10px; border-radius: 5px; }
+        .seletor-escola { padding: 6px; font-size: 14px; border-radius: 4px; border: none; font-weight: bold; cursor: pointer; background: #fff; color: #333; }
 
         .cabecalho-pagina { text-align: center; padding: 0 20px; }
         .table-container { max-width: 1000px; margin: 0 auto 40px auto; overflow-x: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
@@ -41,7 +44,7 @@
         .btn-word { background-color: #2980b9 !important; } .btn-word:hover { background-color: #2471a3 !important; }
         .btn-editar { background-color: #f39c12 !important; color: #fff !important; } .btn-editar:hover { background-color: #d68910 !important; }
 
-        .em-edicao .editavel { outline: 2px dashed #f39c12; background-color: #fdfbf7; padding: 2px 4px; border-radius: 3px; }
+        .em-edicao .editavel { outline: 2px dashed #f39c12; background-color: #fcf8ff; padding: 2px 4px; border-radius: 3px; }
         
         .doc-plano { color: #000; font-size: 13px; line-height: 1.5; }
         .header-table { width: 100%; border-collapse: collapse; border: none; margin-bottom: 15px; }
@@ -76,12 +79,21 @@
 
     <div class="nav-global">
         <a href="plano_projeto_vida_unificado.html">🔙 Voltar ao Plano Geral</a>
-        <a href="#" class="ativo">🧩 PV Inclusivo (TEA/DI) - EM</a>
+        <a href="#" class="ativo">🧩 PV Inclusivo (TEA/DI) - EF II</a>
+        
+        <div class="seletor-box">
+            <label for="seletorEscola" style="margin-right: 10px; font-weight: bold; color: white; font-size: 13px;">Escola Ativa:</label>
+            <select id="seletorEscola" class="seletor-escola" onchange="alterarEscola()">
+                <option value="recanto">E.E. Recanto Verde Sol</option>
+                <option value="isaac">E.E. Prof. Isaac Schraiber</option>
+                <option value="floriano">E.E. Floriano Peixoto</option>
+            </select>
+        </div>
     </div>
 
     <div class="cabecalho-pagina">
         <h2 style="color: #2c3e50; margin-top: 0;">Gestor de Planejamentos - Projeto de Vida (Versão Inclusiva)</h2>
-        <p style="margin-bottom: 30px; color: #555;">Documentos adaptados para o Ensino Médio com foco em Atividades de Vida Diária, Currículo Funcional e Metodologia Visual.</p>
+        <p style="margin-bottom: 30px; color: #555;">Documentos adaptados para o <strong>Ensino Fundamental II (6º ao 9º ano)</strong>.<br>Foco em Atividades de Vida Diária, Coordenação, Comunicação Alternativa e Autonomia.</p>
     </div>
 
     <div class="table-container">
@@ -96,22 +108,28 @@
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>1ªs Séries</strong> (Turmas A, B, C)</td>
+                    <td><strong>6ºs Anos</strong></td>
                     <td>Projeto de Vida</td>
                     <td>1º Bimestre</td>
-                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('1')">Abrir Planejamento</button></td>
+                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('6')">Abrir Planejamento</button></td>
                 </tr>
                 <tr>
-                    <td><strong>2ªs Séries</strong> (Turmas A, B)</td>
+                    <td><strong>7ºs Anos</strong></td>
                     <td>Projeto de Vida</td>
                     <td>1º Bimestre</td>
-                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('2')">Abrir Planejamento</button></td>
+                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('7')">Abrir Planejamento</button></td>
                 </tr>
                 <tr>
-                    <td><strong>3ªs Séries</strong> (Turmas A, B)</td>
+                    <td><strong>8ºs Anos</strong></td>
                     <td>Projeto de Vida</td>
                     <td>1º Bimestre</td>
-                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('3')">Abrir Planejamento</button></td>
+                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('8')">Abrir Planejamento</button></td>
+                </tr>
+                <tr>
+                    <td><strong>9ºs Anos</strong></td>
+                    <td>Projeto de Vida</td>
+                    <td>1º Bimestre</td>
+                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('9')">Abrir Planejamento</button></td>
                 </tr>
             </tbody>
         </table>
@@ -137,118 +155,154 @@
     </div>
 
     <script>
+        // Banco de Dados das 3 Escolas Atualizado
+        const dadosEscolas = {
+            "recanto": {
+                nome: "E.E. RECANTO VERDE SOL",
+                endereco: "R. Recanto do Sol, 415-477 - Recanto Verde do Sol, São Paulo - SP, 08382-340 | Tel: (11) 2735-3500",
+                logo: "logo_escola_recanto.jpg"
+            },
+            "isaac": {
+                nome: "E.E. PROF. ISAAC SCHRAIBER",
+                endereco: "R. Álvaro do Prado, 165 - São Rafael, São Paulo - SP, 08311-060 | Tel: (11) 2962-9018",
+                logo: "logo_escola_isaac.jpg" 
+            },
+            "floriano": {
+                nome: "E.E. FLORIANO PEIXOTO",
+                endereco: "Rua Edmundo da Cunha, 95 - Jardim Ester - São Paulo - SP - CEP 08330-230 | Tel: (11) 2919-2287",
+                logo: "logo_escola_floriano.jpg" 
+            }
+        };
+
+        const headerTemplate = `
+            <table class="header-table">
+                <tr>
+                    <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
+                    <td style="width: 70%;" class="header-text">
+                        <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
+                        <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
+                        <h4><span class="editavel nome-escola">E.E. RECANTO VERDE SOL</span></h4>
+                        <p><span class="editavel endereco-escola">R. Recanto do Sol, 415-477 - Recanto Verde do Sol, São Paulo - SP</span></p>
+                        <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANO ADAPTADO BIMESTRAL - 2026</span></strong></h3>
+                    </td>
+                    <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" class="logo-escola" alt="Logo Escola" style="max-width: 80px;"></td>
+                </tr>
+            </table>
+        `;
+
         const templates = {
-            '1': `
-                <table class="header-table">
-                    <tr>
-                        <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
-                        <td style="width: 70%;" class="header-text">
-                            <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
-                            <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
-                            <h4><span class="editavel">E.E. RECANTO VERDE SOL</span></h4>
-                            <p><span class="editavel">Rua Recanto Verde Sol, 73 – Iguatemi – São Paulo – SP – CEP 08381-800</span></p>
-                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANO ADAPTADO BIMESTRAL - 2026</span></strong></h3>
-                        </td>
-                        <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
-                    </tr>
-                </table>
+            '6': headerTemplate + `
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
-                    <span>Turmas: <span class="editavel">1ªs Séries A, B, C (Adaptação)</span></span>
-                    <span>Período: <span class="editavel">Diurno/Noturno</span></span>
+                    <span>Turmas: <span class="editavel">6ºs Anos (Adaptação)</span></span>
+                    <span>Período: <span class="editavel">Diurno</span></span>
                     <span>Componente: <span class="editavel">Projeto de Vida</span></span>
                 </div>
                 <table class="plano-table">
-                    <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo (EM)</th><th width="20%">Habilidades Adaptadas</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
+                    <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo (EF II)</th><th width="20%">Habilidades Adaptadas</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
                     <tbody>
-                        <tr><td class="editavel">02/02 a 13/02</td><td class="editavel">Identidade e Acolhimento</td><td class="editavel">Reconhecer a própria imagem e aceitar o ambiente escolar do Ensino Médio.</td><td class="editavel">Uso do Espelho; Construção de crachá visual gigante com foto atualizada e gostos.</td><td class="editavel">Espelho, foto impressa, cartolina, adesivos.</td><td class="editavel">Tolerância ao ambiente e auto-reconhecimento.</td><td class="editavel">Método TEACCH.</td></tr>
-                        <tr><td class="editavel">16/02 a 27/02</td><td class="editavel">Autoconhecimento: Forças e Desafios</td><td class="editavel">Expressar sensações de conforto (gosto) e desconforto (não gosto).</td><td class="editavel">Painel dicotômico "Sinal Verde x Sinal Vermelho" com imagens de texturas e sons.</td><td class="editavel">Painel semafórico, imagens de AVDs.</td><td class="editavel">Pareamento correto das imagens.</td><td class="editavel">Integração Sensorial.</td></tr>
-                        <tr><td class="editavel">02/03 a 13/03</td><td class="editavel">Inteligência Emocional</td><td class="editavel">Identificar e nomear emoções básicas em si e nos colegas.</td><td class="editavel">Uso do "Termômetro de Emoções" diário antes de iniciar a aula.</td><td class="editavel">Pranchas de comunicação visual (PECS).</td><td class="editavel">Uso do apontamento para emoções.</td><td class="editavel">Caderno do Professor.</td></tr>
-                        <tr><td class="editavel">16/03 a 27/03</td><td class="editavel">Meus Valores</td><td class="editavel">Compreender regras sociais básicas de convivência no Novo Ensino Médio.</td><td class="editavel">Histórias sociais sobre "Aguardar a vez", "Pedir ajuda" e "Tom de voz".</td><td class="editavel">Histórias sociais impressas.</td><td class="editavel">Redução de comportamentos disruptivos.</td><td class="editavel">Histórias Sociais (Carol Gray).</td></tr>
-                        <tr><td class="editavel">30/03 a 10/04</td><td class="editavel">Visão de Futuro (Curto Prazo)</td><td class="editavel">Compreender a sequência lógica de atividades (Início, meio e fim).</td><td class="editavel">Organização da agenda visual com velcro: "Primeiro a tarefa, Depois o lanche".</td><td class="editavel">Agenda visual de mesa.</td><td class="editavel">Cumprimento da rotina estruturada.</td><td class="editavel">Práticas de Autonomia.</td></tr>
-                        <tr><td class="editavel">13/04 a 24/04</td><td class="editavel">Autoavaliação Visual</td><td class="editavel">Expressar o fechamento do ciclo bimestral de forma tranquila.</td><td class="editavel">Colar o adesivo "Estrela" nas atividades que mais gostou de fazer.</td><td class="editavel">Portfólio do aluno, adesivos.</td><td class="editavel">Engajamento na celebração final.</td><td class="editavel">Observação Formativa.</td></tr>
+                        <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Acolhimento e Vínculo</td><td class="editavel">Familiarizar-se com o novo ambiente do EF II e equipe.</td><td class="editavel">Uso de painel visual da rotina; Dinâmica de passar bola sensorial.</td><td class="editavel">Bola sensorial, painel TEACCH.</td><td class="editavel">Tolerância ao ambiente.</td><td class="editavel">Método TEACCH.</td></tr>
+                        <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Minha História e Gostos</td><td class="editavel">Identificar preferências pessoais simples (o que gosto).</td><td class="editavel">Colagem em painel: figuras pré-cortadas (comidas, brinquedos).</td><td class="editavel">Figuras impressas, cola.</td><td class="editavel">Engajamento/Pareamento.</td><td class="editavel">PECS.</td></tr>
+                        <tr><td class="editavel">16/02 a 20/02</td><td class="editavel">Identidade Corporal</td><td class="editavel">Reconhecer esquema corporal e imagem refletida.</td><td class="editavel">Atividade "Quem sou eu" com espelho para apontar partes do rosto.</td><td class="editavel">Espelho, recortes de corpo.</td><td class="editavel">Apontamento correto.</td><td class="editavel">Psicomotricidade.</td></tr>
+                        <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Inteligência Emocional</td><td class="editavel">Reconhecer emoções básicas (Alegria, Tristeza, Raiva).</td><td class="editavel">Uso do "Termômetro Visual" de cores e expressões.</td><td class="editavel">Termômetro EVA, Cartões.</td><td class="editavel">Acerto visual.</td><td class="editavel">Material Inova.</td></tr>
+                        <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Valores e Regras</td><td class="editavel">Compreender regras básicas da sala de aula.</td><td class="editavel">História social narrada com apoio de pranchas (certo/errado).</td><td class="editavel">Pranchas de comunicação.</td><td class="editavel">Atenção na história.</td><td class="editavel">Carol Gray.</td></tr>
+                        <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Empatia Prática</td><td class="editavel">Aguardar a própria vez em tarefas divididas.</td><td class="editavel">Jogo simples de montar blocos (um coloca, depois o outro).</td><td class="editavel">Blocos tipo Lego grandes.</td><td class="editavel">Tempo de espera.</td><td class="editavel">Jogos Cooperativos.</td></tr>
+                        <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Explorando Habilidades</td><td class="editavel">Tolerar texturas e exercitar coordenação motora fina.</td><td class="editavel">Circuito tátil: uso de massinha, argila ou pintura a dedo.</td><td class="editavel">Massinha, tintas atóxicas.</td><td class="editavel">Tolerância sensorial.</td><td class="editavel">Integração Sensorial.</td></tr>
+                        <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">A Escola no Futuro</td><td class="editavel">Reconhecer espaços de uso comum (Pátio, Refeitório, Banheiro).</td><td class="editavel">Passeio guiado para fixar adesivos nos locais visitados.</td><td class="editavel">Adesivos, crachá.</td><td class="editavel">Orientação espacial.</td><td class="editavel">Mobilidade.</td></tr>
+                        <tr><td class="editavel">30/03 a 03/04</td><td class="editavel">Passos e Rotinas</td><td class="editavel">Compreender sequências (O que faço 1º, o que faço depois).</td><td class="editavel">Montagem de rotina no velcro (Ex: Atividade -> Lanche).</td><td class="editavel">Pranchas com velcro.</td><td class="editavel">Ordenação de figuras.</td><td class="editavel">Autonomia.</td></tr>
+                        <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Autoavaliação Visual</td><td class="editavel">Expressar satisfação geral ao fim do bimestre.</td><td class="editavel">Escolha de carinhas adesivas para colocar no painel da turma.</td><td class="editavel">Adesivos de emojis.</td><td class="editavel">Conclusão do ciclo.</td><td class="editavel">Observação.</td></tr>
                     </tbody>
                 </table>
                 <div class="footer-doc">
-                    <span>AULAS PREVISTAS: <span class="editavel">12 (Adaptadas)</span></span>
+                    <span>AULAS PREVISTAS: <span class="editavel">10 (Adaptadas)</span></span>
                     <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
                 </div>`,
             
-            '2': `
-                <table class="header-table">
-                    <tr>
-                        <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
-                        <td style="width: 70%;" class="header-text">
-                            <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
-                            <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
-                            <h4><span class="editavel">E.E. RECANTO VERDE SOL</span></h4>
-                            <p><span class="editavel">Rua Recanto Verde Sol, 73 – Iguatemi – São Paulo – SP – CEP 08381-800</span></p>
-                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANO ADAPTADO BIMESTRAL - 2026</span></strong></h3>
-                        </td>
-                        <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
-                    </tr>
-                </table>
+            '7': headerTemplate + `
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
-                    <span>Turmas: <span class="editavel">2ªs Séries A, B (Adaptação)</span></span>
-                    <span>Período: <span class="editavel">Diurno/Noturno</span></span>
+                    <span>Turmas: <span class="editavel">7ºs Anos (Adaptação)</span></span>
+                    <span>Período: <span class="editavel">Diurno</span></span>
                     <span>Componente: <span class="editavel">Projeto de Vida</span></span>
                 </div>
                 <table class="plano-table">
-                    <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo (EM)</th><th width="20%">Habilidades Adaptadas</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
+                    <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo (EF II)</th><th width="20%">Habilidades Adaptadas</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
                     <tbody>
-                        <tr><td class="editavel">02/02 a 13/02</td><td class="editavel">Eu e a Comunidade</td><td class="editavel">Identificar espaços sociais seguros na vizinhança e escola.</td><td class="editavel">Maquete visual: Reconhecer a Padaria, Farmácia e a Escola por meio de fotos reais.</td><td class="editavel">Fotos do bairro impressas, papelão.</td><td class="editavel">Reconhecimento dos locais.</td><td class="editavel">Geografia Funcional.</td></tr>
-                        <tr><td class="editavel">16/02 a 27/02</td><td class="editavel">O Mundo do Trabalho</td><td class="editavel">Associar profissões comuns do cotidiano às suas funções.</td><td class="editavel">Jogo de Pareamento: Foto do Bombeiro ligada à Mangueira; Padeiro ao Pão.</td><td class="editavel">Cartões de profissões plastificados.</td><td class="editavel">Acerto no pareamento visual.</td><td class="editavel">Guia de Profissões Inclusivo.</td></tr>
-                        <tr><td class="editavel">02/03 a 13/03</td><td class="editavel">Rotinas de Trabalho Funcional</td><td class="editavel">Executar tarefas com início, meio e fim (simulação laboral).</td><td class="editavel">Estações de trabalho: Separar lápis por cor, dobrar papéis e guardar em pastas.</td><td class="editavel">Materiais de papelaria diversos.</td><td class="editavel">Independência motora na tarefa.</td><td class="editavel">Currículo Funcional Natural.</td></tr>
-                        <tr><td class="editavel">16/03 a 27/03</td><td class="editavel">Educação Financeira Básica</td><td class="editavel">Reconhecer o conceito prático de troca (dinheiro por produto).</td><td class="editavel">Simulação de Cantina: Trocar fichas coloridas (ou notas falsas) por um lanche real.</td><td class="editavel">Dinheiro de brinquedo, lanches.</td><td class="editavel">Interação social na troca comercial.</td><td class="editavel">Matemática Funcional AVD.</td></tr>
-                        <tr><td class="editavel">30/03 a 10/04</td><td class="editavel">Tomada de Decisão</td><td class="editavel">Saber escolher assertivamente entre duas opções apresentadas.</td><td class="editavel">Exercício de autonomia: "Você quer usar o lápis azul ou vermelho?" (apontar).</td><td class="editavel">Objetos concretos duplos.</td><td class="editavel">Iniciativa na escolha.</td><td class="editavel">Estimulação Cognitiva.</td></tr>
-                        <tr><td class="editavel">13/04 a 24/04</td><td class="editavel">Autoavaliação e Fechamento</td><td class="editavel">Reconhecer os trabalhos realizados e guardar com zelo.</td><td class="editavel">Organizar a própria "Caixa de Conquistas" com as atividades do bimestre.</td><td class="editavel">Caixas organizadoras, etiquetas.</td><td class="editavel">Zelo com material pessoal.</td><td class="editavel">Práticas de Autonomia.</td></tr>
+                        <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Reencontro e Retorno</td><td class="editavel">Reestabelecer o vínculo de segurança com a escola pós-férias.</td><td class="editavel">Caixa surpresa: retirar objetos que lembrem rotinas escolares.</td><td class="editavel">Caixa, lápis, borracha.</td><td class="editavel">Exploração sensorial.</td><td class="editavel">TEACCH.</td></tr>
+                        <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Autonomia Diária</td><td class="editavel">Identificar o que consegue realizar com e sem ajuda.</td><td class="editavel">Painel "Eu Consigo": parear adesivos verdes/amarelos nas ações.</td><td class="editavel">Painel visual, adesivos.</td><td class="editavel">Pareamento adequado.</td><td class="editavel">AVD.</td></tr>
+                        <tr><td class="editavel">16/02 a 20/02</td><td class="editavel">Mudanças no Corpo (Higiene)</td><td class="editavel">Compreender hábitos fundamentais de higiene diária.</td><td class="editavel">Vestir e limpar uma "Silhueta de Feltro" (escovar dentes, banho).</td><td class="editavel">Silhueta feltro, miniaturas.</td><td class="editavel">Execução sequencial.</td><td class="editavel">Currículo Funcional.</td></tr>
+                        <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Sensibilidade e Limites</td><td class="editavel">Expressar sensações de desconforto tátil, visual ou auditivo.</td><td class="editavel">Separar materiais em "Gosto de tocar" e "Não gosto".</td><td class="editavel">Lixas, algodão, plásticos.</td><td class="editavel">Comunicação visual.</td><td class="editavel">Integração Sens.</td></tr>
+                        <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Espaço Compartilhado</td><td class="editavel">Tolerar a proximidade física de colegas em atividade curta.</td><td class="editavel">Montar quebra-cabeça de chão (EVA) em duplas.</td><td class="editavel">Quebra-cabeça gigante.</td><td class="editavel">Atenção conjunta.</td><td class="editavel">Mediação Social.</td></tr>
+                        <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Comunicação Alternativa</td><td class="editavel">Aprender a usar gestos/cartões para pedir pausa na rotina.</td><td class="editavel">Treino prático do cartão "Pausa" em situação leve de estresse simulado.</td><td class="editavel">Cartão "Pausa" plastificado.</td><td class="editavel">Redução de choro/crise.</td><td class="editavel">PECS.</td></tr>
+                        <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Exploração de Interesses</td><td class="editavel">Ampliar repertório fora do hiperfoco.</td><td class="editavel">Rodízio rápido (3 min) entre blocos, papel, e jogo de encaixe.</td><td class="editavel">Brinquedos variados.</td><td class="editavel">Flexibilidade cognitiva.</td><td class="editavel">Desenvolvimento.</td></tr>
+                        <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Autogestão de Tarefas</td><td class="editavel">Seguir dois comandos verbais ou visuais sequenciais.</td><td class="editavel">Organizar mesa escolar ("pegue o estojo e abra").</td><td class="editavel">Materiais do aluno.</td><td class="editavel">Independência.</td><td class="editavel">Funções Execut.</td></tr>
+                        <tr><td class="editavel">30/03 a 03/04</td><td class="editavel">Conectando Hiperfoco</td><td class="editavel">Utilizar o interesse do aluno para engajamento acadêmico.</td><td class="editavel">Atividade de pareamento ou pintura usando o tema preferido.</td><td class="editavel">Material personalizado.</td><td class="editavel">Tempo de concentração.</td><td class="editavel">Adaptação SEDUC.</td></tr>
+                        <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Fechamento do Bimestre</td><td class="editavel">Compreender a finalização de um período longo de estudo.</td><td class="editavel">Cerimônia de guardar os trabalhos na "Caixa Finalizada".</td><td class="editavel">Caixa arquivo.</td><td class="editavel">Noção de fim.</td><td class="editavel">Rotina TEACCH.</td></tr>
                     </tbody>
                 </table>
                 <div class="footer-doc">
-                    <span>AULAS PREVISTAS: <span class="editavel">12 (Adaptadas)</span></span>
+                    <span>AULAS PREVISTAS: <span class="editavel">10 (Adaptadas)</span></span>
                     <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
                 </div>`,
             
-            '3': `
-                <table class="header-table">
-                    <tr>
-                        <td style="width: 15%; text-align: left;"><img src="logo_sp.png" alt="Logo SP" style="max-width: 80px;"></td>
-                        <td style="width: 70%;" class="header-text">
-                            <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
-                            <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
-                            <h4><span class="editavel">E.E. RECANTO VERDE SOL</span></h4>
-                            <p><span class="editavel">Rua Recanto Verde Sol, 73 – Iguatemi – São Paulo – SP – CEP 08381-800</span></p>
-                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANO ADAPTADO BIMESTRAL - 2026</span></strong></h3>
-                        </td>
-                        <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
-                    </tr>
-                </table>
+            '8': headerTemplate + `
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
-                    <span>Turmas: <span class="editavel">3ªs Séries A, B (Adaptação)</span></span>
-                    <span>Período: <span class="editavel">Diurno/Noturno</span></span>
+                    <span>Turmas: <span class="editavel">8ºs Anos (Adaptação)</span></span>
+                    <span>Período: <span class="editavel">Diurno</span></span>
                     <span>Componente: <span class="editavel">Projeto de Vida</span></span>
                 </div>
                 <table class="plano-table">
-                    <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo (EM)</th><th width="20%">Habilidades Adaptadas</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
+                    <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo (EF II)</th><th width="20%">Habilidades Adaptadas</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
                     <tbody>
-                        <tr><td class="editavel">02/02 a 13/02</td><td class="editavel">Transição para Vida Adulta</td><td class="editavel">Compreender a finalização da etapa escolar (formatura).</td><td class="editavel">História social sequencial: "O 3º ano está acabando e eu vou crescer".</td><td class="editavel">Livro visual impresso pelo professor.</td><td class="editavel">Redução de ansiedade sobre a mudança.</td><td class="editavel">Prevenção de Crises de Transição.</td></tr>
-                        <tr><td class="editavel">16/02 a 27/02</td><td class="editavel">Documentos Pessoais</td><td class="editavel">Reconhecer o próprio nome escrito e identificar RG/CPF.</td><td class="editavel">Oficina: Preenchimento de "RG Gigante" (colar digital de tinta e foto).</td><td class="editavel">Modelo de RG ampliado em A4, tinta.</td><td class="editavel">Reconhecimento visual do documento.</td><td class="editavel">Guia de Inserção Laboral Apoiada.</td></tr>
-                        <tr><td class="editavel">02/03 a 13/03</td><td class="editavel">Autoadvocacia (Defesa de Direitos)</td><td class="editavel">Sinalizar adequadamente quando precisa de ajuda, água ou banheiro.</td><td class="editavel">Treino prático de uso da "Prancha de Pedidos" em diferentes salas da escola.</td><td class="editavel">Cordão crachá com ícones PECS.</td><td class="editavel">Comunicação funcional assertiva.</td><td class="editavel">PECS - Fases Avançadas.</td></tr>
-                        <tr><td class="editavel">16/03 a 27/03</td><td class="editavel">Meu Primeiro Currículo</td><td class="editavel">Identificar suas melhores habilidades práticas (o que faço bem).</td><td class="editavel">Cartaz "Meu Perfil": Colagem de imagens de atividades que o aluno executa com excelência.</td><td class="editavel">Revistas, tesoura, cola, papel pardo.</td><td class="editavel">Foco e atenção na finalização do cartaz.</td><td class="editavel">Emprego Apoiado (Metodologia).</td></tr>
-                        <tr><td class="editavel">30/03 a 10/04</td><td class="editavel">Rede de Apoio</td><td class="editavel">Identificar adultos de confiança (família, cuidadores, professores).</td><td class="editavel">Árvore da Confiança: Colar fotos das pessoas para quem pedir ajuda fora de casa.</td><td class="editavel">Fotos trazidas de casa, desenho de árvore.</td><td class="editavel">Apontamento correto dos cuidadores.</td><td class="editavel">Treino de Segurança/AVD.</td></tr>
-                        <tr><td class="editavel">13/04 a 24/04</td><td class="editavel">Autoavaliação e Encerramento</td><td class="editavel">Experimentar a sensação de dever cumprido na finalização de ciclo.</td><td class="editavel">Simulação de "Formatura Bimestral" com entrega de certificado de participação.</td><td class="editavel">Certificados impressos coloridos.</td><td class="editavel">Participação na cerimônia simbólica.</td><td class="editavel">Observação Afetiva e Comportamental.</td></tr>
+                        <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Rotinas com Tempo Mapeado</td><td class="editavel">Reduzir ansiedade com o uso de tempo delimitado.</td><td class="editavel">Tarefas guiadas por Timer Visual (Tempo de sentar, tempo de levantar).</td><td class="editavel">Timer visual de mesa.</td><td class="editavel">Adaptação ao tempo.</td><td class="editavel">Gestão TEACCH.</td></tr>
+                        <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Mapeamento de Habilidades</td><td class="editavel">Coordenação motora fina e categorização.</td><td class="editavel">Separação de tampinhas ou clipes por cor e tamanho.</td><td class="editavel">Caixas, tampinhas.</td><td class="editavel">Precisão no encaixe.</td><td class="editavel">Ensino Estruturado.</td></tr>
+                        <tr><td class="editavel">16/02 a 20/02</td><td class="editavel">Autorregulação Social</td><td class="editavel">Compreender regras sociais sobre o volume da voz em sala.</td><td class="editavel">Uso do "Termômetro do Som" (Silêncio, Sussurro, Voz Alta).</td><td class="editavel">Cartaz Medidor de Voz.</td><td class="editavel">Controle auditivo.</td><td class="editavel">Inova SP.</td></tr>
+                        <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Impacto na Comunidade</td><td class="editavel">Reconhecer locais importantes fora da escola.</td><td class="editavel">Montar mini-maquete de papelão do bairro (Padaria, Hospital).</td><td class="editavel">Caixas leite, fotos.</td><td class="editavel">Reconhecimento.</td><td class="editavel">AVD Externa.</td></tr>
+                        <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Alcançando uma Meta</td><td class="editavel">Cumprir uma tarefa curta visando uma recompensa (reforço).</td><td class="editavel">Painel "Primeiro Tarefa -> Depois Tablet/Brinquedo".</td><td class="editavel">Placa visual.</td><td class="editavel">Execução completa.</td><td class="editavel">Análise do Comp.</td></tr>
+                        <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">O Mundo do Trabalho</td><td class="editavel">Familiarizar-se com os uniformes e ferramentas de profissões.</td><td class="editavel">Jogo da memória gigante de profissões cotidianas (Polícia, Médico).</td><td class="editavel">Cartões plastificados.</td><td class="editavel">Pareamento lógico.</td><td class="editavel">Educação Funcional.</td></tr>
+                        <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Educação Financeira (Base)</td><td class="editavel">Aprender o conceito de "troca" (comprar).</td><td class="editavel">Simulação de compra: Entregar "nota" para receber um suco/lanche.</td><td class="editavel">Dinheiro fantasia.</td><td class="editavel">Compreensão da troca.</td><td class="editavel">Matemática AVD.</td></tr>
+                        <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Tomada de Decisão</td><td class="editavel">Desenvolver assertividade na escolha entre 2 opções.</td><td class="editavel">Escolher a cor do giz ou qual atividade fará primeiro.</td><td class="editavel">Itens concretos duplos.</td><td class="editavel">Iniciativa.</td><td class="editavel">Estímulo Cognitivo.</td></tr>
+                        <tr><td class="editavel">30/03 a 03/04</td><td class="editavel">Portfólio de Atividades</td><td class="editavel">Organizar os próprios materiais em ordem.</td><td class="editavel">Montar pasta catálogo colocando uma folha em cada plástico.</td><td class="editavel">Pasta e folhas soltas.</td><td class="editavel">Zelo e motricidade.</td><td class="editavel">Inovações Metodol.</td></tr>
+                        <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Comemoração de Etapa</td><td class="editavel">Associar o bom comportamento ao reconhecimento.</td><td class="editavel">Entrega visual de "Certificado de Estrela" do bimestre.</td><td class="editavel">Certificados coloridos.</td><td class="editavel">Celebração de rotina.</td><td class="editavel">Reforço Positivo.</td></tr>
                     </tbody>
                 </table>
                 <div class="footer-doc">
-                    <span>AULAS PREVISTAS: <span class="editavel">12 (Adaptadas)</span></span>
+                    <span>AULAS PREVISTAS: <span class="editavel">10 (Adaptadas)</span></span>
+                    <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
+                </div>`,
+            
+            '9': headerTemplate + `
+                <div class="info-professor">
+                    <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
+                    <span>Turmas: <span class="editavel">9ºs Anos (Adaptação)</span></span>
+                    <span>Período: <span class="editavel">Diurno</span></span>
+                    <span>Componente: <span class="editavel">Projeto de Vida</span></span>
+                </div>
+                <table class="plano-table">
+                    <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo (EF II)</th><th width="20%">Habilidades Adaptadas</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
+                    <tbody>
+                        <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">O Ano da Transição</td><td class="editavel">Compreender a ideia temporal de crescimento (passado x presente).</td><td class="editavel">Linha do tempo no quadro com foto do aluno bebê x hoje.</td><td class="editavel">Fotos do aluno, ímãs.</td><td class="editavel">Reconhecimento próprio.</td><td class="editavel">Desenvolvimento EM.</td></tr>
+                        <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Nivelamento de AVDs</td><td class="editavel">Mapear independência diária.</td><td class="editavel">Checklist visual prático (Saber varrer, amarrar tênis, abrir garrafa).</td><td class="editavel">Folha com ícones.</td><td class="editavel">Execução da ação.</td><td class="editavel">Currículo Funcional.</td></tr>
+                        <tr><td class="editavel">16/02 a 20/02</td><td class="editavel">Ensino Médio e Ansiedade</td><td class="editavel">Antecipar o encerramento do Ensino Fundamental.</td><td class="editavel">Leitura de história social: "Eu vou para o Ensino Médio".</td><td class="editavel">Livrinho visual.</td><td class="editavel">Redução de desregulação.</td><td class="editavel">Prevenção de Crises.</td></tr>
+                        <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Experimentação Vocacional</td><td class="editavel">Explorar ferramentas de trabalho funcional e de serviço básico.</td><td class="editavel">Caixas de trabalho: mexer na terra (jardim), ou usar teclado (ti).</td><td class="editavel">Terra, plantas, teclados.</td><td class="editavel">Tolerância sensorial.</td><td class="editavel">SEDUC/Inserção.</td></tr>
+                        <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Pareamento de Empregos</td><td class="editavel">Associar o ambiente à tarefa laboral correspondente.</td><td class="editavel">Atividade motora fina: Ligar com barbante o Hospital ao Médico.</td><td class="editavel">Pranchas, barbante.</td><td class="editavel">Destreza e lógica.</td><td class="editavel">Atividades Estrut.</td></tr>
+                        <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Protagonismo Prático</td><td class="editavel">Cumprir uma função rotineira para o grupo da sala.</td><td class="editavel">Criação do papel de "Ajudante do Dia" (entregar folhas, apagar lousa).</td><td class="editavel">Crachá, apagador.</td><td class="editavel">Independência na tarefa.</td><td class="editavel">Habilidades Sociais.</td></tr>
+                        <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Iniciação a Documentos</td><td class="editavel">Ter contato com os próprios dados vitais.</td><td class="editavel">Preenchimento de "RG em tamanho A4" com foto real e digital no carimbo.</td><td class="editavel">Papel, almofada de tinta.</td><td class="editavel">Reconhecer seu documento.</td><td class="editavel">Inserção Laboral.</td></tr>
+                        <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Planejamento da Semana</td><td class="editavel">Compreender os dias de aula e dias de descanso da semana.</td><td class="editavel">Construir calendário semanal na parede marcando sáb/domingo.</td><td class="editavel">Calendário grande EVA.</td><td class="editavel">Noção temporal.</td><td class="editavel">Autogestão de Tempo.</td></tr>
+                        <tr><td class="editavel">30/03 a 03/04</td><td class="editavel">Identidade Finalizada</td><td class="editavel">Sinalizar uma preferência de atividade clara e sustentada.</td><td class="editavel">Colagem no Mural "O que gosto de fazer" usando fotos de si próprio.</td><td class="editavel">Fotos, fita adesiva.</td><td class="editavel">Apontamento correto.</td><td class="editavel">Diretrizes Inova.</td></tr>
+                        <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Encerramento Formativo</td><td class="editavel">Criar a ponte da escola para a família através de suas produções.</td><td class="editavel">Montar uma sacola de papel com trabalhos para entregar aos pais em casa.</td><td class="editavel">Sacolas craft, atividades.</td><td class="editavel">Orgulho da produção.</td><td class="editavel">Diário Inclusivo.</td></tr>
+                    </tbody>
+                </table>
+                <div class="footer-doc">
+                    <span>AULAS PREVISTAS: <span class="editavel">10 (Adaptadas)</span></span>
                     <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
                 </div>`
         };
 
         let serieAtual = null;
         let modoEdicao = false;
+        let escolaAtual = "recanto";
 
         function abrirPlano(serieId) {
             serieAtual = serieId;
@@ -256,14 +310,37 @@
             const tituloSessao = document.getElementById('titulo-sessao');
             const areaDoc = document.getElementById('doc-plano');
             
-            tituloSessao.innerText = `Planejamento Adaptado - ${serieId}ªs Séries EM`;
-            const dadosSalvos = localStorage.getItem('plano_pv_inclusivo_' + serieId);
+            tituloSessao.innerText = `Planejamento Adaptado - ${serieId}ºs Anos EF II`;
+            
+            // Tenta puxar do localStorage, senão pega o template puro
+            const dadosSalvos = localStorage.getItem('plano_pv_inc_ef2_' + serieId);
             areaDoc.innerHTML = dadosSalvos ? dadosSalvos : templates[serieId];
             
+            // FORÇA a atualização visual da escola na estrutura do documento aberto!
+            alterarEscola();
+
             if (modoEdicao) toggleEdicao();
             container.classList.add('ativo');
             adicionarEventosDeSalvamento();
             document.getElementById('ancora-plano').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Função que muda logos, endereços e nomes das escolas
+        function alterarEscola() {
+            if(modoEdicao && serieAtual) {
+                alert("Desabilite a edição e salve antes de trocar a escola!");
+                document.getElementById('seletorEscola').value = escolaAtual; 
+                return;
+            }
+
+            const escolaSelecionada = document.getElementById('seletorEscola').value;
+            const dados = dadosEscolas[escolaSelecionada];
+            escolaAtual = escolaSelecionada;
+
+            // Substitui em todos os campos do documento ativo
+            document.querySelectorAll('.nome-escola').forEach(el => el.innerText = dados.nome);
+            document.querySelectorAll('.endereco-escola').forEach(el => el.innerText = dados.endereco);
+            document.querySelectorAll('.logo-escola').forEach(el => el.src = dados.logo);
         }
 
         function toggleEdicao() {
@@ -297,14 +374,20 @@
             const cloneDiv = document.getElementById('doc-plano').cloneNode(true);
             cloneDiv.querySelectorAll('.editavel').forEach(el => el.removeAttribute('contenteditable'));
             cloneDiv.classList.remove('em-edicao');
-            localStorage.setItem('plano_pv_inclusivo_' + serieAtual, cloneDiv.innerHTML);
+            localStorage.setItem('plano_pv_inc_ef2_' + serieAtual, cloneDiv.innerHTML);
+            
             const aviso = document.getElementById('aviso-salvo');
             aviso.style.display = 'inline-block';
             setTimeout(() => { aviso.style.display = 'none'; }, 2000);
         }
 
         function prepararParaExportacao() { if (modoEdicao) toggleEdicao(); }
-        function gerarNomeArquivo() { return `PV_Inclusivo_${serieAtual}Serie_Recanto_1Bimestre`; }
+        
+        function gerarNomeArquivo() { 
+            let nomeEscolaAbrev = dadosEscolas[escolaAtual].nome.replace("E.E. ", "").replace(/ /g, "_").replace(/\./g, "");
+            return `PV_Inclusivo_${serieAtual}Ano_${nomeEscolaAbrev}_1Bimestre`; 
+        }
+
         function imprimirPlano() { prepararParaExportacao(); window.print(); }
 
         function baixarJPG() {
@@ -339,4 +422,3 @@
     </script>
 </body>
 </html>
-
