@@ -1,283 +1,74 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EdHumanas - Educação em Ciências Humanas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Variáveis de Cores (Claro / Escuro) */
-        :root {
-            --bg-gradient: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);
-            --header-bg: #ffffff;
-            --text-main: #333;
-            --text-sub: #555;
-            --card-bg: #ffffff;
-            --title-color: #006064;
-            --footer-border: #e0e0e0;
-        }
-
-        body.dark-mode {
-            --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            --header-bg: #0f3460;
-            --text-main: #e94560;
-            --text-sub: #b8b8b8;
-            --card-bg: #1a1a2e;
-            --title-color: #00bcd4;
-            --footer-border: #444;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        body {
-            background: var(--bg-gradient);
-            min-height: 100vh;
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            transition: background 0.5s ease, color 0.5s ease;
-        }
-
-        /* Cabeçalho */
-        header {
-            background-color: var(--header-bg);
-            padding: 20px 50px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background-color 0.5s ease;
-        }
-
-        header h1 {
-            color: #00838f;
-            font-weight: 700;
-            font-size: 28px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        body.dark-mode header h1 { color: #e94560; }
-        header h1 span { color: #00bcd4; }
-        
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
+<!DOCTYPE html><html lang="pt-BR"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>EdHumanas - Educação em Ciências Humanas</title>    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">    <style>        /* Variáveis de Cores (Claro / Escuro) */        :root {            --bg-gradient: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%);            --header-bg: #ffffff;            --text-main: #333;            --text-sub: #555;            --card-bg: #ffffff;            --title-color: #006064;            --footer-border: #e0e0e0;        }
+        body.dark-mode {            --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);            --header-bg: #0f3460;            --text-main: #e94560;            --text-sub: #b8b8b8;            --card-bg: #1a1a2e;            --title-color: #00bcd4;            --footer-border: #444;        }
+        * {            margin: 0;            padding: 0;            box-sizing: border-box;            font-family: 'Poppins', sans-serif;        }
+        body {            background: var(--bg-gradient);            min-height: 100vh;            color: var(--text-main);            display: flex;            flex-direction: column;            transition: background 0.5s ease, color 0.5s ease;        }
+        /* Cabeçalho */        header {            background-color: var(--header-bg);            padding: 20px 50px;            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);            display: flex;            justify-content: space-between;            align-items: center;            transition: background-color 0.5s ease;        }
+        header h1 {            color: #00838f;            font-weight: 700;            font-size: 28px;            display: flex;            align-items: center;            gap: 10px;        }
+        body.dark-mode header h1 { color: #e94560; }        header h1 span { color: #00bcd4; }                nav {            display: flex;            align-items: center;            gap: 20px;        }
+        .theme-toggle {            background: none;            border: none;            font-size: 24px;            cursor: pointer;            transition: transform 0.3s ease;        }
         .theme-toggle:hover { transform: scale(1.2) rotate(15deg); }
-
-        .subtitle {
-            text-align: center;
-            margin: 50px 20px 20px 20px;
-        }
-
-        .subtitle h2 {
-            font-size: 32px;
-            color: var(--title-color);
-            margin-bottom: 10px;
-            transition: color 0.5s ease;
-        }
-
-        .subtitle p {
-            font-size: 18px;
-            color: var(--text-sub);
-            max-width: 600px;
-            margin: 0 auto;
-            transition: color 0.5s ease;
-        }
-
-        /* Container Principal */
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            flex: 1;
-        }
-
-        /* Estilo dos Cards */
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: 0 10px 20px rgba(0, 188, 212, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;
-            border-top: 5px solid #00bcd4;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Destaque para card restrito */
-        .card.card-lock {
-            border-top: 5px solid #e74c3c;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 188, 212, 0.3);
-        }
-
-        .card-icon {
-            font-size: 60px;
-            margin-bottom: 20px;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .card h3 {
-            color: var(--title-color);
-            font-size: 22px;
-            margin-bottom: 15px;
-            transition: color 0.5s ease;
-        }
-
-        .card p {
-            color: var(--text-sub);
-            font-size: 14px;
-            margin-bottom: 30px;
-            line-height: 1.6;
-            flex-grow: 1;
-            transition: color 0.5s ease;
-        }
-
-        /* Botões dos Cards */
-        .btn {
-            display: inline-block;
-            background-color: #00bcd4;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 15px 25px;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            margin-top: auto;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-lock {
-            background-color: #e74c3c;
-        }
-
-        body.dark-mode .btn { background-color: #e94560; }
-        body.dark-mode .btn:hover { background-color: #ff6b81; }
-        
-        body.dark-mode .btn-lock { background-color: #c0392b; }
-        body.dark-mode .btn-lock:hover { background-color: #e74c3c; }
-
-        .btn:hover {
-            background-color: #0097a7;
-            transform: scale(1.05);
-        }
-        
-        .btn-lock:hover {
-            background-color: #c0392b;
-        }
-
-        footer {
-            text-align: center;
-            padding: 20px;
-            background-color: var(--header-bg);
-            color: var(--text-sub);
-            font-size: 14px;
-            border-top: 1px solid var(--footer-border);
-            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
-        }
-        
-        footer a { color: #00bcd4; text-decoration: none; font-weight: 600; }
-        body.dark-mode footer a { color: #e94560; }
-        footer a:hover { text-decoration: underline; }
-
-        /* MODO RESPONSIVO */
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 15px 20px;
-                gap: 15px;
-            }
-            .subtitle { margin: 30px 15px 15px 15px; }
-            .subtitle h2 { font-size: 26px; }
-            .subtitle p { font-size: 16px; }
-            .container {
-                grid-template-columns: 1fr;
-                gap: 25px;
-                margin: 20px auto;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>Ed<span>Humanas</span></h1>
-        <nav>
-            <a href="#" style="text-decoration: none; color: #00bcd4; font-weight: 600;">Início</a>
-            <button id="btn-tema" class="theme-toggle" title="Alternar Modo Escuro/Claro">🌙</button>
-        </nav>
-    </header>
-
-    <div class="subtitle">
-        <h2>Bem-vindo ao Portal EdHumanas</h2>
-        <p>Acesse seus planejamentos de aula estruturados e organizados em um único painel.</p>
-    </div>
+        .subtitle {            text-align: center;            margin: 50px 20px 20px 20px;        }
+        .subtitle h2 {            font-size: 32px;            color: var(--title-color);            margin-bottom: 10px;            transition: color 0.5s ease;        }
+        .subtitle p {            font-size: 18px;            color: var(--text-sub);            max-width: 600px;            margin: 0 auto;            transition: color 0.5s ease;        }
+        /* Container Principal */        .container {            max-width: 1200px;            margin: 40px auto;            padding: 0 20px;            display: grid;            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));            gap: 40px;            flex: 1;        }
+        /* Estilo dos Cards */        .card {            background-color: var(--card-bg);            border-radius: 12px;            padding: 40px 30px;            text-align: center;            box-shadow: 0 10px 20px rgba(0, 188, 212, 0.1);            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease;            border-top: 5px solid #00bcd4;            display: flex;            flex-direction: column;        }
+        /* Destaque para card restrito */        .card.card-lock {            border-top: 5px solid #e74c3c;        }
+        .card:hover {            transform: translateY(-10px);            box-shadow: 0 15px 30px rgba(0, 188, 212, 0.3);        }
+        .card-icon {            font-size: 60px;            margin-bottom: 20px;            animation: float 3s ease-in-out infinite;        }
+        @keyframes float {            0% { transform: translateY(0px); }            50% { transform: translateY(-10px); }            100% { transform: translateY(0px); }        }
+        .card h3 {            color: var(--title-color);            font-size: 22px;            margin-bottom: 15px;            transition: color 0.5s ease;        }
+        .card p {            color: var(--text-sub);            font-size: 14px;            margin-bottom: 30px;            line-height: 1.6;            flex-grow: 1;            transition: color 0.5s ease;        }
+        /* Botões dos Cards */        .btn {            display: block;            background-color: #00bcd4;            color: #ffffff;            text-decoration: none;            padding: 12px 20px;            border-radius: 30px;            font-weight: 600;            font-size: 14px;            transition: background-color 0.3s ease, transform 0.2s ease;            margin: 0 auto 10px auto;            width: 100%;            max-width: 240px;            border: none;            cursor: pointer;        }
+        .btn:last-child {            margin-bottom: 0;        }
+        .btn-lock {            background-color: #e74c3c;            margin-top: auto;        }
+        body.dark-mode .btn { background-color: #e94560; }        body.dark-mode .btn:hover { background-color: #ff6b81; }                body.dark-mode .btn-lock { background-color: #c0392b; }        body.dark-mode .btn-lock:hover { background-color: #e74c3c; }
+        .btn:hover {            background-color: #0097a7;            transform: scale(1.03);        }                .btn-lock:hover {            background-color: #c0392b;        }
+        footer {            text-align: center;            padding: 20px;            background-color: var(--header-bg);            color: var(--text-sub);            font-size: 14px;            border-top: 1px solid var(--footer-border);            transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;        }                footer a { color: #00bcd4; text-decoration: none; font-weight: 600; }        body.dark-mode footer a { color: #e94560; }        footer a:hover { text-decoration: underline; }
+        /* MODO RESPONSIVO */        @media (max-width: 768px) {            header {                flex-direction: column;                padding: 15px 20px;                gap: 15px;            }            .subtitle { margin: 30px 15px 15px 15px; }            .subtitle h2 { font-size: 26px; }            .subtitle p { font-size: 16px; }            .container {                grid-template-columns: 1fr;                gap: 25px;                margin: 20px auto;            }        }    </style></head><body>
+    <header>        <h1>Ed<span>Humanas</span></h1>        <nav>            <a href="#" style="text-decoration: none; color: #00bcd4; font-weight: 600;">Início</a>            <button id="btn-tema" class="theme-toggle" title="Alternar Modo Escuro/Claro">🌙</button>        </nav>    </header>
+    <div class="subtitle">        <h2>Bem-vindo ao Portal EdHumanas</h2>        <p>Acesse seus planejamentos de aula estruturados e organizados em um único painel.</p>    </div>Parent
 
     <div class="container">
         <div class="card">
             <div class="card-icon">🌍</div>
             <h3>Geografia - E.M.</h3>
             <p>Planejamentos do período noturno (Recanto Verde Sol). Foco em vestibulares, ENEM e BNCC.</p>
-            <a href="plano_de_aula_em_geografia_recanto.html" class="btn">Acessar Geografia</a>
+            <a href="plano_de_aula_em_geografia_recanto.html" class="btn">Geografia 1º Bimestre</a>
+            <a href="plano_de_aula_geo_2Bim.html" class="btn">Geografia 2º Bimestre</a>
+            <a href="plano_de_aula_geo_3Bim.html" class="btn">Geografia 3º Bimestre</a>
+            <a href="plano_de_aula_geo_4Bim.html" class="btn">Geografia 4º Bimestre</a>
         </div>
 
         <div class="card">
             <div class="card-icon">🚀</div>
             <h3>Projeto de Vida Unificado</h3>
             <p>Painel geral. Acesse os planos de PV do 6º ao 9º Ano para as escolas Recanto, Isaac e Floriano.</p>
-            <a href="plano_projeto_vida_unificado.html" class="btn">Acessar Projeto de Vida</a>
+            <a href="plano_projeto_vida_unificado.html" class="btn">Projeto de Vida 1º Bimestre</a>
+            <a href="plano_de_aula_pj_2Bim.html" class="btn">Projeto de Vida 2º Bimestre</a>
+            <a href="plano_de_aula_pj_3Bim.html" class="btn">Projeto de Vida 3º Bimestre</a>
+            <a href="plano_de_aula_pj_4Bim.html" class="btn">Projeto de Vida 4º Bimestre</a>
         </div>
 
         <div class="card">
             <div class="card-icon">📝</div>
             <h3>PEI - Aulas Adaptadas</h3>
             <p>Modelo pedagógico detalhado para edição do Plano Educacional Individualizado (Modelo em branco).</p>
-            <a href="pei.html" class="btn">Acessar PEI</a>
+            <a href="pei.html" class="btn">PEI 1º Bimestre</a>
+            <a href="plano_de_aula_pei_2Bim.html" class="btn">PEI 2º Bimestre</a>
+            <a href="plano_de_aula_pei_3Bim.html" class="btn">PEI 3º Bimestre</a>
+            <a href="plano_de_aula_pei_4Bim.html" class="btn">PEI 4º Bimestre</a>
         </div>
 
         <div class="card">
             <div class="card-icon">⏰</div>
             <h3>Horário Escolar 2026</h3>
             <p>Consulte as grades de horários das turmas para o ano letivo.</p>
-            <a href="horario_2026.html" class="btn">Acessar Horários</a>
-        </div>
-        
+            <a href="horario_2026.html" class="btn" style="margin-top: auto;">Acessar Horários</a>
+        </div>                
+
         <div class="card card-lock">
             <div class="card-icon">🔒</div>
-            <h3>Área do professo (NEE)</h3>
+            <h3>Área do professor (NEE)</h3>
             <p>Área restrita</p>
             <button class="btn btn-lock" onclick="verificarSenha('alunos_com_deficiencia.html')">Acessar Lista de Alunos</button>
         </div>
@@ -294,7 +85,6 @@
 
         btnTema.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
-            
             // Troca o ícone
             if(body.classList.contains('dark-mode')) {
                 btnTema.textContent = '☀️';
@@ -306,7 +96,6 @@
         // Lógica da Senha para o Arquivo Restrito
         function verificarSenha(urlDestino) {
             let senha = prompt("ACESSO RESTRITO (LGPD / ECA)\nPor favor, insira a senha para acessar os dados dos alunos:");
-            
             if (senha === "67343474") {
                 window.location.href = urlDestino;
             } else if (senha !== null) {
@@ -314,5 +103,4 @@
             }
         }
     </script>
-</body>
-</html>
+</body></html>
