@@ -1,859 +1,424 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Horário de Aulas 2026 - Ednaldo (Manhã Corrigida + Noturno + Tarde)</title>
-
+    <title>Horário de Aulas 2026 - Ednaldo (Manhã Corrigida + Noturno + Tarde Ajustado)</title>
     
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
     
-
     <style>
-
         * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
-
-
         body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f9; color: #333; }
-
         
-
         .painel-mestre { max-width: 1000px; margin: 0 auto 20px auto; background-color: #2c3e50; color: white; padding: 20px 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); text-align: center; }
-
         .painel-mestre h1 { margin: 0; font-size: 26px; color: #00bcd4; }
-
         .painel-mestre p { margin: 5px 0 0 0; font-size: 16px; color: #e0f7fa; }
-
         
-
         .container { max-width: 1000px; margin: 0 auto; background-color: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); margin-bottom: 40px; }
-
         .botoes { text-align: center; margin-bottom: 25px; padding-bottom: 20px; border-bottom: 2px solid #e0e0e0; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
-
         
-
         button { background-color: #00838f; color: white; border: none; padding: 12px 20px; font-size: 14px; border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold; }
-
         button:hover { background-color: #006064; }
-
         .btn-jpg { background-color: #d2691e; }
-
         .btn-jpg:hover { background-color: #a0522d; }
-
         .btn-editar { background-color: #4b0082; }
-
         .btn-editar:hover { background-color: #300052; }
 
-
-
         .em-edicao .editavel[contenteditable="true"] { 
-
             outline: 2px dashed #4b0082; 
-
             border-radius: 4px;
-
             cursor: text;
-
         }
-
-
 
         .titulo-tabela { color: #00838f; font-size: 18px; margin-top: 30px; margin-bottom: 10px; text-transform: uppercase; border-left: 5px solid #00bcd4; padding-left: 10px; }
-
         
-
         table.horario-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 15px; text-align: center; }
-
         table.horario-table th, table.horario-table td { border: 1px solid #999; padding: 12px 5px; vertical-align: middle; font-weight: bold; height: 45px;}
-
         
-
         table.horario-table th { background-color: #00838f; color: white; text-transform: uppercase; letter-spacing: 1px; }
-
         table.horario-table td:first-child { background-color: #e0f7fa; color: #006064; width: 15%; } 
-
         
-
         table.horario-table td.editavel { transition: background-color 0.3s ease; }
 
-
-
         @media (max-width: 768px) {
-
             body { margin: 10px; }
-
             .container { padding: 15px; }
-
             table.horario-table { display: block; overflow-x: auto; white-space: nowrap; }
-
         }
-
     </style>
-
 </head>
-
 <body>
 
-
-
     <div class="painel-mestre">
-
         <h1>Grade de Horários - 2026</h1>
-
         <p>Professor Ednaldo Amancio de Lima</p>
-
-        <p style="font-size:14px; margin-top:8px;">✔ Horários totalmente corrigidos: Manhã (segunda, quinta, sexta) | Noturno | Tarde (Floriano ajustado)</p>
-
+        <p style="font-size:14px; margin-top:8px;">✔ Horários totalmente corrigidos: Manhã (segunda, quinta, sexta) | Noturno | Tarde (Terça-feira Reordenada)</p>
     </div>
-
-
 
     <div class="container">
-
         
-
         <div class="botoes">
-
             <button class="btn-editar" onclick="toggleEdicao('area-horario', this)">Habilitar Edição</button>
-
             <button onclick="baixarPDF('area-horario', 'Horario_Aulas_2026.pdf')">Baixar em PDF</button>
-
             <button class="btn-jpg" onclick="baixarJPG('area-horario', 'Horario_Aulas_2026.jpg')">Baixar em JPG</button>
-
             <button onclick="baixarWord('area-horario', 'Horario_Aulas_2026.doc')">Baixar em Word</button>
-
         </div>
-
         
-
         <div id="area-horario">
-
             
-
             <!-- TABELA 1: NOTURNO (mantido conforme grade anterior) -->
-
             <h3 class="titulo-tabela editavel">EE Recanto Verde Sol - Geografia - Noturno (conforme grade 2026)</h3>
-
             <table class="horario-table">
-
                 <thead>
-
                     <tr>
-
                         <th>Aulas</th>
-
                         <th>Segunda-feira</th>
-
                         <th>Terça-feira</th>
-
                         <th>Quarta-feira</th>
-
                         <th>Quinta-feira</th>
-
                         <th>Sexta-feira</th>
-
                     </tr>
-
                 </thead>
-
                 <tbody>
-
                     <tr>
-
                         <td>1ª Aula - 19:00</td>
-
                         <td class="editavel">3 D</td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel">3 C</td>
-
                         <td class="editavel">2 C</td>
-
                         <td class="editavel">2 E</td>
-
                     </tr>
-
                     <tr>
-
                         <td>2ª Aula - 20:00</td>
-
                         <td class="editavel">3 A</td>
-
                         <td class="editavel">3 B</td>
-
                         <td class="editavel">3 B</td>
-
                         <td class="editavel">1 C</td>
-
                         <td class="editavel">1 D</td>
-
                     </tr>
-
                     <tr>
-
                         <td>3ª Aula - 20:45</td>
-
                         <td class="editavel">2 A</td>
-
                         <td class="editavel">1 B</td>
-
                         <td class="editavel">2 C</td>
-
                         <td class="editavel">2 A</td>
-
                         <td class="editavel">2 B</td>
-
                     </tr>
-
                     <tr>
-
                         <td>4ª Aula - 21:30</td>
-
                         <td class="editavel">2 E</td>
-
                         <td class="editavel">2 D</td>
-
                         <td class="editavel">3 A</td>
-
                         <td class="editavel">2 B</td>
-
                         <td class="editavel">3 C</td>
-
                     </tr>
-
                     <tr>
-
                         <td>5ª Aula - 22:15</td>
-
                         <td class="editavel">1 D</td>
-
                         <td class="editavel">2 D</td>
-
                         <td class="editavel">3 D</td>
-
                         <td class="editavel">1 B</td>
-
                         <td class="editavel">1 C</td>
-
                     </tr>
-
                 </tbody>
-
             </table>
 
-
-
-            <!-- TABELA 2: MANHÃ (TOTALMENTE CORRIGIDA conforme solicitação) -->
-
+            <!-- TABELA 2: MANHÃ -->
             <h3 class="titulo-tabela editavel">EE Recanto Verde Sol - Projeto de vida - 16 aulas Manhã - DI 1 e DI 2 (VERSÃO CORRIGIDA)</h3>
-
             <table class="horario-table">
-
                 <thead>
-
                     <tr>
-
                         <th>Aulas</th>
-
                         <th>Segunda-feira</th>
-
                         <th>Terça-feira</th>
-
                         <th>Quarta-feira</th>
-
                         <th>Quinta-feira</th>
-
                         <th>Sexta-feira</th>
-
                     </tr>
-
                 </thead>
-
                 <tbody>
-
-                    <!-- 1ª Aula - 7:00 -->
-
                     <tr>
-
                         <td>1ª Aula - 7:00h</td>
-
                         <td class="editavel">7 C</td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel">9 B</td>
-
                     </tr>
-
-                    <!-- 2ª Aula - 7:50 -->
-
                     <tr>
-
                         <td>2ª Aula - 7:50h</td>
-
                         <td class="editavel">6 E</td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel">9 D</td>
-
                     </tr>
-
-                    <!-- 3ª Aula - 8:40 -->
-
                     <tr>
-
                         <td>3ª Aula - 8:40h</td>
-
                         <td class="editavel">7 D</td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel">7 B</td>
-
                         <td class="editavel">8 A</td>
-
                     </tr>
-
-                    <!-- 4ª Aula - 9:50 -->
-
                     <tr>
-
                         <td>4ª Aula - 9:50h</td>
-
                         <td class="editavel">6 C</td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel">7 E</td>
-
                         <td class="editavel">6 G</td>
-
                     </tr>
-
-                    <!-- 5ª Aula - 10:40 -->
-
                     <tr>
-
                         <td>5ª Aula - 10:40h</td>
-
                         <td class="editavel">7 A</td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel">6 D</td>
-
                         <td class="editavel">6 F</td>
-
                     </tr>
-
-                    <!-- 6ª Aula - 11:30 -->
-
                     <tr>
-
                         <td>6ª Aula - 11:30h</td>
-
                         <td class="editavel">8 B</td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel">9 C</td>
-
                         <td class="editavel">9 A</td>
-
                     </tr>
-
                 </tbody>
-
             </table>
 
-
-
-            <!-- TABELA 3: TARDE (mantida conforme correção anterior: Quinta 8A, Sexta sequência 6B,6A,7B,7A,6C e sem 6ª aula) -->
-
+            <!-- TABELA 3: TARDE (Terça-feira reordenada conforme solicitação) -->
             <h3 class="titulo-tabela editavel">Segunda e Quarta (Recanto) | Terça (Isaac) | Quinta e Sexta (Floriano) - HORÁRIO CORRIGIDO</h3>
-
             <table class="horario-table">
-
                 <thead>
-
                     <tr>
-
                         <th>Aulas</th>
-
                         <th>Segunda-feira</th>
-
                         <th>Terça-feira</th>
-
                         <th>Quarta-feira</th>
-
                         <th>Quinta-feira</th>
-
                         <th>Sexta-feira</th>
-
                     </tr>
-
                 </thead>
-
                 <tbody>
-
                     <!-- 13:00 - 1ª Aula -->
-
                     <tr>
-
                         <td>1ª Aula - 13:00h</td>
-
                         <td class="editavel">ATPC - Di 2</td>
-
-                        <td class="editavel">7 B</td>
-
+                        <td class="editavel">6 C</td>
                         <td class="editavel">ATPC - Di 2</td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel">6 B</td>
-
                     </tr>
-
                     <!-- 13:50 - 2ª Aula -->
-
                     <tr>
-
                         <td>2ª Aula - 13:50h</td>
-
                         <td class="editavel">ATPC - Di 1</td>
-
                         <td class="editavel">7 A</td>
-
                         <td class="editavel">ATPC - Di 2</td>
-
                         <td class="editavel"></td>
-
                         <td class="editavel">6 A</td>
-
                     </tr>
-
                     <!-- 15:00 - 3ª Aula -->
-
                     <tr>
-
                         <td>3ª Aula - 15:00h</td>
-
                         <td class="editavel"></td>
-
-                        <td class="editavel">6 C</td>
-
-                        <td class="editavel"></td>
-
-                        <td class="editavel"></td>
-
-                        <td class="editavel">7 B</td>
-
-                    </tr>
-
-                    <!-- 15:50 - 4ª Aula (Quinta: vazio / Sexta: 7A) -->
-
-                    <tr>
-
-                        <td>4ª Aula - 15:50h</td>
-
-                        <td class="editavel"></td>
-
-                        <td class="editavel">6 B</td>
-
-                        <td class="editavel"></td>
-
-                        <td class="editavel"></td>
-
-                        <td class="editavel">7 A</td>
-
-                    </tr>
-
-                    <!-- 16:40 - 5ª Aula (Quinta: 8A / Sexta: 6C) -->
-
-                    <tr>
-
-                        <td>5ª Aula - 16:40h</td>
-
-                        <td class="editavel">ATPC - Di 1</td>
-
                         <td class="editavel">6 A</td>
-
-                        <td class="editavel">ATPC - Di 1</td>
-
-                        <td class="editavel">8 A</td>
-
-                        <td class="editavel">6 C</td>
-
+                        <td class="editavel"></td>
+                        <td class="editavel"></td>
+                        <td class="editavel">7 B</td>
                     </tr>
-
-                    <!-- 17:30 - 6ª Aula (SEM AULA na quinta e sexta) -->
-
+                    <!-- 15:50 - 4ª Aula -->
                     <tr>
-
-                        <td>6ª Aula - 17:30h</td>
-
-                        <td class="editavel">ATPC - Di 1</td>
-
-                        <td class="editavel">7 C</td>
-
-                        <td class="editavel">ATPC - Di 1</td>
-
+                        <td>4ª Aula - 15:50h</td>
                         <td class="editavel"></td>
-
+                        <td class="editavel">6 B</td>
                         <td class="editavel"></td>
-
+                        <td class="editavel"></td>
+                        <td class="editavel">7 A</td>
                     </tr>
-
+                    <!-- 16:40 - 5ª Aula -->
+                    <tr>
+                        <td>5ª Aula - 16:40h</td>
+                        <td class="editavel">ATPC - Di 1</td>
+                        <td class="editavel">7 C</td>
+                        <td class="editavel">ATPC - Di 1</td>
+                        <td class="editavel">8 A</td>
+                        <td class="editavel">6 C</td>
+                    </tr>
+                    <!-- 17:30 - 6ª Aula -->
+                    <tr>
+                        <td>6ª Aula - 17:30h</td>
+                        <td class="editavel">ATPC - Di 1</td>
+                        <td class="editavel">7 B</td>
+                        <td class="editavel">ATPC - Di 1</td>
+                        <td class="editavel"></td>
+                        <td class="editavel"></td>
+                    </tr>
                 </tbody>
-
             </table>
-
-
 
         </div>
-
     </div>
 
-
-
 <script>
-
     // Aplica cores conforme série/ano ou ATPC
-
     function aplicarCores() {
-
         const celulas = document.querySelectorAll('table.horario-table td.editavel');
-
         
-
         celulas.forEach(td => {
-
             let texto = td.innerText.trim().toUpperCase();
-
             let textoLimpo = texto.replace(/\s+/g, '');
-
             
-
             // Fundo padrão branco para vazios
-
             td.style.backgroundColor = '#ffffff';
-
             td.style.color = '#333';
 
-
-
             if (textoLimpo === '' || textoLimpo === '-') {
-
                 td.style.backgroundColor = '#ffffff';
-
             } else if (textoLimpo.startsWith('1')) {
-
                 td.style.backgroundColor = '#d4e6f1'; // Azul Pastel (1ª Série)
-
             } else if (textoLimpo.startsWith('2')) {
-
                 td.style.backgroundColor = '#dcedc1'; // Verde Pastel (2ª Série)
-
             } else if (textoLimpo.startsWith('3')) {
-
                 td.style.backgroundColor = '#fff9c4'; // Amarelo Pastel (3ª Série)
-
             } else if (textoLimpo.startsWith('6')) {
-
                 td.style.backgroundColor = '#e1bee7'; // Lilás Pastel (6º Ano)
-
             } else if (textoLimpo.startsWith('7')) {
-
                 td.style.backgroundColor = '#f8bbd0'; // Rosa Pastel (7º Ano)
-
             } else if (textoLimpo.startsWith('8')) {
-
                 td.style.backgroundColor = '#ffccbc'; // Pêssego Pastel (8º Ano)
-
             } else if (textoLimpo.startsWith('9')) {
-
                 td.style.backgroundColor = '#b2dfdb'; // Ciano Pastel (9º Ano)
-
             } else if (textoLimpo.includes('ATPC')) {
-
                 td.style.backgroundColor = '#cfd8dc'; // Cinza (ATPC)
-
                 td.style.color = '#111'; 
-
             }
-
         });
-
     }
-
-
 
     window.onload = aplicarCores;
 
-
-
     document.addEventListener('input', function(e) {
-
         if (e.target.classList && e.target.classList.contains('editavel')) {
-
             aplicarCores();
-
         }
-
     });
-
-
 
     let memoriaOriginal = "";
-
     let isEditing = false;
 
-
-
     function toggleEdicao(idElemento, btn) {
-
         const elemento = document.getElementById(idElemento);
-
         const editaveis = elemento.querySelectorAll('.editavel');
 
-
-
         if (!isEditing) {
-
             memoriaOriginal = elemento.innerHTML; 
-
             
-
             editaveis.forEach(el => el.setAttribute('contenteditable', 'true'));
-
             elemento.classList.add('em-edicao');
-
             btn.innerText = "Desabilitar Edição";
-
             btn.style.backgroundColor = "#ff4500"; 
-
             isEditing = true;
-
         } else {
-
             editaveis.forEach(el => el.setAttribute('contenteditable', 'false'));
-
             elemento.classList.remove('em-edicao');
-
             btn.innerText = "Habilitar Edição";
-
             btn.style.backgroundColor = "#4b0082";
-
             isEditing = false;
-
         }
-
     }
-
-
 
     function restaurarDocumento(idElemento) {
-
         if (memoriaOriginal) {
-
             document.getElementById(idElemento).innerHTML = memoriaOriginal;
-
             
-
             const btn = document.querySelector('.btn-editar');
-
             btn.innerText = "Habilitar Edição";
-
             btn.style.backgroundColor = "#4b0082";
-
             document.getElementById(idElemento).classList.remove('em-edicao');
-
             isEditing = false;
-
             
-
             aplicarCores(); 
-
         }
-
     }
-
-
 
     document.addEventListener('keydown', function(e) {
-
         if (e.target.tagName === 'TD' && e.target.isContentEditable) {
-
             if (e.key === 'Enter') {
-
                 e.preventDefault(); 
-
             }
-
         }
-
     });
 
-
-
     function baixarPDF(idElemento, nomeArquivo) {
-
         try {
-
             if(isEditing) document.getElementById(idElemento).classList.remove('em-edicao');
 
-
-
             const elemento = document.getElementById(idElemento);
-
             const opt = {
-
                 margin:       10, 
-
                 filename:     nomeArquivo,
-
                 image:        { type: 'jpeg', quality: 0.98 },
-
                 html2canvas:  { scale: 2, useCORS: true, scrollY: 0 }, 
-
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' } 
-
             };
-
             
-
             html2pdf().set(opt).from(elemento).save().then(() => {
-
                 if(isEditing) restaurarDocumento(idElemento);
-
             });
-
             
-
         } catch(e) { alert('Erro ao gerar PDF: ' + e.message); }
-
     }
-
-
 
     function baixarJPG(idElemento, nomeArquivo) {
-
         try {
-
             if(isEditing) document.getElementById(idElemento).classList.remove('em-edicao');
-
-
 
             const elemento = document.getElementById(idElemento);
-
             const larguraOriginal = elemento.style.width;
-
             elemento.style.width = '1000px'; 
-
             
-
             html2canvas(elemento, { scale: 2, useCORS: true, scrollY: 0 }).then(canvas => {
-
                 let link = document.createElement('a');
-
                 link.download = nomeArquivo;
-
                 link.href = canvas.toDataURL('image/jpeg', 0.98);
-
                 link.click();
-
                 elemento.style.width = larguraOriginal;
-
                 if(isEditing) restaurarDocumento(idElemento);
-
             });
-
         } catch(e) { alert('Erro ao gerar JPG: ' + e.message); }
-
     }
-
-
 
     function baixarWord(idElemento, nomeArquivo) {
-
         try {
-
             if(isEditing) document.getElementById(idElemento).classList.remove('em-edicao');
 
-
-
             var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Horário</title><style>table.horario-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:14px; text-align:center;} table.horario-table th, table.horario-table td{border:1px solid black; padding:8px;} table.horario-table th{background-color:#00838f; color:white;} h3.titulo-tabela{color:#00838f; font-size:16px;}</style></head><body>";
-
             var footer = "</body></html>";
-
             
-
             var htmlContext = document.getElementById(idElemento).innerHTML;
-
             htmlContext = htmlContext.replace(/contenteditable="true"/g, "");
-
             htmlContext = htmlContext.replace(/contenteditable="false"/g, "");
-
             
-
             var sourceHTML = header + htmlContext + footer;
-
             var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-
             
-
             var fileDownload = document.createElement("a");
-
             document.body.appendChild(fileDownload);
-
             fileDownload.href = source;
-
             fileDownload.download = nomeArquivo;
-
             fileDownload.click();
-
             document.body.removeChild(fileDownload);
-
             
-
             if(isEditing) restaurarDocumento(idElemento);
-
         } catch(e) { alert('Erro ao gerar Word: ' + e.message); }
-
     }
-
 </script>
 
-
-
 </body>
-
 </html>
