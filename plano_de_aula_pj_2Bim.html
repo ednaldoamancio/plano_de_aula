@@ -13,11 +13,6 @@
         .botoes-topo { display: flex; gap: 15px; align-items: center; flex-wrap: wrap; }
         .btn-inclusivo { background-color: #3498db; color: white; padding: 10px 15px; border-radius: 5px; font-size: 14px; font-weight: bold; text-decoration: none; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .btn-inclusivo:hover { background-color: #2980b9; }
-        
-        /* NOVO ESTILO PARA O BOTÃO DO PEI INDIVIDUAL */
-        .btn-pei { background-color: #9b59b6; color: white; padding: 10px 15px; border-radius: 5px; font-size: 14px; font-weight: bold; text-decoration: none; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
-        .btn-pei:hover { background-color: #8e44ad; }
-
         .btn-imprimir-tudo { background-color: #27ae60; color: white; padding: 10px 15px; border: none; border-radius: 5px; font-size: 14px; font-weight: bold; cursor: pointer; transition: 0.3s; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
         .btn-imprimir-tudo:hover { background-color: #1e8449; }
         
@@ -64,11 +59,18 @@
         
         /* CONTROLE DE CONFIGURAÇÃO DE IMPRESSÃO AVANÇADA */
         @media print {
+            /* Ocultar elementos de navegação e botões interativos */
             .painel-mestre, .botoes { display: none !important; }
             body { background-color: #fff; margin: 0; padding: 0; }
+            
+            /* Remove margens e sombras dos blocos na folha */
             .container { box-shadow: none; margin: 0 !important; padding: 0 !important; border: none; }
+            
+            /* Força cada container de série a saltar para uma nova página, limpando rebarbas */
             .container { page-break-before: always; break-before: page; }
             .container:first-of-type { page-break-before: avoid; break-before: auto; }
+            
+            /* Força a quebra técnica para a SEGUNDA FOLHA exatamente no local determinado */
             .html2pdf__page-break { 
                 display: block;
                 page-break-before: always; 
@@ -76,6 +78,8 @@
                 height: 0;
                 margin: 0;
             }
+            
+            /* REGRA PARA IMPRESSÃO INDIVIDUAL VIA SCRIPT */
             body.impressao-individual .container {
                 display: none !important;
             }
@@ -92,10 +96,7 @@
         <h1>Painel do Professor - Projetos de Vida (2º Bimestre)</h1>
         <div class="botoes-topo">
             <button class="btn-imprimir-tudo" onclick="window.print()">🖨️ Imprimir Todas as Turmas de uma Vez</button>
-            
-            <a href="plano_inclusivo_pv_ef2_2Bim.html" class="btn-inclusivo">🧩 Acessar Versão Inclusiva (Turmas)</a>
-            <a href="plano_de_aula_pei_2Bim.html" class="btn-pei">📄 Acessar PEI Individual (Anexo IV)</a>
-            
+            <a href="plano_inclusivo_geo_2bim.html" class="btn-inclusivo">🧩 Acessar Versão Inclusiva (TEA/DI)</a>
             <div>
                 <label for="seletorEscola" style="margin-right: 10px; font-weight: bold;">Escola Ativa:</label>
                 <select id="seletorEscola" class="seletor-escola" onchange="alterarEscola()">
@@ -181,8 +182,7 @@
         <div class="botoes">
             <button class="btn-editar" onclick="toggleEdicao('plano-7-ano', this)">Habilitar Edição</button>
             <button class="btn-imprimir" onclick="imprimirTurmaIndividual('container-7-ano')">🖨️ Imprimir</button>
-            <button class="btn-jpg" onclick="baixarJPG('plano-7-ano', 'Planejamento_7Anos_2Bim.jpg')">Baixar JPG</button>
-            <button onclick="baixarWord('plano-7-ano', 'Planejamento_7Anos_2Bim.doc')">Baixar Word</button>
+            <button class="btn-jpg" onclick="baixarJPG('plano-7-ano', 'Planejamento_7Anos_2Bim.jpg')">Baixar JPG</button>            <button onclick="baixarWord('plano-7-ano', 'Planejamento_7Anos_2Bim.doc')">Baixar Word</button>
         </div>
         
         <div id="plano-7-ano">
@@ -298,7 +298,7 @@
                     <tr><th width="10%">Semana</th><th width="15%">Conteúdo Real (CMSP)</th><th width="20%">A/E - Hab. Socioemocionais</th><th width="15%">Estratégia/ Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Referências</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td class="editavel">01/06 a 05/06</td><td class="editavel">Aula 7 - Antes que vire print: mostra de HQs</td><td class="editavel">Imaginação criativa, proatividade e expression artística autônoma.</td><td class="editavel">Oficina prática de confecção e exibição de histórias em quadrinhos reflexivas.</td><td class="editavel">Papéis e lápis de cor.</td><td class="editavel">Avaliação da HQ.</td><td class="editavel">CMSP ID 150453.</td></tr>
+                    <tr><td class="editavel">01/06 a 05/06</td><td class="editavel">Aula 7 - Antes que vire print: mostra de HQs</td><td class="editavel">Imaginação criativa, proatividade e expressão artística autônoma.</td><td class="editavel">Oficina prática de confecção e exibição de histórias em quadrinhos reflexivas.</td><td class="editavel">Papéis e lápis de cor.</td><td class="editavel">Avaliação da HQ.</td><td class="editavel">CMSP ID 150453.</td></tr>
                     <tr><td class="editavel">08/06 a 12/06</td><td class="editavel">Zeladoria Digital e Segurança de Senhas</td><td class="editavel">Autogestão, responsabilidade e proteção técnica das próprias contas.</td><td class="editavel">Estudo prático de criação de senhas fortes e chaves de segurança (LGPD).</td><td class="editavel">Lousa e giz.</td><td class="editavel">Fichamento prático.</td><td class="editavel">Inova Educação.</td></tr>
                     <tr><td class="editavel">15/06 a 19/06</td><td class="editavel">Reflexão sobre Comportamentos em Redes</td><td class="editavel">Assertividade, amabilidade e ética digital nas comunidades virtuais de jogos.</td><td class="editavel">Roda de conversa mediada sobre discursos tóxicos e postura construtiva.</td><td class="editavel">Caderno.</td><td class="editavel">Formativa.</td><td class="editavel">Diretrizes SEDUC.</td></tr>
                     <tr><td class="editavel">22/06 a 26/06</td><td class="editavel">Fechamento e Portfólio Digital (HQs)</td><td class="editavel">Organização e foco; encadernar e arquivar as produções geradas.</td><td class="editavel">Revisão estrutural das pastas pedagógicas de Projeto de Vida.</td><td class="editavel">Pastas dos alunos.</td><td class="editavel">Nota de conceito.</td><td class="editavel">Caderno do Aluno.</td></tr>
@@ -393,17 +393,17 @@
     const dadosEscolas = {
         "recanto": {
             nome: "E.E. RECANTO VERDE SOL",
-            endereco: "Rua Recanto Verde Sol, 73 \u2013 Iguatemi \u2013 S\u00e3o Paulo \u2013 SP \u2013 CEP 08381-800 | Tel: (11) 2253-3600",
+            endereco: "Rua Recanto Verde Sol, 73 – Iguatemi – São Paulo – SP – CEP 08381-800 | Tel: (11) 2253-3600",
             logo: "logo_escola_recanto.jpg"
         },
         "isaac": {
             nome: "E.E. PROF. ISAAC SCHRAIBER",
-            endereco: "Rua \u00c1lvaro do Prado, 165 \u2013 Parque S\u00e3o Rafael \u2013 S\u00e3o Paulo \u2013 SP \u2013 CEP 08311-060 | Tel: (11) 2962-9018",
+            endereco: "Rua Álvaro do Prado, 165 – Parque São Rafael – São Paulo – SP – CEP 08311-060 | Tel: (11) 2962-9018",
             logo: "logo_escola_isaac.jpg"
         },
         "floriano": {
             nome: "E.E. FLORIANO PEIXOTO",
-            endereco: "Rua Edmundo da Cunha, 95 \u2013 Jardim Ester \u2013 S\u00e3o Paulo \u2013 SP \u2013 CEP 08330-230 | Tel: (11) 2919-2287",
+            endereco: "Rua Edmundo da Cunha, 95 – Jardim Ester – São Paulo – SP – CEP 08330-230 | Tel: (11) 2919-2287",
             logo: "logo_escola_floriano.jpg"
         }
     };
@@ -476,7 +476,9 @@
             btn.style.backgroundColor = "#4b0082";
             document.getElementById(idElemento).classList.remove('em-edicao');
             editandoId = null;
-            alert("\u2705 A\u00e7\u00e3o conclu\u00edda!\n\nO documento base foi restaurado e est\u00e1 pronto para uso novamente.");
+            alert("✅ Ação concluída!
+
+O documento base foi restaurado e está pronto para uso novamente.");
         }
     }
 
