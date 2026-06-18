@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Planejamento - Geografia EM</title>
+    <title>PEI - Planejamento de Educação Inclusiva - Geografia EM (2º Bimestre)</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
@@ -14,7 +14,7 @@
         .nav-global { background-color: #1a252f; padding: 15px 20px; display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
         .nav-global a { color: #ecf0f1; text-decoration: none; padding: 8px 16px; border-radius: 4px; font-size: 14px; font-weight: bold; transition: 0.3s; border: 1px solid transparent; }
         .nav-global a:hover { background-color: #2c3e50; border: 1px solid #bdc3c7; }
-        .nav-global a.ativo { background-color: #00838f; color: #fff; border: 1px solid #00acc1; }
+        .nav-global a.ativo { background-color: #8e44ad; color: #fff; border: 1px solid #9b59b6; }
 
         .cabecalho-pagina { text-align: center; padding: 0 20px; }
         .table-container { max-width: 1000px; margin: 0 auto 40px auto; overflow-x: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
@@ -24,8 +24,8 @@
         table.lista-menu tr:nth-child(even) { background-color: #fafafa; }
         table.lista-menu tr:hover { background-color: #f0f0f0; }
         
-        .btn-abrir { display: inline-block; padding: 8px 15px; background-color: #00838f; border-radius: 4px; color: white; text-decoration: none; font-weight: bold; transition: 0.2s; cursor: pointer; text-align: center; border: none; }
-        .btn-abrir:hover { background-color: #006064; }
+        .btn-abrir { display: inline-block; padding: 8px 15px; background-color: #8e44ad; border-radius: 4px; color: white; text-decoration: none; font-weight: bold; transition: 0.2s; cursor: pointer; text-align: center; border: none; }
+        .btn-abrir:hover { background-color: #6c3483; }
 
         .container { max-width: 1200px; margin: 0 auto; background-color: #fff; padding: 30px 40px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-bottom: 40px; display: none; }
         .container.ativo { display: block; }
@@ -34,13 +34,13 @@
         .status-salvamento { font-size: 13px; color: #27ae60; font-weight: bold; display: none; }
         .botoes { display: flex; gap: 8px; flex-wrap: wrap; }
         
-        button.acao { background-color: #00838f; color: white; border: none; padding: 9px 16px; font-size: 13px; border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold; }
-        button.acao:hover { background-color: #006064; }
+        button.acao { background-color: #8e44ad; color: white; border: none; padding: 9px 16px; font-size: 13px; border-radius: 5px; cursor: pointer; transition: 0.3s; font-weight: bold; }
+        button.acao:hover { background-color: #6c3483; }
         .btn-jpg { background-color: #d2691e !important; } .btn-jpg:hover { background-color: #a0522d !important; }
         .btn-imprimir { background-color: #c0392b !important; } .btn-imprimir:hover { background-color: #a53125 !important; }
         .btn-word { background-color: #2980b9 !important; } .btn-word:hover { background-color: #2471a3 !important; }
         .btn-editar { background-color: #f39c12 !important; color: #fff !important; } .btn-editar:hover { background-color: #d68910 !important; }
-        .btn-imprimir-tudo { background-color: #8e44ad !important; } .btn-imprimir-tudo:hover { background-color: #6c3483 !important; }
+        .btn-imprimir-tudo { background-color: #27ae60 !important; font-size: 16px !important; padding: 10px 20px !important; } .btn-imprimir-tudo:hover { background-color: #1e8449 !important; }
 
         .em-edicao .editavel { outline: 2px dashed #f39c12; background-color: #fdfbf7; padding: 2px 4px; border-radius: 3px; }
         
@@ -53,7 +53,7 @@
         .header-text h4 { margin: 3px 0; font-size: 14px; }
         .header-text p { font-size: 11px; margin: 0; }
         
-        .info-professor { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 15px; font-weight: bold; background-color: #e0f7fa; padding: 10px; border: 1px solid #b2ebf2; border-radius: 5px; gap: 10px; font-size: 13px; color: #006064; }
+        .info-professor { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 15px; font-weight: bold; background-color: #f3e5f5; padding: 10px; border: 1px solid #ce93d8; border-radius: 5px; gap: 10px; font-size: 13px; color: #6a1b9a; }
         
         table.plano-table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 13px; }
         table.plano-table th, table.plano-table td { border: 1px solid #000; padding: 6px; text-align: left; vertical-align: top; }
@@ -61,21 +61,21 @@
         table.plano-table tr { page-break-inside: avoid; }
         
         .footer-doc { margin-top: 20px; display: flex; justify-content: space-between; font-weight: bold; flex-wrap: wrap; gap: 10px; page-break-inside: avoid; }
-        .section-title { color: #00838f; border-bottom: 2px solid #00838f; padding-bottom: 5px; margin-bottom: 15px; text-transform: uppercase; font-size: 20px; font-weight: bold; }
+        .section-title { color: #8e44ad; border-bottom: 2px solid #8e44ad; padding-bottom: 5px; margin-bottom: 15px; text-transform: uppercase; font-size: 20px; font-weight: bold; }
+        
+        .badge-pei { display: inline-block; background-color: #8e44ad; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-left: 10px; vertical-align: middle; }
 
-        /* Regras de impressão ajustadas para paisagem e 2 páginas por série */
+        /* Regras de impressão */
         @media print {
             @page {
                 size: A4 landscape;
                 margin: 10mm;
             }
             
-            /* Oculta tudo que não é para imprimir */
             body > *:not(#print-area) {
                 display: none !important;
             }
             
-            /* Área de impressão principal */
             #print-area {
                 display: block !important;
                 position: relative;
@@ -87,12 +87,10 @@
                 margin: 0;
             }
             
-            /* Oculta elementos da interface dentro da área de impressão */
             .no-print, .barra-ferramentas, .section-title {
                 display: none !important;
             }
             
-            /* Estilos para cada série na impressão */
             .serie-container {
                 page-break-after: always;
                 page-break-before: always;
@@ -134,7 +132,6 @@
             thead { display: table-header-group; }
             tfoot { display: table-footer-group; }
             
-            /* Garante que as cores de fundo apareçam */
             .info-professor, table.plano-table th {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
@@ -144,17 +141,20 @@
 </head>
 <body>
 
-    <!-- Interface normal (oculta durante impressão) -->
+    <!-- Menu de Navegação -->
     <div class="nav-global">
-        <a href="#" class="ativo">📅 Planejamento Geral (Turmas)</a>
+        <a href="index.html">📅 Planejamento Geral (Turmas)</a>
         <a href="pei_geografia_individual.html">📄 PEI Individual (Anexo IV)</a>
-        <a href="plano_de_aula_em_geografia_recanto.html">🧩 Planos de Aula Adaptados</a>
+        <a href="plano_inclusivo_geo_2bim.html">🧩 Planos de Aula Adaptados</a>
+        <a href="#" class="ativo">♿ PEI - Planejamento de Educação Inclusiva</a>
     </div>
 
     <div class="cabecalho-pagina">
-        <h2 style="color: #2c3e50; margin-top: 0;">Gestor de Planejamentos - Geografia (EM)</h2>
-        <p style="margin-bottom: 30px; color: #555;">Clique em "Abrir Planejamento" para visualizar, editar ou exportar o documento da série desejada.</p>
-        <button class="acao btn-imprimir-tudo" onclick="imprimirTudoPDF()" style="font-size: 16px; padding: 10px 20px; margin-bottom: 20px;">📥 Imprimir Tudo (PDF Único)</button>
+        <h2 style="color: #6a1b9a; margin-top: 0;">♿ PEI - Planejamento de Educação Inclusiva</h2>
+        <p style="font-size: 18px; font-weight: bold; color: #8e44ad;">Geografia - Ensino Médio - 2º Bimestre / 2026</p>
+        <p style="margin-bottom: 30px; color: #555;">Documento oficial de adequação curricular para estudantes público-alvo da Educação Especial.<br>
+        <strong>Período: 23 de abril a 06 de julho de 2026</strong></p>
+        <button class="acao btn-imprimir-tudo" onclick="imprimirTudoPDF()" style="margin-bottom: 20px;">📥 Imprimir Tudo (PDF Único - 3 Séries)</button>
     </div>
 
     <div class="table-container">
@@ -164,6 +164,7 @@
                     <th>Segmento / Séries</th>
                     <th>Disciplina</th>
                     <th>Bimestre</th>
+                    <th>Público-Alvo</th>
                     <th style="text-align: center;">Ação</th>
                 </tr>
             </thead>
@@ -171,31 +172,34 @@
                 <tr>
                     <td><strong>1ªs Séries</strong> (Turmas B, C, D)</td>
                     <td>Geografia</td>
-                    <td>1º Bimestre</td>
-                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('1')">Abrir Planejamento</button></td>
+                    <td>2º Bimestre</td>
+                    <td>TEA / DI / SD</td>
+                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('1')">Abrir PEI</button></td>
                 </tr>
                 <tr>
                     <td><strong>2ªs Séries</strong> (Turmas A, B, C, D, E)</td>
                     <td>Geografia</td>
-                    <td>1º Bimestre</td>
-                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('2')">Abrir Planejamento</button></td>
+                    <td>2º Bimestre</td>
+                    <td>TEA / DI</td>
+                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('2')">Abrir PEI</button></td>
                 </tr>
                 <tr>
                     <td><strong>3ªs Séries</strong> (Turmas A, B, C, D)</td>
                     <td>Geografia</td>
-                    <td>1º Bimestre</td>
-                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('3')">Abrir Planejamento</button></td>
+                    <td>2º Bimestre</td>
+                    <td>TEA / DI</td>
+                    <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('3')">Abrir PEI</button></td>
                 </tr>
             </tbody>
         </table>
     </div>
 
-    <!-- Área de impressão (sempre visível para impressão, oculta na tela) -->
+    <!-- Área de impressão -->
     <div id="print-area" style="display: none;"></div>
 
     <div id="ancora-plano"></div>
     <div id="container-plano" class="container">
-        <h2 class="section-title" id="titulo-sessao">Planejamento</h2>
+        <h2 class="section-title" id="titulo-sessao">PEI - Planejamento de Educação Inclusiva</h2>
         
         <div class="barra-ferramentas">
             <div>
@@ -223,35 +227,38 @@
                             <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
                             <h4><span class="editavel">E.E. RECANTO VERDE SOL</span></h4>
                             <p><span class="editavel">Rua Pedro Ramazzani, 06 – Recanto Verde Sol – São Paulo – SP</span></p>
-                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL - 2026</span></strong></h3>
+                            <h3 style="margin-top: 10px; color: #8e44ad;"><strong>♿ <span class="editavel">PEI - PLANEJAMENTO DE EDUCAÇÃO INCLUSIVA - 2º BIMESTRE / 2026</span></strong></h3>
+                            <p style="font-size: 10px; color: #8e44ad;">Plano de Ensino Adaptado para Estudantes com Deficiência, TEA e Altas Habilidades</p>
                         </td>
                         <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
                     </tr>
                 </table>
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
-                    <span>Turmas: <span class="editavel">1ª B, 1º C, 1º D</span></span>
+                    <span>Turmas: <span class="editavel">1ªs Séries B, C, D</span></span>
                     <span>Período: <span class="editavel">Noturno</span></span>
+                    <span>Público-Alvo: <span class="editavel">TEA, DI, SD</span></span>
                 </div>
                 <table class="plano-table">
-                    <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">Habilidades</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
+                    <thead><tr><th width="8%">Semana</th><th width="14%">Conteúdo</th><th width="14%">Habilidades (BNCC)</th><th width="14%">Adequação Curricular</th><th width="14%">Metodologia Inclusiva (DUA)</th><th width="14%">Recursos Adaptados</th><th width="12%">Avaliação Inclusiva</th><th width="10%">Ref.</th></tr></thead>
                     <tbody>
-                        <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Conceitos básicos de Geografia</td><td class="editavel">Compreensão de coordenadas e localização.</td><td class="editavel">Aula expositiva.</td><td class="editavel">Lousa, livro.</td><td class="editavel">Diagnóstica.</td><td class="editavel">Atlas.</td></tr>
-                        <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Climatologia e Meteorologia</td><td class="editavel">Análise de imagens e conceitos do Clima.</td><td class="editavel">Estudo dirigido com mapas.</td><td class="editavel">Slides.</td><td class="editavel">Tarefa Paulista.</td><td class="editavel">Livro didático.</td></tr>
-                        <tr><td class="editavel">16/02 a 20/02</td><td class="editavel">Fatores e Elementos Climáticos</td><td class="editavel">Diferenciar tempo e clima, fatores de controle.</td><td class="editavel">Debate guiado.</td><td class="editavel">Lousa.</td><td class="editavel">Participação.</td><td class="editavel">Vídeos.</td></tr>
-                        <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Tipos Climáticos (Mundo e Brasil)</td><td class="editavel">Identificar os principais domínios climáticos.</td><td class="editavel">Estudo de texto jornalístico.</td><td class="editavel">Notícias.</td><td class="editavel">Questões.</td><td class="editavel">Sites.</td></tr>
-                        <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Climograma</td><td class="editavel">Leitura, construção e interpretação de gráficos.</td><td class="editavel">Aula interativa com apps.</td><td class="editavel">Tablets/Celular.</td><td class="editavel">Gamificada.</td><td class="editavel">INMET.</td></tr>
-                        <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Geomorfologia</td><td class="editavel">Compreender a estrutura interna da Terra e placas.</td><td class="editavel">Maquetes ou desenhos.</td><td class="editavel">Lousa, Giz.</td><td class="editavel">Desenho.</td><td class="editavel">Livro.</td></tr>
-                        <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Agentes do Relevo</td><td class="editavel">Diferenciar agentes internos e externos (intemperismo).</td><td class="editavel">Análise de imagens.</td><td class="editavel">Projetor.</td><td class="editavel">Resumo.</td><td class="editavel">Artigos.</td></tr>
-                        <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Relevo Brasileiro</td><td class="editavel">Identificar planaltos, planícies e depressões.</td><td class="editavel">Mapeamento.</td><td class="editavel">Mapas Mudos.</td><td class="editavel">Mapa pintado.</td><td class="editavel">Atlas.</td></tr>
-                        <tr><td class="editavel">30/03 a 03/04</td><td class="editavel">Hidrografia Brasileira</td><td class="editavel">Analisar as principais bacias hidrográficas.</td><td class="editavel">Pesquisa em grupo.</td><td class="editavel">Internet.</td><td class="editavel">Apresentação.</td><td class="editavel">ANA.</td></tr>
-                        <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Domínios Morfoclimáticos</td><td class="editavel">Correlacionar clima, relevo e vegetação (Aziz Ab'Sáber).</td><td class="editavel">Painel integrado.</td><td class="editavel">Cartolina.</td><td class="editavel">Trabalho.</td><td class="editavel">Livro.</td></tr>
-                        <tr><td class="editavel">13/04 a 17/04</td><td class="editavel">Revisão Bimestral</td><td class="editavel">Sistematizar os conceitos de geografia física abordados.</td><td class="editavel">Resolução de exercícios.</td><td class="editavel">Listas.</td><td class="editavel">Formativa.</td><td class="editavel">Caderno.</td></tr>
-                        <tr><td class="editavel">20/04 a 24/04</td><td class="editavel">Avaliação e Recuperação</td><td class="editavel">Verificar a aprendizagem e retomar defasagens.</td><td class="editavel">Prova escrita / Correção.</td><td class="editavel">Prova.</td><td class="editavel">Somativa.</td><td class="editavel">Currículo.</td></tr>
+                        <tr><td class="editavel">23/04 a 24/04</td><td class="editavel">Introdução à Cartografia Tátil</td><td class="editavel">Identificar as principais formas de representação da superfície terrestre.</td><td class="editavel">Substituir representações abstratas por texturas concretas (lixa, algodão, EVA).</td><td class="editavel">Aula sensorial: bandeja tátil com 4 texturas. Comandos curtos. Rotina visual afixada.</td><td class="editavel">Bandeja sensorial, texturas diversas, pictogramas de comunicação.</td><td class="editavel">Diagnóstica: apontar textura correta ao ser nomeada.</td><td class="editavel">CMSP Aula 1.</td></tr>
+                        <tr><td class="editavel">27/04 a 30/04</td><td class="editavel">Cartografia Tátil e Maquetes</td><td class="editavel">Desenvolver noções de escala e tridimensionalidade.</td><td class="editavel">Escala simplificada: "grande/pequeno", "perto/longe". Maquete com 3 elementos.</td><td class="editavel">Construção de maquete simplificada com massinha e papelão. Mediação passo a passo.</td><td class="editavel">Massinha de modelar, papelão, barbante, grãos.</td><td class="editavel">Observação da manipulação dos materiais táteis.</td><td class="editavel">CMSP Aula 3.</td></tr>
+                        <tr><td class="editavel">04/05 a 08/05</td><td class="editavel">Elaboração de Mapas Táteis</td><td class="editavel">Construir legenda e codificação de mapas acessíveis.</td><td class="editavel">Legenda iconográfica: desenhos grandes + textura correspondente. Pareamento.</td><td class="editavel">Oficina prática guiada com apoio individual. Reforço positivo a cada etapa concluída.</td><td class="editavel">Mapa base A3, cola colorida, barbante, grãos, EVA.</td><td class="editavel">Análise do mapa produzido: legenda correta.</td><td class="editavel">CMSP Aula 4.</td></tr>
+                        <tr><td class="editavel">11/05 a 15/05</td><td class="editavel">Sensoriamento Remoto</td><td class="editavel">Compreender captação de imagens de satélite e fotos aéreas.</td><td class="editavel">Comparar foto do alto (drone) com visão do chão. "O que vemos lá de cima?"</td><td class="editavel">Análise de fotos aéreas impressas do bairro. Uso de Google Earth simplificado com zoom.</td><td class="editavel">Projetor, Google Earth, fotos impressas A4 do bairro.</td><td class="editavel">Identificar 2 elementos na foto aérea (escola, rua, praça).</td><td class="editavel">CMSP Aula 5.</td></tr>
+                        <tr><td class="editavel">18/05 a 22/05</td><td class="editavel">SIG - Sistema de Informações Geográficas</td><td class="editavel">Analisar o uso de softwares e bases de dados georreferenciadas.</td><td class="editavel">Conceito de "mapa no computador". Cruzar 2 informações simples: onde moro + onde estudo.</td><td class="editavel">Demonstração prática com mapa digital simplificado. Atividade: localizar endereço no mapa.</td><td class="editavel">Tablet/Computador, Google Maps simplificado.</td><td class="editavel">Localizar a escola no mapa digital com auxílio.</td><td class="editavel">CMSP Aula 6.</td></tr>
+                        <tr><td class="editavel">25/05 a 29/05</td><td class="editavel">Produção de Mapas Temáticos</td><td class="editavel">Aplicar variáveis visuais em cartogramas específicos.</td><td class="editavel">Uso de cores fortes (vermelho, azul, verde) para categorizar. Máximo 3 categorias.</td><td class="editavel">Pintura guiada de mapa mudo. Trabalho com molde vazado para contorno.</td><td class="editavel">Mapas mudos simplificados, lápis de cor grosso, moldes vazados.</td><td class="editavel">Preenchimento correto de 2 das 3 categorias.</td><td class="editavel">CMSP Aula 7.</td></tr>
+                        <tr><td class="editavel">01/06 a 05/06</td><td class="editavel">Globalização e Redes Mundiais</td><td class="editavel">Compreender fluxos materiais e imateriais no espaço global.</td><td class="editavel">Conceito de "coisas que viajam": alimentos, roupas, internet. História em quadrinhos.</td><td class="editavel">Roda de conversa com objetos concretos (rótulos de produtos). História social: "A viagem do tênis".</td><td class="editavel">Rótulos de produtos, histórias sociais em quadrinhos, lousa.</td><td class="editavel">Identificar de onde veio 1 produto (país de origem no rótulo).</td><td class="editavel">CMSP Aula 8.</td></tr>
+                        <tr><td class="editavel">08/06 a 12/06</td><td class="editavel">Cadeias Produtivas Globais</td><td class="editavel">Mapear a divisão internacional do trabalho.</td><td class="editavel">Simplificar: "Quem faz? Quem compra?". Linha do tempo visual da produção de um tênis.</td><td class="editavel">Montagem de sequência lógica com figuras: plantar → colher → fabricar → vender → comprar.</td><td class="editavel">Cartões com figuras sequenciais, velcro, painel.</td><td class="editavel">Ordenar corretamente 4 das 5 etapas da cadeia produtiva.</td><td class="editavel">CMSP Aula 9.</td></tr>
+                        <tr><td class="editavel">15/06 a 19/06</td><td class="editavel">Revisão Integrada - Prova Paulista</td><td class="editavel">Consolidar habilidades de cartografia moderna e globalização.</td><td class="editavel">Revisão com jogos de pareamento: textura ↔ elemento do mapa. Produto ↔ país de origem.</td><td class="editavel">Estações de revisão rotativas: jogo da memória tátil, quebra-cabeça de mapa, bingo de conceitos.</td><td class="editavel">Jogos adaptados, cartões táteis, quebra-cabeça de mapa.</td><td class="editavel">Acertar 3 de 5 questões no jogo de revisão.</td><td class="editavel">Prova Paulista.</td></tr>
+                        <tr><td class="editavel">22/06 a 26/06</td><td class="editavel">Fechamento Teórico da Unidade</td><td class="editavel">Sistematizar conceitos de fluxos de informação e sensoriamento.</td><td class="editavel">Mapa mental coletivo com figuras em vez de texto. Colagem guiada.</td><td class="editavel">Construção de painel coletivo: "O que aprendemos?". Cada aluno cola uma figura e explica.</td><td class="editavel">Cartolina grande, figuras impressas, cola, canetinhas.</td><td class="editavel">Contribuir com 1 elemento no painel coletivo.</td><td class="editavel">Caderno do Aluno.</td></tr>
+                        <tr><td class="editavel">29/06 a 03/07</td><td class="editavel">SEI - Semana de Estudos Intensivos</td><td class="editavel">Recuperar e consolidar conceitos do 2º bimestre.</td><td class="editavel">Foco nos 3 conceitos-chave: mapa tátil, foto aérea, produto global. Reforço individualizado.</td><td class="editavel">Oficinas de recuperação com material concreto. Atendimento individualizado ou em pequenos grupos.</td><td class="editavel">Kits individuais de revisão tátil, listas de exercícios com imagens.</td><td class="editavel">Formativa contínua: checklist de habilidades consolidadas.</td><td class="editavel">Diretrizes SEDUC.</td></tr>
+                        <tr><td class="editavel">06/07 a 06/07</td><td class="editavel">Avaliação Institucional e Conselho</td><td class="editavel">Encerrar registros das avaliações do bimestre.</td><td class="editavel">Relatório descritivo individual: o que o aluno consolidou. Portfólio de atividades adaptadas.</td><td class="editavel">Reunião pedagógica com análise de portfólios inclusivos. Fechamento de notas adaptado.</td><td class="editavel">Portfólios individuais, fichas de acompanhamento, Plataforma SED.</td><td class="editavel">Somativa Final: relatório descritivo.</td><td class="editavel">Calendário Escolar.</td></tr>
                     </tbody>
                 </table>
                 <div class="footer-doc">
-                    <span>AULAS PREVISTAS: <span class="editavel">24</span></span>
+                    <span>AULAS PREVISTAS: <span class="editavel">22</span></span>
+                    <span>ESTUDANTES PÚBLICO-ALVO: <span class="editavel">Nycolas Lisboa (SD/TEA) - 1ª D</span></span>
                     <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
                 </div>`,
             
@@ -264,35 +271,38 @@
                             <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
                             <h4><span class="editavel">E.E. RECANTO VERDE SOL</span></h4>
                             <p><span class="editavel">Rua Pedro Ramazzani, 06 – Recanto Verde Sol – São Paulo – SP</span></p>
-                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL - 2026</span></strong></h3>
+                            <h3 style="margin-top: 10px; color: #8e44ad;"><strong>♿ <span class="editavel">PEI - PLANEJAMENTO DE EDUCAÇÃO INCLUSIVA - 2º BIMESTRE / 2026</span></strong></h3>
+                            <p style="font-size: 10px; color: #8e44ad;">Plano de Ensino Adaptado para Estudantes com Deficiência, TEA e Altas Habilidades</p>
                         </td>
                         <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
                     </tr>
                 </table>
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
-                    <span>Turmas: <span class="editavel">2ªs Séries A, B</span></span>
+                    <span>Turmas: <span class="editavel">2ªs Séries A, B, C, D, E</span></span>
                     <span>Período: <span class="editavel">Noturno</span></span>
+                    <span>Público-Alvo: <span class="editavel">TEA, DI</span></span>
                 </div>
                 <table class="plano-table">
-                    <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">Habilidades</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
+                    <thead><tr><th width="8%">Semana</th><th width="14%">Conteúdo</th><th width="14%">Habilidades (BNCC)</th><th width="14%">Adequação Curricular</th><th width="14%">Metodologia Inclusiva (DUA)</th><th width="14%">Recursos Adaptados</th><th width="12%">Avaliação Inclusiva</th><th width="10%">Ref.</th></tr></thead>
                     <tbody>
-                        <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Dinâmica Populacional</td><td class="editavel">Analisar conceitos de população absoluta e relativa.</td><td class="editavel">Aula expositiva.</td><td class="editavel">Lousa.</td><td class="editavel">Diagnóstica.</td><td class="editavel">IBGE.</td></tr>
-                        <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Teorias Demográficas</td><td class="editavel">Comparar Malthusiana, Neomalthusiana e Reformista.</td><td class="editavel">Debate em sala.</td><td class="editavel">Textos.</td><td class="editavel">Tarefa Paulista.</td><td class="editavel">Livro.</td></tr>
-                        <tr><td class="editavel">16/02 a 20/02</td><td class="editavel">Transição Demográfica</td><td class="editavel">Leitura e interpretação de pirâmides etárias.</td><td class="editavel">Análise de gráficos.</td><td class="editavel">Projetor.</td><td class="editavel">Exercício.</td><td class="editavel">IBGE.</td></tr>
-                        <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Migrações Contemporâneas</td><td class="editavel">Compreender fluxos migratórios e refúgio.</td><td class="editavel">Estudo de casos.</td><td class="editavel">Notícias/Vídeos.</td><td class="editavel">Texto crítico.</td><td class="editavel">ACNUR.</td></tr>
-                        <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Migrações no Brasil</td><td class="editavel">Identificar os ciclos migratórios internos brasileiros.</td><td class="editavel">Linha do tempo.</td><td class="editavel">Lousa.</td><td class="editavel">Pesquisa.</td><td class="editavel">Livro.</td></tr>
-                        <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Urbanização Global</td><td class="editavel">Comparar urbanização em países ricos e periféricos.</td><td class="editavel">Mapa mental.</td><td class="editavel">Cadernos.</td><td class="editavel">Mapa mental.</td><td class="editavel">Atlas.</td></tr>
-                        <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Urbanização Brasileira</td><td class="editavel">Analisar a macrocefalia urbana e metropolização.</td><td class="editavel">Estudo dirigido.</td><td class="editavel">Textos base.</td><td class="editavel">Seminário.</td><td class="editavel">Artigos.</td></tr>
-                        <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Problemas Socioambientais</td><td class="editavel">Identificar ilhas de calor, inversão térmica e enchentes.</td><td class="editavel">Estudo do entorno local.</td><td class="editavel">Mapas locais.</td><td class="editavel">Debate.</td><td class="editavel">Notícias.</td></tr>
-                        <tr><td class="editavel">30/03 a 03/04</td><td class="editavel">Segregação Socioespacial</td><td class="editavel">Debater gentrificação, favelização e direito à cidade.</td><td class="editavel">Roda de conversa.</td><td class="editavel">Imagens.</td><td class="editavel">Participação.</td><td class="editavel">Sites.</td></tr>
-                        <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Espaço Agrário e Revolução Verde</td><td class="editavel">Compreender a modernização do campo e seus impactos.</td><td class="editavel">Análise de documentário.</td><td class="editavel">Audiovisual.</td><td class="editavel">Resenha.</td><td class="editavel">Vídeos.</td></tr>
-                        <tr><td class="editavel">13/04 a 17/04</td><td class="editavel">Revisão Bimestral</td><td class="editavel">Sistematizar conceitos de demografia e espaço urbano.</td><td class="editavel">Resolução de questões ENEM.</td><td class="editavel">Lista.</td><td class="editavel">Formativa.</td><td class="editavel">Caderno.</td></tr>
-                        <tr><td class="editavel">20/04 a 24/04</td><td class="editavel">Avaliação e Recuperação</td><td class="editavel">Verificar a aprendizagem e retomar defasagens.</td><td class="editavel">Prova escrita / Correção.</td><td class="editavel">Prova.</td><td class="editavel">Somativa.</td><td class="editavel">Currículo.</td></tr>
+                        <tr><td class="editavel">23/04 a 24/04</td><td class="editavel">Urbanização Acelerada no Século XX</td><td class="editavel">Analisar fatores históricos do êxodo rural global.</td><td class="editavel">Conceito de "muita gente morando junta". Comparar fotos: cidade antiga x cidade atual.</td><td class="editavel">Aula com imagens comparativas grandes. Blocos de montar para representar crescimento.</td><td class="editavel">Fotos comparativas A3, blocos de montar, lousa.</td><td class="editavel">Diagnóstica: apontar imagem com "mais casas/pessoas".</td><td class="editavel">CMSP Aula 4.</td></tr>
+                        <tr><td class="editavel">27/04 a 30/04</td><td class="editavel">Problemas Urbanos e Desigualdades</td><td class="editavel">Identificar segregação socioespacial e infraestrutura periférica.</td><td class="editavel">Foco no concreto: "O que tem no meu bairro? O que falta?". Fotos reais do entorno.</td><td class="editavel">Análise de fotografias do bairro (Jardim Limoeiro/Recanto Verde Sol). Roda de conversa guiada.</td><td class="editavel">Fotos impressas do bairro, cartolina, canetinhas.</td><td class="editavel">Identificar 1 problema e 1 qualidade do bairro.</td><td class="editavel">CMSP Aula 5.</td></tr>
+                        <tr><td class="editavel">04/05 a 08/05</td><td class="editavel">Desafios Contemporâneos das Cidades</td><td class="editavel">Problematizar mobilidade, enchentes e resíduos sólidos.</td><td class="editavel">3 problemas concretos: lixo, alagamento, ônibus lotado. Soluções visuais.</td><td class="editavel">Estudo dirigido com imagens-problema. Colagem: "problema → solução" em painel.</td><td class="editavel">Imagens de problemas urbanos, figuras de soluções, painel.</td><td class="editavel">Associar corretamente 2 de 3 problemas às soluções.</td><td class="editavel">CMSP Aula 6.</td></tr>
+                        <tr><td class="editavel">11/05 a 15/05</td><td class="editavel">Transformações no Espaço Agrário</td><td class="editavel">Analisar evolução histórica da ocupação das terras no Brasil.</td><td class="editavel">Conceito de "terra para plantar". Diferença: roça pequena x fazenda grande. Material concreto.</td><td class="editavel">Comparação com material dourado: poucas peças = agricultura familiar; muitas peças = agronegócio.</td><td class="editavel">Material dourado ou blocos, mapas históricos simplificados.</td><td class="editavel">Diferenciar "pequeno" e "grande" na representação de terras.</td><td class="editavel">CMSP Aula 7.</td></tr>
+                        <tr><td class="editavel">18/05 a 22/05</td><td class="editavel">Modelos Agrícolas em Contraste</td><td class="editavel">Contrapor agricultura familiar e patronal.</td><td class="editavel">Quadro comparativo visual: fotos de horta familiar x trator em latifúndio. Linguagem simples.</td><td class="editavel">Quadro comparativo com imagens. Atividade: ligar a foto ao nome (familiar ou patronal).</td><td class="editavel">Fotos plastificadas, quadro comparativo, velcro.</td><td class="editavel">Associar corretamente 2 de 3 imagens ao tipo de agricultura.</td><td class="editavel">CMSP Aula 8.</td></tr>
+                        <tr><td class="editavel">25/05 a 29/05</td><td class="editavel">A ONU e os Desafios Agrários</td><td class="editavel">Discutir metas de segurança alimentar mundial.</td><td class="editavel">Conceito de "comida para todos". Gráfico de barras simples: países com fome x sem fome.</td><td class="editavel">Debate simplificado: "Por que algumas pessoas não têm comida?". Gráfico com adesivos.</td><td class="editavel">Gráfico de barras em A3, adesivos, documentos FAO simplificados.</td><td class="editavel">Participação oral: expressar 1 ideia sobre o tema.</td><td class="editavel">CMSP Aula 9.</td></tr>
+                        <tr><td class="editavel">01/06 a 05/06</td><td class="editavel">Agronegócio e Novas Fronteiras</td><td class="editavel">Identificar avanço do complexo agroindustrial no Matopiba e Amazônia.</td><td class="editavel">Mapa simplificado: "Onde estão plantando muito?". Usar setas grandes coloridas no mapa.</td><td class="editavel">Mapeamento dinâmico: colar setas no mapa indicando avanço da soja. Cores fortes.</td><td class="editavel">Mapa do Brasil A3, setas coloridas adesivas, atlas simplificado.</td><td class="editavel">Colar seta na região correta do mapa.</td><td class="editavel">CMSP Aula 10.</td></tr>
+                        <tr><td class="editavel">08/06 a 12/06</td><td class="editavel">Impactos Socioambientais no Campo</td><td class="editavel">Avaliar consequências de defensivos agrícolas e contaminação hídrica.</td><td class="editavel">Conceito de "veneno na água". Experimento visual: água limpa x água suja (com corante).</td><td class="editavel">Experimento demonstrativo com água e corante. Estudo de caso com imagens jornalísticas.</td><td class="editavel">Copos com água, corante, fotos de rios poluídos, notícias impressas.</td><td class="editavel">Identificar visualmente água poluída x água limpa.</td><td class="editavel">Materiais Complementares.</td></tr>
+                        <tr><td class="editavel">15/06 a 19/06</td><td class="editavel">Revisão Preparatória - Prova Paulista</td><td class="editavel">Consolidar indicadores de urbanização e estrutura agrária.</td><td class="editavel">Revisão com jogos: bingo de conceitos, jogo da memória (campo x cidade).</td><td class="editavel">Estações de jogos adaptados. Questões com apoio de imagens. Simulado com consulta visual.</td><td class="editavel">Bingo adaptado, jogo da memória, cartões de consulta visual.</td><td class="editavel">Acertar 3 de 5 questões com apoio visual.</td><td class="editavel">Prova Paulista.</td></tr>
+                        <tr><td class="editavel">22/06 a 26/06</td><td class="editavel">Fechamento do Portfólio Urbano-Rural</td><td class="editavel">Interpretar interdependência econômica entre cidade e campo.</td><td class="editavel">Painel visual: "O campo manda... A cidade recebe...". Produtos que vão e vêm.</td><td class="editavel">Apresentação síntese com painel de colagem. Explicação oral simples do que produziu.</td><td class="editavel">Cartolina, revistas para recorte, cola, canetinhas.</td><td class="editavel">Explicar 1 relação campo-cidade com apoio do painel.</td><td class="editavel">Material Digital.</td></tr>
+                        <tr><td class="editavel">29/06 a 03/07</td><td class="editavel">SEI - Semana de Estudos Intensivos</td><td class="editavel">Retomar conceitos de Urbanização e Agronegócio.</td><td class="editavel">Foco nos 3 conceitos-chave: cidade, campo, alimento. Reforço com material concreto.</td><td class="editavel">Atividades de recomposição com material manipulável. Apoio individualizado.</td><td class="editavel">Kits de revisão, roteiros de estudo dirigidos com imagens.</td><td class="editavel">Formativa contínua: observação do progresso individual.</td><td class="editavel">Diretrizes SEDUC.</td></tr>
+                        <tr><td class="editavel">06/07 a 06/07</td><td class="editavel">Avaliação e Conselho do Bimestre</td><td class="editavel">Finalizar apuração de notas e rendimento escolar.</td><td class="editavel">Relatório descritivo individual. Portfólio de evidências das adaptações realizadas.</td><td class="editavel">Fechamento de diários com registro das adequações. Conselho de classe inclusivo.</td><td class="editavel">Portfólios, fichas de acompanhamento, Sistema SED.</td><td class="editavel">Somativa Final: relatório descritivo.</td><td class="editavel">Calendário Escolar.</td></tr>
                     </tbody>
                 </table>
                 <div class="footer-doc">
-                    <span>AULAS PREVISTAS: <span class="editavel">24</span></span>
+                    <span>AULAS PREVISTAS: <span class="editavel">22</span></span>
+                    <span>ESTUDANTES PÚBLICO-ALVO: <span class="editavel">Breno (DI), Elza (DI/TEA), Thainara (DI) - 2ªs C, D, E</span></span>
                     <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
                 </div>`,
             
@@ -305,35 +315,38 @@
                             <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
                             <h4><span class="editavel">E.E. RECANTO VERDE SOL</span></h4>
                             <p><span class="editavel">Rua Pedro Ramazzani, 06 – Recanto Verde Sol – São Paulo – SP</span></p>
-                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL - 2026</span></strong></h3>
+                            <h3 style="margin-top: 10px; color: #8e44ad;"><strong>♿ <span class="editavel">PEI - PLANEJAMENTO DE EDUCAÇÃO INCLUSIVA - 2º BIMESTRE / 2026</span></strong></h3>
+                            <p style="font-size: 10px; color: #8e44ad;">Plano de Ensino Adaptado para Estudantes com Deficiência, TEA e Altas Habilidades</p>
                         </td>
                         <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
                     </tr>
                 </table>
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
-                    <span>Turmas: <span class="editavel">3ªs Séries A, B</span></span>
+                    <span>Turmas: <span class="editavel">3ªs Séries A, B, C, D</span></span>
                     <span>Período: <span class="editavel">Noturno</span></span>
+                    <span>Público-Alvo: <span class="editavel">TEA</span></span>
                 </div>
                 <table class="plano-table">
-                    <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">Habilidades</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
+                    <thead><tr><th width="8%">Semana</th><th width="14%">Conteúdo</th><th width="14%">Habilidades (BNCC)</th><th width="14%">Adequação Curricular</th><th width="14%">Metodologia Inclusiva (DUA)</th><th width="14%">Recursos Adaptados</th><th width="12%">Avaliação Inclusiva</th><th width="10%">Ref.</th></tr></thead>
                     <tbody>
-                        <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Guerra Fria</td><td class="editavel">Revisar o mundo bipolar (EUA x URSS).</td><td class="editavel">Linha do tempo participativa.</td><td class="editavel">Lousa.</td><td class="editavel">Diagnóstica.</td><td class="editavel">Livro.</td></tr>
-                        <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Nova Ordem Mundial</td><td class="editavel">Diferenciar multipolaridade e unipolaridade militar.</td><td class="editavel">Debate direcionado.</td><td class="editavel">Projetor.</td><td class="editavel">Tarefa Paulista.</td><td class="editavel">Artigos.</td></tr>
-                        <tr><td class="editavel">16/02 a 20/02</td><td class="editavel">Globalização (Fases)</td><td class="editavel">Compreender a evolução do capitalismo informacional.</td><td class="editavel">Pesquisa guiada.</td><td class="editavel">Internet.</td><td class="editavel">Resumo.</td><td class="editavel">Sites.</td></tr>
-                        <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Multinacionais e Transnacionais</td><td class="editavel">Analisar a DIT e as cadeias produtivas globais.</td><td class="editavel">Análise de produtos/marcas.</td><td class="editavel">Rótulos/Celular.</td><td class="editavel">Trabalho prático.</td><td class="editavel">Livro.</td></tr>
-                        <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Blocos Econômicos</td><td class="editavel">Compreender os níveis de integração (UE, Mercosul, USMCA).</td><td class="editavel">Painel de grupos.</td><td class="editavel">Cartolinas.</td><td class="editavel">Apresentação.</td><td class="editavel">Atlas.</td></tr>
-                        <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Organismos Internacionais</td><td class="editavel">Entender o papel da ONU, FMI, Banco Mundial e OMC.</td><td class="editavel">Júri simulado ou debate.</td><td class="editavel">Textos.</td><td class="editavel">Participação.</td><td class="editavel">ONU/Sites.</td></tr>
-                        <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">A Ascensão da China e os BRICS</td><td class="editavel">Analisar os novos polos de poder econômico.</td><td class="editavel">Leitura de gráficos de PIB.</td><td class="editavel">Projetor.</td><td class="editavel">Questões.</td><td class="editavel">Notícias.</td></tr>
-                        <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Geopolítica e Conflitos Regionais</td><td class="editavel">Identificar áreas de tensão (Leste Europeu / Ásia).</td><td class="editavel">Cartografia de conflitos.</td><td class="editavel">Planisfério.</td><td class="editavel">Mapa preenchido.</td><td class="editavel">Revistas.</td></tr>
-                        <tr><td class="editavel">30/03 a 03/04</td><td class="editavel">Conflitos no Oriente Médio</td><td class="editavel">Compreender a questão Israel x Palestina e petróleo.</td><td class="editavel">Estudo de caso / Documentário.</td><td class="editavel">Audiovisual.</td><td class="editavel">Fichamento.</td><td class="editavel">Vídeos.</td></tr>
-                        <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Desigualdades Globais</td><td class="editavel">Analisar IDH, Índice de Gini e exclusão na globalização.</td><td class="editavel">Análise de charges e músicas.</td><td class="editavel">Músicas/Imagens.</td><td class="editavel">Produção textual.</td><td class="editavel">IBGE/PNUD.</td></tr>
-                        <tr><td class="editavel">13/04 a 17/04</td><td class="editavel">Revisão Bimestral / ENEM</td><td class="editavel">Sistematizar a Nova Ordem Mundial e Globalização.</td><td class="editavel">Resolução de simulado.</td><td class="editavel">Provas Anteriores.</td><td class="editavel">Formativa.</td><td class="editavel">ENEM.</td></tr>
-                        <tr><td class="editavel">20/04 a 24/04</td><td class="editavel">Avaliação e Recuperação</td><td class="editavel">Verificar a aprendizagem e retomar defasagens.</td><td class="editavel">Prova escrita / Correção.</td><td class="editavel">Prova.</td><td class="editavel">Somativa.</td><td class="editavel">Currículo.</td></tr>
+                        <tr><td class="editavel">23/04 a 24/04</td><td class="editavel">Impacto Ambiental Global</td><td class="editavel">Reconhecer alterações provocadas pelas ações antrópicas no meio.</td><td class="editavel">Conceito de "planeta doente/saudável". Imagens comparativas: floresta x desmatamento.</td><td class="editavel">Aula expositiva com imagens fortes. Diálogo mediado: "O que aconteceu aqui?".</td><td class="editavel">Fotos comparativas A3 (antes/depois), lousa.</td><td class="editavel">Diagnóstica: apontar imagem de ambiente preservado x degradado.</td><td class="editavel">CMSP Aula 1.</td></tr>
+                        <tr><td class="editavel">27/04 a 30/04</td><td class="editavel">Perda de Biodiversidade Urbana</td><td class="editavel">Compreender relação entre urbanização e esgotamento biômico.</td><td class="editavel">Conceito de "bichos e plantas que somem". Animais do bairro: quais ainda existem?</td><td class="editavel">Análise de fotos de animais urbanos. Atividade: colar figura do animal no lugar onde vive.</td><td class="editavel">Fotos de animais, mapa do bairro simplificado, cola.</td><td class="editavel">Associar 2 animais aos seus habitats corretos.</td><td class="editavel">CMSP Aula 2.</td></tr>
+                        <tr><td class="editavel">04/05 a 08/05</td><td class="editavel">Pegada Ecológica</td><td class="editavel">Calcular e problematizar padrões de consumo individuais.</td><td class="editavel">Teste simplificado: 5 perguntas com resposta SIM/NÃO visual. Pegada = tamanho do pé desenhado.</td><td class="editavel">Aplicação prática com cartões SIM/NÃO. Desenhar o pé: grande = muita pegada, pequeno = pouca.</td><td class="editavel">Cartões SIM/NÃO, folha para desenho do pé, lápis de cor.</td><td class="editavel">Responder às 5 perguntas com apoio visual.</td><td class="editavel">CMSP Aula 3.</td></tr>
+                        <tr><td class="editavel">11/05 a 15/05</td><td class="editavel">Efeito Estufa</td><td class="editavel">Diferenciar fenômeno natural do agravamento antrópico.</td><td class="editavel">Analogia concreta: cobertor na Terra. "Cobertor fino = bom. Cobertor muito grosso = quente demais."</td><td class="editavel">Demonstração com cobertor e bola (Terra). Esquematização gráfica simplificada na lousa.</td><td class="editavel">Cobertor, bola (globo terrestre), desenho na lousa.</td><td class="editavel">Explicar com palavras simples: "Por que a Terra está esquentando?".</td><td class="editavel">CMSP Aula 4.</td></tr>
+                        <tr><td class="editavel">18/05 a 22/05</td><td class="editavel">Mudanças Climáticas Globais</td><td class="editavel">Avaliar evidências e causas das alterações nos regimes térmicos.</td><td class="editavel">Gráfico de barras simplificado: temperatura subindo. Usar cores (azul=frio, vermelho=quente).</td><td class="editavel">Estudo de gráfico simplificado. Pintura guiada: barras de temperatura ao longo dos anos.</td><td class="editavel">Gráfico de barras A3, lápis de cor, textos científicos simplificados.</td><td class="editavel">Pintar barras do gráfico corretamente (mais altas = mais quente).</td><td class="editavel">CMSP Aula 5.</td></tr>
+                        <tr><td class="editavel">25/05 a 29/05</td><td class="editavel">Aquecimento Global e Acordos</td><td class="editavel">Analisar tratados internacionais de mitigação climática.</td><td class="editavel">Conceito de "combinado entre países". Analogia: "Na escola temos regras. Países também fazem regras."</td><td class="editavel">Simulação simplificada: "Reunião dos países". Cada aluno representa um país com placa e bandeira.</td><td class="editavel">Bandeiras de países, placas com nomes, texto simplificado de tratados.</td><td class="editavel">Participar da simulação: dizer 1 regra para proteger o planeta.</td><td class="editavel">CMSP Aula 6.</td></tr>
+                        <tr><td class="editavel">01/06 a 05/06</td><td class="editavel">Testando Saberes e Consolidação</td><td class="editavel">Fixar competências de dinâmica climática e geopolítica socioambiental.</td><td class="editavel">Quiz visual: múltipla escolha com imagens. 3 opções, 1 correta. Resposta com cartão colorido.</td><td class="editavel">Análise coletiva de itens com gabarito visual. Cada aluno levanta o cartão da cor da resposta.</td><td class="editavel">Cartões coloridos (A/B/C), projetor, questões com imagens.</td><td class="editavel">Acertar 3 de 5 questões do quiz visual.</td><td class="editavel">CMSP Aula 7.</td></tr>
+                        <tr><td class="editavel">08/06 a 12/06</td><td class="editavel">Sistema Econômico de Mercado</td><td class="editavel">Compreender dinâmica do capitalismo global contemporâneo.</td><td class="editavel">Conceito de "comprar e vender". Jogo simbólico: feira na sala de aula com dinheiro de brinquedo.</td><td class="editavel">Simulação de mercado: alunos compram e vendem produtos com dinheiro fictício.</td><td class="editavel">Dinheiro de brinquedo, produtos simulados, etiquetas de preço.</td><td class="editavel">Realizar 1 troca comercial simulada corretamente.</td><td class="editavel">CMSP Aula 8.</td></tr>
+                        <tr><td class="editavel">15/06 a 19/06</td><td class="editavel">Revisão Geral e Prova Paulista</td><td class="editavel">Sistematizar competências sobre acordos ambientais e mercados econômicos.</td><td class="editavel">Revisão com mapa mental coletivo. Palavras-chave com imagens. Jogo de tabuleiro adaptado.</td><td class="editavel">Resolução de questões com apoio visual. Simulado com consulta ao mapa mental da sala.</td><td class="editavel">Mapa mental em A3, jogo de tabuleiro adaptado, plataformas digitais.</td><td class="editavel">Acertar 3 de 5 questões com apoio do mapa mental.</td><td class="editavel">Prova Paulista.</td></tr>
+                        <tr><td class="editavel">22/06 a 26/06</td><td class="editavel">Blocos Econômicos Mundiais</td><td class="editavel">Caracterizar níveis de integração regional de mercado.</td><td class="editavel">Conceito de "times de países". Cada time tem uma cor no mapa. Bandeiras = escudo do time.</td><td class="editavel">Montagem de organograma com figuras. Atividade: colar bandeiras no "time" correto (Mercosul, UE).</td><td class="editavel">Mapas, bandeiras adesivas, cartolina com "times" desenhados.</td><td class="editavel">Associar 3 países aos seus respectivos blocos.</td><td class="editavel">CMSP Aula 9.</td></tr>
+                        <tr><td class="editavel">29/06 a 03/07</td><td class="editavel">SEI - Semana de Estudos Intensivos</td><td class="editavel">Retomar conceitos de Mudanças Climáticas e Blocos Econômicos.</td><td class="editavel">Foco nos 3 conceitos-chave: clima, planeta, países. Reforço com material visual.</td><td class="editavel">Oficina pedagógica com jogos e material concreto. Apoio individualizado.</td><td class="editavel">Kits de revisão, jogos adaptados, listas de exercícios integrados.</td><td class="editavel">Formativa contínua: observação do progresso individual.</td><td class="editavel">Diretrizes SEDUC.</td></tr>
+                        <tr><td class="editavel">06/07 a 06/07</td><td class="editavel">Avaliação e Conselho do Bimestre</td><td class="editavel">Concluir registros escolares do encerramento da unidade.</td><td class="editavel">Relatório descritivo individual. Portfólio de evidências das adaptações realizadas.</td><td class="editavel">Fechamento de notas com registro das adequações curriculares. Conselho de classe inclusivo.</td><td class="editavel">Portfólios, fichas de acompanhamento, Plataforma SED.</td><td class="editavel">Somativa Final: relatório descritivo.</td><td class="editavel">Calendário Escolar.</td></tr>
                     </tbody>
                 </table>
                 <div class="footer-doc">
-                    <span>AULAS PREVISTAS: <span class="editavel">24</span></span>
+                    <span>AULAS PREVISTAS: <span class="editavel">22</span></span>
+                    <span>ESTUDANTES PÚBLICO-ALVO: <span class="editavel">João Pedro (TEA) - 3ª D</span></span>
                     <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
                 </div>`
         };
@@ -347,8 +360,10 @@
             const tituloSessao = document.getElementById('titulo-sessao');
             const areaDoc = document.getElementById('doc-plano');
             
-            tituloSessao.innerText = `Planejamento - ${serieId}ªs Séries`;
-            const dadosSalvos = localStorage.getItem('plano_geografia_' + serieId);
+            const nomesSeries = {'1': '1ªs Séries (B, C, D)', '2': '2ªs Séries (A, B, C, D, E)', '3': '3ªs Séries (A, B, C, D)'};
+            tituloSessao.innerHTML = `♿ PEI - Planejamento de Educação Inclusiva - ${nomesSeries[serieId]} <span class="badge-pei">2º Bimestre</span>`;
+            
+            const dadosSalvos = localStorage.getItem('pei_geo_2bim_' + serieId);
             areaDoc.innerHTML = dadosSalvos ? dadosSalvos : templates[serieId];
             
             if (modoEdicao) toggleEdicao();
@@ -387,33 +402,26 @@
             const cloneDiv = document.getElementById('doc-plano').cloneNode(true);
             cloneDiv.querySelectorAll('.editavel').forEach(el => el.removeAttribute('contenteditable'));
             cloneDiv.classList.remove('em-edicao');
-            localStorage.setItem('plano_geografia_' + serieAtual, cloneDiv.innerHTML);
+            localStorage.setItem('pei_geo_2bim_' + serieAtual, cloneDiv.innerHTML);
             const aviso = document.getElementById('aviso-salvo');
             aviso.style.display = 'inline-block';
             setTimeout(() => { aviso.style.display = 'none'; }, 2000);
         }
 
         function prepararParaExportacao() { if (modoEdicao) toggleEdicao(); }
-        function gerarNomeArquivo() { return `Geografia_${serieAtual}Serie_Recanto_1Bimestre`; }
+        function gerarNomeArquivo() { return `PEI_Geografia_${serieAtual}Serie_2Bimestre`; }
         
         function imprimirPlano() {
-            if (!serieAtual) {
-                alert('Por favor, abra um planejamento primeiro.');
-                return;
-            }
+            if (!serieAtual) { alert('Por favor, abra um planejamento primeiro.'); return; }
             prepararParaExportacao();
-            
-            // Move o conteúdo para a área de impressão
             const printArea = document.getElementById('print-area');
             const conteudo = document.getElementById('doc-plano').cloneNode(true);
             conteudo.querySelectorAll('.editavel').forEach(el => el.removeAttribute('contenteditable'));
-            
             printArea.innerHTML = '';
             const container = document.createElement('div');
             container.className = 'serie-container';
             container.innerHTML = conteudo.innerHTML;
             printArea.appendChild(container);
-            
             window.print();
         }
 
@@ -433,58 +441,46 @@
 
         function baixarWord() {
             prepararParaExportacao();
-            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Planejamento</title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .header-table{width:100%; margin-bottom:20px; border:none;} .header-table td{border:none; text-align:center; vertical-align:middle;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}</style></head><body>";
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>PEI Geografia 2º Bimestre</title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .header-table{width:100%; margin-bottom:20px; border:none;} .header-table td{border:none; text-align:center; vertical-align:middle;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}</style></head><body>";
             var footer = "</body></html>";
             var htmlContext = document.getElementById('doc-plano').innerHTML.replace(/contenteditable="true"/g, "").replace(/contenteditable="false"/g, "");
             var sourceHTML = header + htmlContext + footer;
             
             var fileDownload = document.createElement("a");
             document.body.appendChild(fileDownload);
-            
             fileDownload.href = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
             fileDownload.download = gerarNomeArquivo() + '.doc';
             fileDownload.click();
             document.body.removeChild(fileDownload);
         }
 
-        // Função corrigida para imprimir todos os planejamentos
         function imprimirTudoPDF() {
             if (modoEdicao) toggleEdicao();
-            
             const printArea = document.getElementById('print-area');
             printArea.innerHTML = '';
             
-            // Adiciona cada série à área de impressão
             for (let i = 1; i <= 3; i++) {
-                const conteudoSalvo = localStorage.getItem('plano_geografia_' + i);
+                const conteudoSalvo = localStorage.getItem('pei_geo_2bim_' + i);
                 const conteudoHTML = conteudoSalvo ? conteudoSalvo : templates[i.toString()];
-                
                 const container = document.createElement('div');
                 container.className = 'serie-container';
                 
-                // Adiciona título da série
                 const titulo = document.createElement('h2');
-                titulo.style.cssText = 'text-align: center; color: #2c3e50; margin-bottom: 20px; font-size: 20px; text-transform: uppercase;';
-                titulo.textContent = `Planejamento ${i}ª Série - Geografia - 1º Bimestre`;
+                titulo.style.cssText = 'text-align: center; color: #8e44ad; margin-bottom: 20px; font-size: 20px; text-transform: uppercase;';
+                const nomesSeries = {'1': '1ª Série', '2': '2ª Série', '3': '3ª Série'};
+                titulo.textContent = `♿ PEI - Planejamento de Educação Inclusiva - ${nomesSeries[i]} - Geografia - 2º Bimestre`;
                 container.appendChild(titulo);
                 
-                // Adiciona conteúdo
                 const conteudo = document.createElement('div');
                 conteudo.innerHTML = conteudoHTML;
                 conteudo.querySelectorAll('.editavel').forEach(el => el.removeAttribute('contenteditable'));
                 container.appendChild(conteudo);
-                
                 printArea.appendChild(container);
             }
             
-            // Mostra a área de impressão e imprime
             printArea.style.display = 'block';
             window.print();
-            
-            // Oculta a área de impressão após imprimir
-            setTimeout(() => {
-                printArea.style.display = 'none';
-            }, 1000);
+            setTimeout(() => { printArea.style.display = 'none'; }, 1000);
         }
     </script>
 </body>
