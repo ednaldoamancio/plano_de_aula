@@ -69,62 +69,82 @@
                 size: A4 landscape;
                 margin: 10mm;
             }
-            body { background-color: #fff; margin: 0; padding: 0; }
-            /* Esconde todos os elementos da interface durante a impressão */
-            .nav-global, .cabecalho-pagina, .table-container, .barra-ferramentas, .section-title, .btn-imprimir-tudo, #container-plano .barra-ferramentas {
+            
+            /* Oculta tudo que não é para imprimir */
+            body > *:not(#print-area) {
                 display: none !important;
             }
             
-            /* Mostra apenas o container com o conteúdo */
-            .container, #container-plano {
+            /* Área de impressão principal */
+            #print-area {
                 display: block !important;
-                box-shadow: none; 
-                border: none; 
-                padding: 5mm; 
-                margin: 0 auto; 
-                width: 100%; 
-                max-width: none;
-                page-break-after: always;
+                position: relative;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+                padding: 0;
+                margin: 0;
             }
             
-            /* Garante que o conteúdo de cada série comece em uma nova página e ocupe no máximo 2 */
-            .container {
-                page-break-before: always;
-                page-break-after: always;
+            /* Oculta elementos da interface dentro da área de impressão */
+            .no-print, .barra-ferramentas, .section-title {
+                display: none !important;
             }
+            
+            /* Estilos para cada série na impressão */
+            .serie-container {
+                page-break-after: always;
+                page-break-before: always;
+                padding: 10px;
+                background: white;
+            }
+            
+            .serie-container:first-child {
+                page-break-before: avoid;
+            }
+            
+            .serie-container:last-child {
+                page-break-after: avoid;
+            }
+            
             .doc-plano {
-                font-size: 12px; /* Reduz um pouco a fonte para caber melhor */
+                font-size: 12px;
                 line-height: 1.3;
             }
+            
             .header-text h2 { font-size: 16px; }
             .header-text h3 { font-size: 13px; }
             .header-text h4 { font-size: 12px; }
             .header-text p { font-size: 10px; }
             .info-professor { font-size: 11px; padding: 5px; }
+            
             table.plano-table th, table.plano-table td {
                 padding: 4px;
                 font-size: 11px;
             }
+            
             .footer-doc {
                 margin-top: 10px;
                 font-size: 12px;
             }
-            /* Evita quebras dentro de tabelas e linhas */
+            
             table { page-break-inside: auto; }
-            tr    { page-break-inside: avoid; page-break-after: auto; }
+            tr { page-break-inside: avoid; page-break-after: auto; }
             thead { display: table-header-group; }
             tfoot { display: table-footer-group; }
             
-            /* Esconde imagens quebradas ou não encontradas, mantendo o layout */
-            img[src="logo_sp.png"], img[src="logo_escola_recanto.jpg"] {
-                max-width: 60px;
-                content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23eee"/><text x="50" y="50" text-anchor="middle" dy=".3em" fill="%23999" font-size="10">Logo</text></svg>');
+            /* Garante que as cores de fundo apareçam */
+            .info-professor, table.plano-table th {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
         }
     </style>
 </head>
 <body>
 
+    <!-- Interface normal (oculta durante impressão) -->
     <div class="nav-global">
         <a href="#" class="ativo">📅 Planejamento Geral (Turmas)</a>
         <a href="pei_geografia_individual.html">📄 PEI Individual (Anexo IV)</a>
@@ -169,6 +189,9 @@
             </tbody>
         </table>
     </div>
+
+    <!-- Área de impressão (sempre visível para impressão, oculta na tela) -->
+    <div id="print-area" style="display: none;"></div>
 
     <div id="ancora-plano"></div>
     <div id="container-plano" class="container">
@@ -372,7 +395,27 @@
 
         function prepararParaExportacao() { if (modoEdicao) toggleEdicao(); }
         function gerarNomeArquivo() { return `Geografia_${serieAtual}Serie_Recanto_1Bimestre`; }
-        function imprimirPlano() { prepararParaExportacao(); window.print(); }
+        
+        function imprimirPlano() {
+            if (!serieAtual) {
+                alert('Por favor, abra um planejamento primeiro.');
+                return;
+            }
+            prepararParaExportacao();
+            
+            // Move o conteúdo para a área de impressão
+            const printArea = document.getElementById('print-area');
+            const conteudo = document.getElementById('doc-plano').cloneNode(true);
+            conteudo.querySelectorAll('.editavel').forEach(el => el.removeAttribute('contenteditable'));
+            
+            printArea.innerHTML = '';
+            const container = document.createElement('div');
+            container.className = 'serie-container';
+            container.innerHTML = conteudo.innerHTML;
+            printArea.appendChild(container);
+            
+            window.print();
+        }
 
         function baixarJPG() {
             prepararParaExportacao();
@@ -404,64 +447,43 @@
             document.body.removeChild(fileDownload);
         }
 
-        // NOVA FUNÇÃO: Imprimir todos os planejamentos das 3 séries em um único PDF
+        // Função corrigida para imprimir todos os planejamentos
         function imprimirTudoPDF() {
-            if (modoEdicao) toggleEdicao(); // Garante que nenhum conteúdo está em modo de edição
+            if (modoEdicao) toggleEdicao();
             
-            // Cria uma div temporária para conter todos os planos
-            const divTemp = document.createElement('div');
-            divTemp.style.position = 'absolute';
-            divTemp.style.left = '-9999px';
-            divTemp.style.top = '0';
-            divTemp.style.width = '100%';
-            divTemp.style.backgroundColor = 'white';
-            divTemp.style.zIndex = '9999';
-            divTemp.classList.add('doc-plano'); // Aplica a classe para herdar estilos de impressão
+            const printArea = document.getElementById('print-area');
+            printArea.innerHTML = '';
             
-            // Para cada série (1, 2, 3)
+            // Adiciona cada série à área de impressão
             for (let i = 1; i <= 3; i++) {
-                // Cria um container para cada série com uma classe específica para quebra de página
-                const serieContainer = document.createElement('div');
-                serieContainer.classList.add('container');
-                serieContainer.style.pageBreakAfter = 'always';
-                serieContainer.style.display = 'block';
-                serieContainer.style.padding = '20px';
-                serieContainer.style.marginBottom = '20px';
-                
-                // Pega o conteúdo salvo no localStorage ou o template padrão
                 const conteudoSalvo = localStorage.getItem('plano_geografia_' + i);
                 const conteudoHTML = conteudoSalvo ? conteudoSalvo : templates[i.toString()];
                 
-                // Adiciona um título para cada série no PDF
-                const tituloSerie = document.createElement('h2');
-                tituloSerie.style.textAlign = 'center';
-                tituloSerie.style.color = '#2c3e50';
-                tituloSerie.style.marginBottom = '20px';
-                tituloSerie.style.fontSize = '20px';
-                tituloSerie.style.textTransform = 'uppercase';
-                tituloSerie.innerText = `Planejamento ${i}ª Série - Geografia - 1º Bimestre`;
+                const container = document.createElement('div');
+                container.className = 'serie-container';
                 
-                serieContainer.appendChild(tituloSerie);
+                // Adiciona título da série
+                const titulo = document.createElement('h2');
+                titulo.style.cssText = 'text-align: center; color: #2c3e50; margin-bottom: 20px; font-size: 20px; text-transform: uppercase;';
+                titulo.textContent = `Planejamento ${i}ª Série - Geografia - 1º Bimestre`;
+                container.appendChild(titulo);
                 
-                // Cria uma div para o conteúdo HTML
-                const conteudoDiv = document.createElement('div');
-                conteudoDiv.innerHTML = conteudoHTML;
-                conteudoDiv.querySelectorAll('.editavel').forEach(el => el.removeAttribute('contenteditable'));
-                serieContainer.appendChild(conteudoDiv);
+                // Adiciona conteúdo
+                const conteudo = document.createElement('div');
+                conteudo.innerHTML = conteudoHTML;
+                conteudo.querySelectorAll('.editavel').forEach(el => el.removeAttribute('contenteditable'));
+                container.appendChild(conteudo);
                 
-                divTemp.appendChild(serieContainer);
+                printArea.appendChild(container);
             }
             
-            document.body.appendChild(divTemp);
-            
-            // Foca na div temporária e imprime
+            // Mostra a área de impressão e imprime
+            printArea.style.display = 'block';
             window.print();
             
-            // Remove a div temporária após a impressão
+            // Oculta a área de impressão após imprimir
             setTimeout(() => {
-                if (divTemp && divTemp.parentNode) {
-                    document.body.removeChild(divTemp);
-                }
+                printArea.style.display = 'none';
             }, 1000);
         }
     </script>
