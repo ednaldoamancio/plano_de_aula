@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Planejamento - Geografia EM (2º Bimestre)</title>
+    <title>Sistema de Planejamento - Geografia EM</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
@@ -41,6 +40,7 @@
         .btn-imprimir { background-color: #c0392b !important; } .btn-imprimir:hover { background-color: #a53125 !important; }
         .btn-word { background-color: #2980b9 !important; } .btn-word:hover { background-color: #2471a3 !important; }
         .btn-editar { background-color: #f39c12 !important; color: #fff !important; } .btn-editar:hover { background-color: #d68910 !important; }
+        .btn-imprimir-tudo { background-color: #8e44ad !important; } .btn-imprimir-tudo:hover { background-color: #6c3483 !important; }
 
         .em-edicao .editavel { outline: 2px dashed #f39c12; background-color: #fdfbf7; padding: 2px 4px; border-radius: 3px; }
         
@@ -63,14 +63,63 @@
         .footer-doc { margin-top: 20px; display: flex; justify-content: space-between; font-weight: bold; flex-wrap: wrap; gap: 10px; page-break-inside: avoid; }
         .section-title { color: #00838f; border-bottom: 2px solid #00838f; padding-bottom: 5px; margin-bottom: 15px; text-transform: uppercase; font-size: 20px; font-weight: bold; }
 
+        /* Regras de impressão ajustadas para paisagem e 2 páginas por série */
         @media print {
+            @page {
+                size: A4 landscape;
+                margin: 10mm;
+            }
             body { background-color: #fff; margin: 0; padding: 0; }
-            .nav-global, .cabecalho-pagina, .table-container, .barra-ferramentas, .section-title { display: none !important; }
-            .container { box-shadow: none; border: none; padding: 0; margin: 0; width: 100%; max-width: none; }
-            .plano-table { page-break-inside: avoid; }
-            tr { page-break-inside: avoid; page-break-after: auto; }
-            .html2pdf__page-break { page-break-before: always; }
-            table.plano-table th, .info-professor { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            /* Esconde todos os elementos da interface durante a impressão */
+            .nav-global, .cabecalho-pagina, .table-container, .barra-ferramentas, .section-title, .btn-imprimir-tudo, #container-plano .barra-ferramentas {
+                display: none !important;
+            }
+            
+            /* Mostra apenas o container com o conteúdo */
+            .container, #container-plano {
+                display: block !important;
+                box-shadow: none; 
+                border: none; 
+                padding: 5mm; 
+                margin: 0 auto; 
+                width: 100%; 
+                max-width: none;
+                page-break-after: always;
+            }
+            
+            /* Garante que o conteúdo de cada série comece em uma nova página e ocupe no máximo 2 */
+            .container {
+                page-break-before: always;
+                page-break-after: always;
+            }
+            .doc-plano {
+                font-size: 12px; /* Reduz um pouco a fonte para caber melhor */
+                line-height: 1.3;
+            }
+            .header-text h2 { font-size: 16px; }
+            .header-text h3 { font-size: 13px; }
+            .header-text h4 { font-size: 12px; }
+            .header-text p { font-size: 10px; }
+            .info-professor { font-size: 11px; padding: 5px; }
+            table.plano-table th, table.plano-table td {
+                padding: 4px;
+                font-size: 11px;
+            }
+            .footer-doc {
+                margin-top: 10px;
+                font-size: 12px;
+            }
+            /* Evita quebras dentro de tabelas e linhas */
+            table { page-break-inside: auto; }
+            tr    { page-break-inside: avoid; page-break-after: auto; }
+            thead { display: table-header-group; }
+            tfoot { display: table-footer-group; }
+            
+            /* Esconde imagens quebradas ou não encontradas, mantendo o layout */
+            img[src="logo_sp.png"], img[src="logo_escola_recanto.jpg"] {
+                max-width: 60px;
+                content: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23eee"/><text x="50" y="50" text-anchor="middle" dy=".3em" fill="%23999" font-size="10">Logo</text></svg>');
+            }
         }
     </style>
 </head>
@@ -79,12 +128,13 @@
     <div class="nav-global">
         <a href="#" class="ativo">📅 Planejamento Geral (Turmas)</a>
         <a href="pei_geografia_individual.html">📄 PEI Individual (Anexo IV)</a>
-        <a href="plano_de_aula_inclusivo.html">🧩 Planos de Aula Adaptados</a>
+        <a href="plano_de_aula_em_geografia_recanto.html">🧩 Planos de Aula Adaptados</a>
     </div>
 
     <div class="cabecalho-pagina">
-        <h2 style="color: #2c3e50; margin-top: 0;">Gestor de Planejamentos - Geografia EM (2º Bimestre)</h2>
+        <h2 style="color: #2c3e50; margin-top: 0;">Gestor de Planejamentos - Geografia (EM)</h2>
         <p style="margin-bottom: 30px; color: #555;">Clique em "Abrir Planejamento" para visualizar, editar ou exportar o documento da série desejada.</p>
+        <button class="acao btn-imprimir-tudo" onclick="imprimirTudoPDF()" style="font-size: 16px; padding: 10px 20px; margin-bottom: 20px;">📥 Imprimir Tudo (PDF Único)</button>
     </div>
 
     <div class="table-container">
@@ -101,19 +151,19 @@
                 <tr>
                     <td><strong>1ªs Séries</strong> (Turmas B, C, D)</td>
                     <td>Geografia</td>
-                    <td>2º Bimestre</td>
+                    <td>1º Bimestre</td>
                     <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('1')">Abrir Planejamento</button></td>
                 </tr>
                 <tr>
                     <td><strong>2ªs Séries</strong> (Turmas A, B, C, D, E)</td>
                     <td>Geografia</td>
-                    <td>2º Bimestre</td>
+                    <td>1º Bimestre</td>
                     <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('2')">Abrir Planejamento</button></td>
                 </tr>
                 <tr>
                     <td><strong>3ªs Séries</strong> (Turmas A, B, C, D)</td>
                     <td>Geografia</td>
-                    <td>2º Bimestre</td>
+                    <td>1º Bimestre</td>
                     <td style="text-align: center;"><button class="btn-abrir" onclick="abrirPlano('3')">Abrir Planejamento</button></td>
                 </tr>
             </tbody>
@@ -140,9 +190,6 @@
     </div>
 
     <script>
-        let serieAtual = null;
-        let modoEdicao = false;
-
         const templates = {
             '1': `
                 <table class="header-table">
@@ -153,7 +200,7 @@
                             <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
                             <h4><span class="editavel">E.E. RECANTO VERDE SOL</span></h4>
                             <p><span class="editavel">Rua Pedro Ramazzani, 06 – Recanto Verde Sol – São Paulo – SP</span></p>
-                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL (2º Bimestre) - 2026</span></strong></h3>
+                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL - 2026</span></strong></h3>
                         </td>
                         <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
                     </tr>
@@ -166,18 +213,18 @@
                 <table class="plano-table">
                     <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">Habilidades</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
                     <tbody>
-                        <tr><td class="editavel">23/04 a 24/04</td><td class="editavel">História da Cartografia</td><td class="editavel">Compreender a evolução dos mapas e sua importância.</td><td class="editavel">Aula expositiva.</td><td class="editavel">Lousa, Atlas.</td><td class="editavel">Diagnóstica.</td><td class="editavel">CMSP.</td></tr>
-                        <tr><td class="editavel">27/04 a 30/04</td><td class="editavel">Coordenadas e Fusos Horários</td><td class="editavel">Localizar pontos e calcular fusos horários globais.</td><td class="editavel">Resolução de problemas.</td><td class="editavel">Mapas, Lousa.</td><td class="editavel">Exercícios.</td><td class="editavel">Livro didático.</td></tr>
-                        <tr><td class="editavel">04/05 a 08/05</td><td class="editavel">Escala Cartográfica</td><td class="editavel">Diferenciar e aplicar escalas numéricas e gráficas.</td><td class="editavel">Exercícios de conversão.</td><td class="editavel">Régua, Mapas.</td><td class="editavel">Participação.</td><td class="editavel">Caderno.</td></tr>
-                        <tr><td class="editavel">11/05 a 15/05</td><td class="editavel">Projeções Cartográficas</td><td class="editavel">Analisar distorções em Mercator, Peters e outras.</td><td class="editavel">Análise comparativa.</td><td class="editavel">Projetor.</td><td class="editavel">Tarefa Paulista.</td><td class="editavel">Sites/Atlas.</td></tr>
-                        <tr><td class="editavel">18/05 a 22/05</td><td class="editavel">Mapas Temáticos e Anamorfose</td><td class="editavel">Interpretar legendas, símbolos e distorções intencionais.</td><td class="editavel">Atividade prática.</td><td class="editavel">Textos, imagens.</td><td class="editavel">Fichamento.</td><td class="editavel">Artigos.</td></tr>
-                        <tr><td class="editavel">25/05 a 29/05</td><td class="editavel">Sensoriamento Remoto</td><td class="editavel">Entender o uso de satélites, radares e drones.</td><td class="editavel">Exibição de imagens de satélite.</td><td class="editavel">Google Earth.</td><td class="editavel">Produção textual.</td><td class="editavel">Vídeos.</td></tr>
-                        <tr><td class="editavel">01/06 a 05/06</td><td class="editavel">Sistemas de Informação Geográfica (SIG)</td><td class="editavel">Reconhecer as aplicações dos SIGs no planejamento urbano e rural.</td><td class="editavel">Navegação em apps/sites.</td><td class="editavel">Smartphones.</td><td class="editavel">Estudo de caso.</td><td class="editavel">IBGE.</td></tr>
-                        <tr><td class="editavel">08/06 a 12/06</td><td class="editavel">Leitura de Gráficos e Tabelas</td><td class="editavel">Cruzar dados demográficos e econômicos com o espaço.</td><td class="editavel">Análise de dados.</td><td class="editavel">Lousa.</td><td class="editavel">Trabalho.</td><td class="editavel">Livro.</td></tr>
-                        <tr><td class="editavel">15/06 a 19/06</td><td class="editavel">Prática Cartográfica</td><td class="editavel">Sintetizar conhecimentos em um croqui ou mapa mental.</td><td class="editavel">Oficina de mapas mentais.</td><td class="editavel">Folhas, Lápis.</td><td class="editavel">Mapa Final.</td><td class="editavel">Caderno.</td></tr>
-                        <tr><td class="editavel">22/06 a 26/06</td><td class="editavel">Revisão Bimestral</td><td class="editavel">Sistematizar os conceitos de cartografia abordados.</td><td class="editavel">Resolução de questões.</td><td class="editavel">Listas.</td><td class="editavel">Formativa.</td><td class="editavel">Provas ant.</td></tr>
-                        <tr><td class="editavel">29/06 a 03/07</td><td class="editavel">Semana de Estudos Intensivos (SEI)</td><td class="editavel">Recuperar defasagens no cálculo de escalas e fusos.</td><td class="editavel">Atendimento focado.</td><td class="editavel">Lousa.</td><td class="editavel">Recomposição.</td><td class="editavel">SEDUC.</td></tr>
-                        <tr><td class="editavel">06/07 a 06/07</td><td class="editavel">Avaliação Final</td><td class="editavel">Verificar a aprendizagem consolidada do bimestre.</td><td class="editavel">Prova escrita / Correção.</td><td class="editavel">Prova.</td><td class="editavel">Somativa.</td><td class="editavel">Calendário.</td></tr>
+                        <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Conceitos básicos de Geografia</td><td class="editavel">Compreensão de coordenadas e localização.</td><td class="editavel">Aula expositiva.</td><td class="editavel">Lousa, livro.</td><td class="editavel">Diagnóstica.</td><td class="editavel">Atlas.</td></tr>
+                        <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Climatologia e Meteorologia</td><td class="editavel">Análise de imagens e conceitos do Clima.</td><td class="editavel">Estudo dirigido com mapas.</td><td class="editavel">Slides.</td><td class="editavel">Tarefa Paulista.</td><td class="editavel">Livro didático.</td></tr>
+                        <tr><td class="editavel">16/02 a 20/02</td><td class="editavel">Fatores e Elementos Climáticos</td><td class="editavel">Diferenciar tempo e clima, fatores de controle.</td><td class="editavel">Debate guiado.</td><td class="editavel">Lousa.</td><td class="editavel">Participação.</td><td class="editavel">Vídeos.</td></tr>
+                        <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Tipos Climáticos (Mundo e Brasil)</td><td class="editavel">Identificar os principais domínios climáticos.</td><td class="editavel">Estudo de texto jornalístico.</td><td class="editavel">Notícias.</td><td class="editavel">Questões.</td><td class="editavel">Sites.</td></tr>
+                        <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Climograma</td><td class="editavel">Leitura, construção e interpretação de gráficos.</td><td class="editavel">Aula interativa com apps.</td><td class="editavel">Tablets/Celular.</td><td class="editavel">Gamificada.</td><td class="editavel">INMET.</td></tr>
+                        <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Geomorfologia</td><td class="editavel">Compreender a estrutura interna da Terra e placas.</td><td class="editavel">Maquetes ou desenhos.</td><td class="editavel">Lousa, Giz.</td><td class="editavel">Desenho.</td><td class="editavel">Livro.</td></tr>
+                        <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Agentes do Relevo</td><td class="editavel">Diferenciar agentes internos e externos (intemperismo).</td><td class="editavel">Análise de imagens.</td><td class="editavel">Projetor.</td><td class="editavel">Resumo.</td><td class="editavel">Artigos.</td></tr>
+                        <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Relevo Brasileiro</td><td class="editavel">Identificar planaltos, planícies e depressões.</td><td class="editavel">Mapeamento.</td><td class="editavel">Mapas Mudos.</td><td class="editavel">Mapa pintado.</td><td class="editavel">Atlas.</td></tr>
+                        <tr><td class="editavel">30/03 a 03/04</td><td class="editavel">Hidrografia Brasileira</td><td class="editavel">Analisar as principais bacias hidrográficas.</td><td class="editavel">Pesquisa em grupo.</td><td class="editavel">Internet.</td><td class="editavel">Apresentação.</td><td class="editavel">ANA.</td></tr>
+                        <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Domínios Morfoclimáticos</td><td class="editavel">Correlacionar clima, relevo e vegetação (Aziz Ab'Sáber).</td><td class="editavel">Painel integrado.</td><td class="editavel">Cartolina.</td><td class="editavel">Trabalho.</td><td class="editavel">Livro.</td></tr>
+                        <tr><td class="editavel">13/04 a 17/04</td><td class="editavel">Revisão Bimestral</td><td class="editavel">Sistematizar os conceitos de geografia física abordados.</td><td class="editavel">Resolução de exercícios.</td><td class="editavel">Listas.</td><td class="editavel">Formativa.</td><td class="editavel">Caderno.</td></tr>
+                        <tr><td class="editavel">20/04 a 24/04</td><td class="editavel">Avaliação e Recuperação</td><td class="editavel">Verificar a aprendizagem e retomar defasagens.</td><td class="editavel">Prova escrita / Correção.</td><td class="editavel">Prova.</td><td class="editavel">Somativa.</td><td class="editavel">Currículo.</td></tr>
                     </tbody>
                 </table>
                 <div class="footer-doc">
@@ -194,31 +241,31 @@
                             <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
                             <h4><span class="editavel">E.E. RECANTO VERDE SOL</span></h4>
                             <p><span class="editavel">Rua Pedro Ramazzani, 06 – Recanto Verde Sol – São Paulo – SP</span></p>
-                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL (2º Bimestre) - 2026</span></strong></h3>
+                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL - 2026</span></strong></h3>
                         </td>
                         <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
                     </tr>
                 </table>
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
-                    <span>Turmas: <span class="editavel">2ªs Séries A, B, C, D, E</span></span>
+                    <span>Turmas: <span class="editavel">2ªs Séries A, B</span></span>
                     <span>Período: <span class="editavel">Noturno</span></span>
                 </div>
                 <table class="plano-table">
                     <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">Habilidades</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
                     <tbody>
-                        <tr><td class="editavel">23/04 a 24/04</td><td class="editavel">Revoluções Industriais</td><td class="editavel">Compreender as fases e impactos da industrialização.</td><td class="editavel">Aula expositiva.</td><td class="editavel">Lousa.</td><td class="editavel">Diagnóstica.</td><td class="editavel">CMSP.</td></tr>
-                        <tr><td class="editavel">27/04 a 30/04</td><td class="editavel">Modelos de Produção</td><td class="editavel">Diferenciar Taylorismo, Fordismo, Toyotismo e Volvismo.</td><td class="editavel">Debate e análise.</td><td class="editavel">Projetor, Textos.</td><td class="editavel">Participação.</td><td class="editavel">Livro didático.</td></tr>
-                        <tr><td class="editavel">04/05 a 08/05</td><td class="editavel">Industrialização Mundial</td><td class="editavel">Comparar processos em países desenvolvidos e emergentes.</td><td class="editavel">Estudo de casos.</td><td class="editavel">Mapas Mundi.</td><td class="editavel">Tarefa Paulista.</td><td class="editavel">Atlas.</td></tr>
-                        <tr><td class="editavel">11/05 a 15/05</td><td class="editavel">Industrialização Brasileira</td><td class="editavel">Analisar a evolução industrial (do Café ao Governo JK).</td><td class="editavel">Linha do tempo interativa.</td><td class="editavel">Vídeos.</td><td class="editavel">Questionário.</td><td class="editavel">Documentários.</td></tr>
-                        <tr><td class="editavel">18/05 a 22/05</td><td class="editavel">Desconcentração Industrial</td><td class="editavel">Entender a guerra fiscal e a nova geografia da indústria no Brasil.</td><td class="editavel">Análise de notícias.</td><td class="editavel">Reportagens.</td><td class="editavel">Resumo crítico.</td><td class="editavel">Jornais.</td></tr>
-                        <tr><td class="editavel">25/05 a 29/05</td><td class="editavel">Redes de Transporte</td><td class="editavel">Comparar matrizes de transporte no mundo e no Brasil.</td><td class="editavel">Leitura de gráficos.</td><td class="editavel">Infográficos.</td><td class="editavel">Fichamento.</td><td class="editavel">IBGE.</td></tr>
-                        <tr><td class="editavel">01/06 a 05/06</td><td class="editavel">Matriz Energética Global</td><td class="editavel">Analisar o consumo de energia e a dependência de combustíveis fósseis.</td><td class="editavel">Seminários curtos.</td><td class="editavel">Acesso à internet.</td><td class="editavel">Apresentação.</td><td class="editavel">Agências Int.</td></tr>
-                        <tr><td class="editavel">08/06 a 12/06</td><td class="editavel">Matriz Energética Brasileira</td><td class="editavel">Avaliar a importância das hidrelétricas, biomassa e novas renováveis.</td><td class="editavel">Debate em sala.</td><td class="editavel">Lousa.</td><td class="editavel">Participação.</td><td class="editavel">EPE.</td></tr>
-                        <tr><td class="editavel">15/06 a 19/06</td><td class="editavel">Comércio Internacional</td><td class="editavel">Compreender o papel da OMC e os fluxos comerciais globais.</td><td class="editavel">Dinâmica de mercado.</td><td class="editavel">Cartões/Mapas.</td><td class="editavel">Formativa.</td><td class="editavel">Artigos.</td></tr>
-                        <tr><td class="editavel">22/06 a 26/06</td><td class="editavel">Revisão Bimestral</td><td class="editavel">Sistematizar geografia econômica, transportes e energia.</td><td class="editavel">Resolução de questões ENEM.</td><td class="editavel">Listas impressas.</td><td class="editavel">Exercício.</td><td class="editavel">ENEM.</td></tr>
-                        <tr><td class="editavel">29/06 a 03/07</td><td class="editavel">Semana de Estudos Intensivos (SEI)</td><td class="editavel">Retomar conceitos de industrialização brasileira e fluxos comerciais.</td><td class="editavel">Atendimento focado.</td><td class="editavel">Cadernos.</td><td class="editavel">Recomposição.</td><td class="editavel">SEDUC.</td></tr>
-                        <tr><td class="editavel">06/07 a 06/07</td><td class="editavel">Avaliação Final</td><td class="editavel">Verificar a aprendizagem consolidada do bimestre.</td><td class="editavel">Prova escrita / Correção.</td><td class="editavel">Prova.</td><td class="editavel">Somativa.</td><td class="editavel">Calendário.</td></tr>
+                        <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Dinâmica Populacional</td><td class="editavel">Analisar conceitos de população absoluta e relativa.</td><td class="editavel">Aula expositiva.</td><td class="editavel">Lousa.</td><td class="editavel">Diagnóstica.</td><td class="editavel">IBGE.</td></tr>
+                        <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Teorias Demográficas</td><td class="editavel">Comparar Malthusiana, Neomalthusiana e Reformista.</td><td class="editavel">Debate em sala.</td><td class="editavel">Textos.</td><td class="editavel">Tarefa Paulista.</td><td class="editavel">Livro.</td></tr>
+                        <tr><td class="editavel">16/02 a 20/02</td><td class="editavel">Transição Demográfica</td><td class="editavel">Leitura e interpretação de pirâmides etárias.</td><td class="editavel">Análise de gráficos.</td><td class="editavel">Projetor.</td><td class="editavel">Exercício.</td><td class="editavel">IBGE.</td></tr>
+                        <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Migrações Contemporâneas</td><td class="editavel">Compreender fluxos migratórios e refúgio.</td><td class="editavel">Estudo de casos.</td><td class="editavel">Notícias/Vídeos.</td><td class="editavel">Texto crítico.</td><td class="editavel">ACNUR.</td></tr>
+                        <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Migrações no Brasil</td><td class="editavel">Identificar os ciclos migratórios internos brasileiros.</td><td class="editavel">Linha do tempo.</td><td class="editavel">Lousa.</td><td class="editavel">Pesquisa.</td><td class="editavel">Livro.</td></tr>
+                        <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Urbanização Global</td><td class="editavel">Comparar urbanização em países ricos e periféricos.</td><td class="editavel">Mapa mental.</td><td class="editavel">Cadernos.</td><td class="editavel">Mapa mental.</td><td class="editavel">Atlas.</td></tr>
+                        <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">Urbanização Brasileira</td><td class="editavel">Analisar a macrocefalia urbana e metropolização.</td><td class="editavel">Estudo dirigido.</td><td class="editavel">Textos base.</td><td class="editavel">Seminário.</td><td class="editavel">Artigos.</td></tr>
+                        <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Problemas Socioambientais</td><td class="editavel">Identificar ilhas de calor, inversão térmica e enchentes.</td><td class="editavel">Estudo do entorno local.</td><td class="editavel">Mapas locais.</td><td class="editavel">Debate.</td><td class="editavel">Notícias.</td></tr>
+                        <tr><td class="editavel">30/03 a 03/04</td><td class="editavel">Segregação Socioespacial</td><td class="editavel">Debater gentrificação, favelização e direito à cidade.</td><td class="editavel">Roda de conversa.</td><td class="editavel">Imagens.</td><td class="editavel">Participação.</td><td class="editavel">Sites.</td></tr>
+                        <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Espaço Agrário e Revolução Verde</td><td class="editavel">Compreender a modernização do campo e seus impactos.</td><td class="editavel">Análise de documentário.</td><td class="editavel">Audiovisual.</td><td class="editavel">Resenha.</td><td class="editavel">Vídeos.</td></tr>
+                        <tr><td class="editavel">13/04 a 17/04</td><td class="editavel">Revisão Bimestral</td><td class="editavel">Sistematizar conceitos de demografia e espaço urbano.</td><td class="editavel">Resolução de questões ENEM.</td><td class="editavel">Lista.</td><td class="editavel">Formativa.</td><td class="editavel">Caderno.</td></tr>
+                        <tr><td class="editavel">20/04 a 24/04</td><td class="editavel">Avaliação e Recuperação</td><td class="editavel">Verificar a aprendizagem e retomar defasagens.</td><td class="editavel">Prova escrita / Correção.</td><td class="editavel">Prova.</td><td class="editavel">Somativa.</td><td class="editavel">Currículo.</td></tr>
                     </tbody>
                 </table>
                 <div class="footer-doc">
@@ -235,31 +282,31 @@
                             <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
                             <h4><span class="editavel">E.E. RECANTO VERDE SOL</span></h4>
                             <p><span class="editavel">Rua Pedro Ramazzani, 06 – Recanto Verde Sol – São Paulo – SP</span></p>
-                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL (2º Bimestre) - 2026</span></strong></h3>
+                            <h3 style="margin-top: 10px;"><strong><span class="editavel">PLANEJAMENTO BIMESTRAL - 2026</span></strong></h3>
                         </td>
                         <td style="width: 15%; text-align: right;"><img src="logo_escola_recanto.jpg" alt="Logo Escola" style="max-width: 80px;"></td>
                     </tr>
                 </table>
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
-                    <span>Turmas: <span class="editavel">3ªs Séries A, B, C, D</span></span>
+                    <span>Turmas: <span class="editavel">3ªs Séries A, B</span></span>
                     <span>Período: <span class="editavel">Noturno</span></span>
                 </div>
                 <table class="plano-table">
                     <thead><tr><th width="10%">Semana</th><th width="15%">Conteúdo</th><th width="20%">Habilidades</th><th width="15%">Metodologia</th><th width="15%">Recursos</th><th width="10%">Avaliação</th><th width="15%">Ref.</th></tr></thead>
                     <tbody>
-                        <tr><td class="editavel">23/04 a 24/04</td><td class="editavel">Sustentabilidade</td><td class="editavel">Definir desenvolvimento sustentável e suas premissas.</td><td class="editavel">Aula expositiva.</td><td class="editavel">Lousa.</td><td class="editavel">Diagnóstica.</td><td class="editavel">CMSP.</td></tr>
-                        <tr><td class="editavel">27/04 a 30/04</td><td class="editavel">Conferências Ambientais</td><td class="editavel">Analisar de Estocolmo à Rio-92 e Acordo de Paris.</td><td class="editavel">Construção de Linha do Tempo.</td><td class="editavel">Projetor.</td><td class="editavel">Participação.</td><td class="editavel">ONU/Livro.</td></tr>
-                        <tr><td class="editavel">04/05 a 08/05</td><td class="editavel">Mudanças Climáticas</td><td class="editavel">Diferenciar efeito estufa natural e aquecimento global antrópico.</td><td class="editavel">Análise de esquemas gráficos.</td><td class="editavel">Imagens/Gráficos.</td><td class="editavel">Tarefa Paulista.</td><td class="editavel">IPCC.</td></tr>
-                        <tr><td class="editavel">11/05 a 15/05</td><td class="editavel">Impactos Ambientais Urbanos</td><td class="editavel">Identificar ilhas de calor, inversão térmica, chuva ácida.</td><td class="editavel">Estudo do entorno escolar.</td><td class="editavel">Imagens aéreas.</td><td class="editavel">Produção Textual.</td><td class="editavel">Artigos.</td></tr>
-                        <tr><td class="editavel">18/05 a 22/05</td><td class="editavel">Desmatamento no Brasil</td><td class="editavel">Analisar o avanço da fronteira agrícola sobre a Amazônia e Cerrado.</td><td class="editavel">Leitura de mapas e dados do INPE.</td><td class="editavel">Mapas e Notícias.</td><td class="editavel">Debate.</td><td class="editavel">INPE/Prodes.</td></tr>
-                        <tr><td class="editavel">25/05 a 29/05</td><td class="editavel">Biomas Brasileiros</td><td class="editavel">Identificar as características e a pressão antrópica nos biomas.</td><td class="editavel">Pesquisa em grupo.</td><td class="editavel">Celulares/Internet.</td><td class="editavel">Apresentação.</td><td class="editavel">IBGE.</td></tr>
-                        <tr><td class="editavel">01/06 a 05/06</td><td class="editavel">Geopolítica da Água</td><td class="editavel">Compreender a crise hídrica global e os conflitos pelo uso da água.</td><td class="editavel">Estudo de caso (Bacias hidrog. / Aquíferos).</td><td class="editavel">Textos.</td><td class="editavel">Fichamento.</td><td class="editavel">ANA.</td></tr>
-                        <tr><td class="editavel">08/06 a 12/06</td><td class="editavel">Transição Energética</td><td class="editavel">Debater a descarbonização e os desafios das energias limpas.</td><td class="editavel">Análise comparativa de matrizes.</td><td class="editavel">Lousa e Giz.</td><td class="editavel">Trabalho.</td><td class="editavel">Material Didát.</td></tr>
-                        <tr><td class="editavel">15/06 a 19/06</td><td class="editavel">Resíduos Sólidos</td><td class="editavel">Entender o impacto do lixo, obsolescência programada e reciclagem.</td><td class="editavel">Documentário / Reflexão.</td><td class="editavel">Audiovisual.</td><td class="editavel">Resenha.</td><td class="editavel">Vídeos.</td></tr>
-                        <tr><td class="editavel">22/06 a 26/06</td><td class="editavel">Revisão ENEM (Meio Ambiente)</td><td class="editavel">Sistematizar a Geopolítica Ambiental para vestibulares.</td><td class="editavel">Resolução de questões ENEM.</td><td class="editavel">Listas de Exercício.</td><td class="editavel">Formativa.</td><td class="editavel">ENEM.</td></tr>
-                        <tr><td class="editavel">29/06 a 03/07</td><td class="editavel">Semana de Estudos Intensivos (SEI)</td><td class="editavel">Retomar conceitos de mudanças climáticas e impactos urbanos.</td><td class="editavel">Atendimento focado.</td><td class="editavel">Caderno.</td><td class="editavel">Recomposição.</td><td class="editavel">SEDUC.</td></tr>
-                        <tr><td class="editavel">06/07 a 06/07</td><td class="editavel">Avaliação Final</td><td class="editavel">Verificar a aprendizagem consolidada do bimestre.</td><td class="editavel">Prova escrita / Correção.</td><td class="editavel">Prova.</td><td class="editavel">Somativa.</td><td class="editavel">Calendário.</td></tr>
+                        <tr><td class="editavel">02/02 a 06/02</td><td class="editavel">Guerra Fria</td><td class="editavel">Revisar o mundo bipolar (EUA x URSS).</td><td class="editavel">Linha do tempo participativa.</td><td class="editavel">Lousa.</td><td class="editavel">Diagnóstica.</td><td class="editavel">Livro.</td></tr>
+                        <tr><td class="editavel">09/02 a 13/02</td><td class="editavel">Nova Ordem Mundial</td><td class="editavel">Diferenciar multipolaridade e unipolaridade militar.</td><td class="editavel">Debate direcionado.</td><td class="editavel">Projetor.</td><td class="editavel">Tarefa Paulista.</td><td class="editavel">Artigos.</td></tr>
+                        <tr><td class="editavel">16/02 a 20/02</td><td class="editavel">Globalização (Fases)</td><td class="editavel">Compreender a evolução do capitalismo informacional.</td><td class="editavel">Pesquisa guiada.</td><td class="editavel">Internet.</td><td class="editavel">Resumo.</td><td class="editavel">Sites.</td></tr>
+                        <tr><td class="editavel">23/02 a 27/02</td><td class="editavel">Multinacionais e Transnacionais</td><td class="editavel">Analisar a DIT e as cadeias produtivas globais.</td><td class="editavel">Análise de produtos/marcas.</td><td class="editavel">Rótulos/Celular.</td><td class="editavel">Trabalho prático.</td><td class="editavel">Livro.</td></tr>
+                        <tr><td class="editavel">02/03 a 06/03</td><td class="editavel">Blocos Econômicos</td><td class="editavel">Compreender os níveis de integração (UE, Mercosul, USMCA).</td><td class="editavel">Painel de grupos.</td><td class="editavel">Cartolinas.</td><td class="editavel">Apresentação.</td><td class="editavel">Atlas.</td></tr>
+                        <tr><td class="editavel">09/03 a 13/03</td><td class="editavel">Organismos Internacionais</td><td class="editavel">Entender o papel da ONU, FMI, Banco Mundial e OMC.</td><td class="editavel">Júri simulado ou debate.</td><td class="editavel">Textos.</td><td class="editavel">Participação.</td><td class="editavel">ONU/Sites.</td></tr>
+                        <tr><td class="editavel">16/03 a 20/03</td><td class="editavel">A Ascensão da China e os BRICS</td><td class="editavel">Analisar os novos polos de poder econômico.</td><td class="editavel">Leitura de gráficos de PIB.</td><td class="editavel">Projetor.</td><td class="editavel">Questões.</td><td class="editavel">Notícias.</td></tr>
+                        <tr><td class="editavel">23/03 a 27/03</td><td class="editavel">Geopolítica e Conflitos Regionais</td><td class="editavel">Identificar áreas de tensão (Leste Europeu / Ásia).</td><td class="editavel">Cartografia de conflitos.</td><td class="editavel">Planisfério.</td><td class="editavel">Mapa preenchido.</td><td class="editavel">Revistas.</td></tr>
+                        <tr><td class="editavel">30/03 a 03/04</td><td class="editavel">Conflitos no Oriente Médio</td><td class="editavel">Compreender a questão Israel x Palestina e petróleo.</td><td class="editavel">Estudo de caso / Documentário.</td><td class="editavel">Audiovisual.</td><td class="editavel">Fichamento.</td><td class="editavel">Vídeos.</td></tr>
+                        <tr><td class="editavel">06/04 a 10/04</td><td class="editavel">Desigualdades Globais</td><td class="editavel">Analisar IDH, Índice de Gini e exclusão na globalização.</td><td class="editavel">Análise de charges e músicas.</td><td class="editavel">Músicas/Imagens.</td><td class="editavel">Produção textual.</td><td class="editavel">IBGE/PNUD.</td></tr>
+                        <tr><td class="editavel">13/04 a 17/04</td><td class="editavel">Revisão Bimestral / ENEM</td><td class="editavel">Sistematizar a Nova Ordem Mundial e Globalização.</td><td class="editavel">Resolução de simulado.</td><td class="editavel">Provas Anteriores.</td><td class="editavel">Formativa.</td><td class="editavel">ENEM.</td></tr>
+                        <tr><td class="editavel">20/04 a 24/04</td><td class="editavel">Avaliação e Recuperação</td><td class="editavel">Verificar a aprendizagem e retomar defasagens.</td><td class="editavel">Prova escrita / Correção.</td><td class="editavel">Prova.</td><td class="editavel">Somativa.</td><td class="editavel">Currículo.</td></tr>
                     </tbody>
                 </table>
                 <div class="footer-doc">
@@ -268,15 +315,17 @@
                 </div>`
         };
 
+        let serieAtual = null;
+        let modoEdicao = false;
+
         function abrirPlano(serieId) {
             serieAtual = serieId;
             const container = document.getElementById('container-plano');
             const tituloSessao = document.getElementById('titulo-sessao');
             const areaDoc = document.getElementById('doc-plano');
             
-            tituloSessao.innerText = `Planejamento - ${serieId}ªs Séries (2º Bimestre)`;
-            
-            const dadosSalvos = localStorage.getItem('plano_geografia_2bim_' + serieId);
+            tituloSessao.innerText = `Planejamento - ${serieId}ªs Séries`;
+            const dadosSalvos = localStorage.getItem('plano_geografia_' + serieId);
             areaDoc.innerHTML = dadosSalvos ? dadosSalvos : templates[serieId];
             
             if (modoEdicao) toggleEdicao();
@@ -315,14 +364,14 @@
             const cloneDiv = document.getElementById('doc-plano').cloneNode(true);
             cloneDiv.querySelectorAll('.editavel').forEach(el => el.removeAttribute('contenteditable'));
             cloneDiv.classList.remove('em-edicao');
-            localStorage.setItem('plano_geografia_2bim_' + serieAtual, cloneDiv.innerHTML);
+            localStorage.setItem('plano_geografia_' + serieAtual, cloneDiv.innerHTML);
             const aviso = document.getElementById('aviso-salvo');
             aviso.style.display = 'inline-block';
             setTimeout(() => { aviso.style.display = 'none'; }, 2000);
         }
 
         function prepararParaExportacao() { if (modoEdicao) toggleEdicao(); }
-        function gerarNomeArquivo() { return `Geografia_${serieAtual}Serie_Recanto_2Bimestre`; }
+        function gerarNomeArquivo() { return `Geografia_${serieAtual}Serie_Recanto_1Bimestre`; }
         function imprimirPlano() { prepararParaExportacao(); window.print(); }
 
         function baixarJPG() {
@@ -341,8 +390,8 @@
 
         function baixarWord() {
             prepararParaExportacao();
-            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Planejamento<\/title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .header-table{width:100%; margin-bottom:20px; border:none;} .header-table td{border:none; text-align:center; vertical-align:middle;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}<\/style><\/head><body>";
-            var footer = "<\/body><\/html>";
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Planejamento</title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .header-table{width:100%; margin-bottom:20px; border:none;} .header-table td{border:none; text-align:center; vertical-align:middle;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}</style></head><body>";
+            var footer = "</body></html>";
             var htmlContext = document.getElementById('doc-plano').innerHTML.replace(/contenteditable="true"/g, "").replace(/contenteditable="false"/g, "");
             var sourceHTML = header + htmlContext + footer;
             
@@ -353,6 +402,67 @@
             fileDownload.download = gerarNomeArquivo() + '.doc';
             fileDownload.click();
             document.body.removeChild(fileDownload);
+        }
+
+        // NOVA FUNÇÃO: Imprimir todos os planejamentos das 3 séries em um único PDF
+        function imprimirTudoPDF() {
+            if (modoEdicao) toggleEdicao(); // Garante que nenhum conteúdo está em modo de edição
+            
+            // Cria uma div temporária para conter todos os planos
+            const divTemp = document.createElement('div');
+            divTemp.style.position = 'absolute';
+            divTemp.style.left = '-9999px';
+            divTemp.style.top = '0';
+            divTemp.style.width = '100%';
+            divTemp.style.backgroundColor = 'white';
+            divTemp.style.zIndex = '9999';
+            divTemp.classList.add('doc-plano'); // Aplica a classe para herdar estilos de impressão
+            
+            // Para cada série (1, 2, 3)
+            for (let i = 1; i <= 3; i++) {
+                // Cria um container para cada série com uma classe específica para quebra de página
+                const serieContainer = document.createElement('div');
+                serieContainer.classList.add('container');
+                serieContainer.style.pageBreakAfter = 'always';
+                serieContainer.style.display = 'block';
+                serieContainer.style.padding = '20px';
+                serieContainer.style.marginBottom = '20px';
+                
+                // Pega o conteúdo salvo no localStorage ou o template padrão
+                const conteudoSalvo = localStorage.getItem('plano_geografia_' + i);
+                const conteudoHTML = conteudoSalvo ? conteudoSalvo : templates[i.toString()];
+                
+                // Adiciona um título para cada série no PDF
+                const tituloSerie = document.createElement('h2');
+                tituloSerie.style.textAlign = 'center';
+                tituloSerie.style.color = '#2c3e50';
+                tituloSerie.style.marginBottom = '20px';
+                tituloSerie.style.fontSize = '20px';
+                tituloSerie.style.textTransform = 'uppercase';
+                tituloSerie.innerText = `Planejamento ${i}ª Série - Geografia - 1º Bimestre`;
+                
+                serieContainer.appendChild(tituloSerie);
+                
+                // Cria uma div para o conteúdo HTML
+                const conteudoDiv = document.createElement('div');
+                conteudoDiv.innerHTML = conteudoHTML;
+                conteudoDiv.querySelectorAll('.editavel').forEach(el => el.removeAttribute('contenteditable'));
+                serieContainer.appendChild(conteudoDiv);
+                
+                divTemp.appendChild(serieContainer);
+            }
+            
+            document.body.appendChild(divTemp);
+            
+            // Foca na div temporária e imprime
+            window.print();
+            
+            // Remove a div temporária após a impressão
+            setTimeout(() => {
+                if (divTemp && divTemp.parentNode) {
+                    document.body.removeChild(divTemp);
+                }
+            }, 1000);
         }
     </script>
 </body>
