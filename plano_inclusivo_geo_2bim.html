@@ -52,14 +52,43 @@
         
         .doc-plano { color: #000; font-size: 13px; line-height: 1.5; }
         
-        /* CABEÇALHO COM LOGOS LATERAIS */
-        .header-table { width: 100%; border-collapse: collapse; border: none; margin-bottom: 15px; }
-        .header-table td { border: none; vertical-align: middle; padding: 10px; }
-        .header-logo-left { width: 12%; text-align: center; }
-        .header-logo-right { width: 12%; text-align: center; }
-        .header-center { width: 76%; text-align: center; }
-        .header-logo-left img { max-width: 85px; height: auto; }
-        .header-logo-right img { max-width: 85px; height: auto; }
+        /* CABEÇALHO COM LOGOS LATERAIS - CORRIGIDO */
+        .cabecalho-container { 
+            width: 100%; 
+            margin-bottom: 20px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 15px;
+            border-bottom: 2px solid #8e44ad;
+            padding-bottom: 15px;
+        }
+        
+        .logo-box { 
+            flex: 0 0 100px; 
+            text-align: center; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .logo-box img { 
+            max-width: 90px; 
+            height: auto; 
+            display: inline-block;
+            /* Garante que a imagem seja visível mesmo se o src estiver vazio */
+            min-width: 60px;
+            min-height: 60px;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 3px;
+            border-radius: 4px;
+        }
+        
+        .header-center { 
+            flex: 1; 
+            text-align: center; 
+        }
         
         .header-text h2 { margin: 0; font-size: 18px; }
         .header-text h3 { margin: 3px 0; font-size: 15px; }
@@ -130,6 +159,12 @@
             .header-text p { font-size: 10px; }
             .info-professor { font-size: 11px; padding: 5px; }
             
+            .logo-box img { 
+                max-width: 65px;
+                min-width: 50px;
+                min-height: 50px;
+            }
+            
             table.plano-table th, table.plano-table td {
                 padding: 4px;
                 font-size: 11px;
@@ -148,10 +183,6 @@
             .info-professor, table.plano-table th {
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
-            }
-            
-            .header-logo-left img, .header-logo-right img {
-                max-width: 65px;
             }
         }
     </style>
@@ -276,9 +307,12 @@
             
             // Atualiza os cabeçalhos no documento atualmente aberto
             const docPlano = document.getElementById('doc-plano');
-            if (docPlano) {
+            if (docPlano && docPlano.innerHTML.trim() !== '') {
                 const logosEscola = docPlano.querySelectorAll('.logo-escola');
-                logosEscola.forEach(img => { img.src = dados.logo; });
+                logosEscola.forEach(img => { 
+                    img.src = dados.logo; 
+                    img.alt = 'Logo ' + dados.nome;
+                });
                 
                 const nomesEscola = docPlano.querySelectorAll('.nome-escola');
                 nomesEscola.forEach(el => { el.innerText = dados.nome; });
@@ -291,41 +325,32 @@
             }
         }
 
-        // Função para gerar o cabeçalho com logos laterais
+        // FUNÇÃO CORRIGIDA - CABEÇALHO COM DIVs EM VEZ DE TABELA
         function gerarCabecalhoHTML(dados) {
             return `
-                <table class="header-table">
-                    <tr>
-                        <td class="header-logo-left">
-                            <img src="logo_sp.png" alt="Logo SP" style="max-width: 85px;">
-                        </td>
-                        <td class="header-center">
-                            <div class="header-text">
-                                <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
-                                <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
-                                <h4><span class="editavel nome-escola">${dados.nome}</span></h4>
-                                <p><span class="editavel endereco-escola">${dados.endereco}</span></p>
-                                <h3 style="margin-top: 10px; color: #8e44ad;"><strong>♿ <span class="editavel">PEI - PLANEJAMENTO DE EDUCAÇÃO INCLUSIVA - 2º BIMESTRE / 2026</span></strong></h3>
-                                <p style="font-size: 10px; color: #8e44ad;">Plano de Ensino Adaptado para Estudantes com Deficiência, TEA e Altas Habilidades</p>
-                            </div>
-                        </td>
-                        <td class="header-logo-right">
-                            <img src="${dados.logo}" class="logo-escola" alt="Logo Escola" style="max-width: 85px;">
-                        </td>
-                    </tr>
-                </table>`;
+                <div class="cabecalho-container" style="display: flex; align-items: center; justify-content: center; gap: 15px; width: 100%; margin-bottom: 20px; border-bottom: 2px solid #8e44ad; padding-bottom: 15px;">
+                    <div class="logo-box" style="flex: 0 0 100px; text-align: center;">
+                        <img src="logo_sp.png" alt="Logo SP" style="max-width: 90px; height: auto; display: inline-block;" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2290%22%20height%3D%2290%22%20viewBox%3D%220%200%2090%2090%22%3E%3Crect%20fill%3D%22%23ddd%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Ctext%20fill%3D%22%23999%22%20font-size%3D%2210%22%20text-anchor%3D%22middle%22%20x%3D%2245%22%20y%3D%2250%22%3ELogo%20SP%3C%2Ftext%3E%3C%2Fsvg%3E'; this.style.minWidth='80px'; this.style.minHeight='80px';">
+                    </div>
+                    <div class="header-center" style="flex: 1; text-align: center;">
+                        <div class="header-text">
+                            <h2>SECRETARIA DE ESTADO DA EDUCAÇÃO</h2>
+                            <h3>DIRETORIA DE ENSINO REGIÃO – LESTE – 3</h3>
+                            <h4><span class="editavel nome-escola">${dados.nome}</span></h4>
+                            <p><span class="editavel endereco-escola">${dados.endereco}</span></p>
+                            <h3 style="margin-top: 10px; color: #8e44ad;"><strong>♿ <span class="editavel">PEI - PLANEJAMENTO DE EDUCAÇÃO INCLUSIVA - 2º BIMESTRE / 2026</span></strong></h3>
+                            <p style="font-size: 10px; color: #8e44ad;">Plano de Ensino Adaptado para Estudantes com Deficiência, TEA e Altas Habilidades</p>
+                        </div>
+                    </div>
+                    <div class="logo-box" style="flex: 0 0 100px; text-align: center;">
+                        <img src="${dados.logo}" class="logo-escola" alt="Logo ${dados.nome}" style="max-width: 90px; height: auto; display: inline-block;" onerror="this.src='data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2290%22%20height%3D%2290%22%20viewBox%3D%220%200%2090%2090%22%3E%3Crect%20fill%3D%22%23ddd%22%20width%3D%2290%22%20height%3D%2290%22%2F%3E%3Ctext%20fill%3D%22%23999%22%20font-size%3D%2210%22%20text-anchor%3D%22middle%22%20x%3D%2245%22%20y%3D%2250%22%3ELogo%20Escola%3C%2Ftext%3E%3C%2Fsvg%3E'; this.style.minWidth='80px'; this.style.minHeight='80px';">
+                    </div>
+                </div>`;
         }
 
-        // Template base do cabeçalho (será substituído dinamicamente)
-        function getCabecalhoBase() {
-            const dados = dadosEscolas[escolaAtual];
-            return gerarCabecalhoHTML(dados);
-        }
-
+        // Templates das séries
         const templates = {
-            '1': {
-                cabecalho: '', // Será preenchido dinamicamente
-                corpo: `
+            '1': `
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
                     <span>Turmas: <span class="editavel">1ªs Séries B, C, D</span></span>
@@ -353,11 +378,9 @@
                     <span>AULAS PREVISTAS: <span class="editavel">22</span></span>
                     <span>ESTUDANTES PÚBLICO-ALVO: <span class="editavel">Nycolas Lisboa (SD/TEA) - 1ª D</span></span>
                     <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
-                </div>`
-            },
-            '2': {
-                cabecalho: '',
-                corpo: `
+                </div>`,
+            
+            '2': `
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
                     <span>Turmas: <span class="editavel">2ªs Séries A, B, C, D, E</span></span>
@@ -385,11 +408,9 @@
                     <span>AULAS PREVISTAS: <span class="editavel">22</span></span>
                     <span>ESTUDANTES PÚBLICO-ALVO: <span class="editavel">Breno (DI), Elza (DI/TEA), Thainara (DI) - 2ªs C, D, E</span></span>
                     <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
-                </div>`
-            },
-            '3': {
-                cabecalho: '',
-                corpo: `
+                </div>`,
+            
+            '3': `
                 <div class="info-professor">
                     <span>Professor: <span class="editavel">Ednaldo Amancio de Lima</span></span>
                     <span>Turmas: <span class="editavel">3ªs Séries A, B, C, D</span></span>
@@ -418,7 +439,6 @@
                     <span>ESTUDANTES PÚBLICO-ALVO: <span class="editavel">João Pedro (TEA) - 3ª D</span></span>
                     <span>VALIDADO EM: <span class="editavel">___/___/____</span></span>
                 </div>`
-            }
         };
 
         let serieAtual = null;
@@ -427,8 +447,7 @@
         function montarTemplateCompleto(serieId) {
             const dados = dadosEscolas[escolaAtual];
             const cabecalho = gerarCabecalhoHTML(dados);
-            const corpo = templates[serieId].corpo;
-            return cabecalho + corpo;
+            return cabecalho + templates[serieId];
         }
 
         function abrirPlano(serieId) {
@@ -514,18 +533,27 @@
             const elemento = document.getElementById('doc-plano');
             const larguraOriginal = elemento.style.width;
             elemento.style.width = '1100px'; 
-            html2canvas(elemento, { scale: 2, useCORS: true, scrollY: 0 }).then(canvas => {
+            html2canvas(elemento, { 
+                scale: 2, 
+                useCORS: true, 
+                allowTaint: true,
+                scrollY: 0 
+            }).then(canvas => {
                 let link = document.createElement('a');
                 link.download = gerarNomeArquivo() + '.jpg';
                 link.href = canvas.toDataURL('image/jpeg', 0.98);
                 link.click();
                 elemento.style.width = larguraOriginal;
+            }).catch(err => {
+                console.error('Erro ao gerar JPG:', err);
+                elemento.style.width = larguraOriginal;
+                alert('Erro ao gerar JPG. Verifique se as imagens estão na mesma pasta do arquivo HTML.');
             });
         }
 
         function baixarWord() {
             prepararParaExportacao();
-            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>PEI Geografia 2º Bimestre</title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .header-table{width:100%; margin-bottom:20px; border:none;} .header-table td{border:none; text-align:center; vertical-align:middle;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}</style></head><body>";
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>PEI Geografia 2º Bimestre</title><style>table.plano-table{width:100%;border-collapse:collapse; font-family:Arial, sans-serif; font-size:12px;} table.plano-table th, table.plano-table td{border:1px solid black; padding:5px; text-align:left;} table.plano-table th{background-color:#e0e0e0;} .cabecalho-container{width:100%; margin-bottom:20px; display:flex; align-items:center; justify-content:center; gap:15px; border-bottom:2px solid #8e44ad; padding-bottom:15px;} .logo-box{flex:0 0 100px; text-align:center;} .logo-box img{max-width:90px; height:auto;} .header-center{flex:1; text-align:center;} h2, h3, h4{margin:5px 0;} .info-professor{display:flex; justify-content:space-between; margin-bottom:15px; font-weight:bold;} .footer-doc{margin-top:30px; font-weight:bold;}</style></head><body>";
             var footer = "</body></html>";
             var htmlContext = document.getElementById('doc-plano').innerHTML.replace(/contenteditable="true"/g, "").replace(/contenteditable="false"/g, "");
             var sourceHTML = header + htmlContext + footer;
