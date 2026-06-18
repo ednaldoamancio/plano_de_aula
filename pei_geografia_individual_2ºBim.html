@@ -418,4 +418,140 @@
                     </table>
 
                     <div class="topico">🎯 Objetivo Geral da Aula</div>
-                    <div class="caixa-texto
+                    <div class="caixa-texto editavel" id="campo_objetivo">${dados.objetivo_geral}</div>
+
+                    <div class="topico">📚 Habilidades e Conteúdos</div>
+                    <table class="tabela-pei">
+                        <tr><th width="50%">Habilidades (BNCC Adaptadas)</th><th width="50%">Conteúdos da Aula</th></tr>
+                        <tr>
+                            <td class="editavel" id="campo_habilidades">${dados.habilidades}</td>
+                            <td class="editavel" id="campo_conteudos">${dados.conteudos}</td>
+                        </tr>
+                    </table>
+
+                    <div class="topico">📝 Metodologia e Desenvolvimento da Aula</div>
+                    <div class="caixa-texto editavel" id="campo_metodologia">${dados.metodologia}</div>
+
+                    <div class="topico">📦 Recursos e Materiais Adaptados</div>
+                    <div class="caixa-texto editavel" id="campo_recursos">${dados.recursos}</div>
+
+                    <div class="topico">✅ Avaliação Inclusiva</div>
+                    <div class="caixa-texto editavel" id="campo_avaliacao">${dados.avaliacao}</div>
+
+                    <div class="topico">🧩 Adaptações Específicas (TEA/DI)</div>
+                    <div class="caixa-texto editavel" id="campo_adaptacoes">${dados.adaptacoes}</div>
+
+                    <div class="topico">🔗 Referência Curricular</div>
+                    <div class="caixa-texto editavel" id="campo_referencia">${dados.referencia}</div>
+
+                    <p style="text-align:left; margin-top:25px;">São Paulo, ____ de ________________ de 2026.</p>
+                    
+                    <div class="assinaturas">
+                        <div><br>Professor Regente<br>(Ednaldo A. Lima)</div>
+                        <div><br>Professor Especializado<br>(AEE/Sala de Recursos)</div>
+                        <div><br>Coordenador<br>(CGP)</div>
+                        <div><br>Responsável<br>(Ciência)</div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+            painel.style.display = "block";
+            container.classList.add('ativo');
+            adicionarEventosDeSalvamento();
+
+            document.getElementById('ancora-plano').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        let modoEdicao = false;
+
+        function toggleEdicao() {
+            const elemento = document.getElementById('doc-plano');
+            const editaveis = elemento.querySelectorAll('.editavel');
+            const btn = document.getElementById('btn-edit');
+
+            modoEdicao = !modoEdicao;
+
+            if (modoEdicao) {
+                editaveis.forEach(el => el.setAttribute('contenteditable', 'true'));
+                elemento.classList.add('em-edicao');
+                btn.innerText = "Desabilitar Edição";
+                btn.style.backgroundColor = "#c53030"; 
+            } else {
+                editaveis.forEach(el => el.setAttribute('contenteditable', 'false'));
+                elemento.classList.remove('em-edicao');
+                btn.innerText = "Habilitar Edição";
+                btn.style.backgroundColor = "#f39c12";
+                salvarModificacoesNoLocal();
+            }
+        }
+
+        function adicionarEventosDeSalvamento() {
+            const editaveis = document.querySelectorAll('.editavel');
+            editaveis.forEach(el => {
+                el.addEventListener('input', salvarModificacoesNoLocal);
+            });
+        }
+
+        function salvarModificacoesNoLocal() {
+            if (!alunoAtualId) return;
+            
+            let dadosAtualizados = {
+                nome: document.getElementById('campo_nome')?.innerHTML || '',
+                serie: document.getElementById('campo_serie')?.innerHTML || '',
+                turma: document.getElementById('campo_turma')?.innerHTML || '',
+                bimestre: document.getElementById('campo_bimestre')?.innerHTML || '',
+                deficiencia: document.getElementById('campo_deficiencia')?.innerHTML || '',
+                titulo_aula: document.getElementById('campo_titulo')?.innerHTML || '',
+                objetivo_geral: document.getElementById('campo_objetivo')?.innerHTML || '',
+                habilidades: document.getElementById('campo_habilidades')?.innerHTML || '',
+                conteudos: document.getElementById('campo_conteudos')?.innerHTML || '',
+                metodologia: document.getElementById('campo_metodologia')?.innerHTML || '',
+                recursos: document.getElementById('campo_recursos')?.innerHTML || '',
+                avaliacao: document.getElementById('campo_avaliacao')?.innerHTML || '',
+                adaptacoes: document.getElementById('campo_adaptacoes')?.innerHTML || '',
+                referencia: document.getElementById('campo_referencia')?.innerHTML || ''
+            };
+
+            localStorage.setItem('plano_inclusivo_geo_' + alunoAtualId, JSON.stringify(dadosAtualizados));
+
+            const aviso = document.getElementById('aviso-salvo');
+            aviso.style.display = 'inline-block';
+            setTimeout(() => { aviso.style.display = 'none'; }, 2000);
+        }
+
+        function prepararParaExportacao() {
+            if (modoEdicao) toggleEdicao(); 
+        }
+
+        function imprimirPlano() {
+            prepararParaExportacao(); 
+            window.print(); 
+        }
+
+        function baixarWord(nome) {
+            prepararParaExportacao();
+            var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Plano Inclusivo Geografia</title><style>body{font-family:Arial; font-size:12px;} table{width:100%; border-collapse:collapse; margin-bottom:15px;} th, td{border:1px solid black; padding:5px; text-align:left;} .topico{font-weight:bold; background-color:#ecf0f1; padding:5px; margin-top:15px;} .caixa-texto{border:1px solid black; padding:10px; margin-bottom:15px;} ul{margin:0; padding-left:20px;} li{margin-bottom:4px;}</style></head><body>";
+            var footer = "</body></html>";
+            
+            var htmlContext = document.getElementById('doc-plano').innerHTML;
+            htmlContext = htmlContext.replace(/contenteditable="true"/g, "").replace(/contenteditable="false"/g, "");
+            
+            htmlContext = htmlContext.replace(/<div class="assinaturas">/g, "<table style='border:none; margin-top:40px; text-align:center;'><tr style='border:none;'>");
+            htmlContext = htmlContext.replace(/<div><br>Professor Regente<br>\(Ednaldo A\. Lima\)<\/div>/g, "<td style='border:none; border-top:1px solid black;'>Professor Regente<br>(Ednaldo A. Lima)</td>");
+            htmlContext = htmlContext.replace(/<div><br>Professor Especializado<br>\(AEE\/Sala de Recursos\)<\/div>/g, "<td style='border:none; border-top:1px solid black;'>Professor Especializado<br>(AEE/Sala de Recursos)</td>");
+            htmlContext = htmlContext.replace(/<div><br>Coordenador<br>\(CGP\)<\/div>/g, "<td style='border:none; border-top:1px solid black;'>Coordenador<br>(CGP)</td>");
+            htmlContext = htmlContext.replace(/<div><br>Responsável<br>\(Ciência\)<\/div><\/div>/g, "<td style='border:none; border-top:1px solid black;'>Responsável<br>(Ciência)</td></tr></table>");
+
+            var sourceHTML = header + htmlContext + footer;
+            var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
+            var fileDownload = document.createElement("a");
+            document.body.appendChild(fileDownload);
+            fileDownload.href = source;
+            fileDownload.download = `Plano_Inclusivo_Geo_${nome.replace(/ /g, '_')}.doc`;
+            fileDownload.click();
+            document.body.removeChild(fileDownload);
+        }
+    </script>
+</body>
+</html>
